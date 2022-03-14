@@ -1,3 +1,5 @@
+package Project;
+
 public class Wallet {
     private double currency;
     private double bids;            // Virtual currency used in auctions
