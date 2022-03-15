@@ -12,13 +12,13 @@ public class DatabaseOfUsers {
     public File userData = new File("src/Project/Files/userData.txt");
 
 
-    public void storeData(String userName, String passWord){
+    public void storeData(long userId, String userName, String passWord){
         try {
 
             userName.replaceAll("\\s","");
             passWord.replaceAll("\\s","");
             BufferedWriter writer = new BufferedWriter(new FileWriter(userData, true));
-            writer.append(userName + " " + passWord + "\n");
+            writer.append(userId + " " + userName + " " + passWord + "\n");
             writer.close();
             System.out.println("Data has been stored");
         }catch (IOException e){
