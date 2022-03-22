@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AuctionCreator">
+   <center>
+      <HBox prefHeight="400.0" prefWidth="279.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="400.0" prefWidth="85.0">
+               <children>
+                  <Label text="Brand: " />
+                  <Label layoutX="46.0" layoutY="201.0" text="Model: " />
+                  <Label layoutX="46.0" layoutY="210.0" text="Price: " />
+                  <Label layoutX="46.0" layoutY="219.0" text="Year: " />
+                  <Label layoutX="46.0" layoutY="228.0" text="Kilometers: " />
+                  <Label layoutX="24.0" layoutY="236.0" text="Fuel: " />
+                  <Label layoutX="24.0" layoutY="245.0" text="Engine: " />
+                  <Label layoutX="24.0" layoutY="254.0" text="Power: " />
+                  <Label layoutX="24.0" layoutY="263.0" text="Transmission: " />
+                  <Label layoutX="24.0" layoutY="272.0" text="Color: " />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <TextField promptText="Engine" />
+                  <TextField layoutX="10.0" layoutY="197.0" promptText="Model" />
+                  <TextField layoutX="10.0" layoutY="210.0" promptText="Price" />
+                  <TextField layoutX="10.0" layoutY="223.0" promptText="Year" />
+                  <TextField layoutX="10.0" layoutY="236.0" promptText="Kilometers" />
+                  <TextField layoutX="10.0" layoutY="146.0" promptText="Fuel" />
+                  <TextField layoutX="10.0" layoutY="261.0" promptText="Engine" />
+                  <TextField layoutX="10.0" layoutY="274.0" promptText="Power" />
+                  <TextField layoutX="10.0" layoutY="287.0" promptText="Transmission" />
+                  <TextField layoutX="10.0" layoutY="300.0" promptText="Color" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+   <left>
+      <HBox prefHeight="400.0" prefWidth="170.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <HBox prefHeight="400.0" prefWidth="128.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>
