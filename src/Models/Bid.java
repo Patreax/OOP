@@ -1,6 +1,12 @@
 package Models;
 
 public class Bid {
-    private double amount;
-    private User bidsUser;
+    private Customer bidsUser;
+    public double amount;
+
+
+    public Bid(Customer bidsUser, double amount){
+        this.bidsUser = bidsUser;
+        this.amount = amount;
+    }
 }

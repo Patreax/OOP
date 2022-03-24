@@ -1,5 +1,6 @@
 package Controllers;
 
+import Models.DatabaseOfAuctions;
 import Models.DatabaseOfUsers;
 import Models.User;
 import Project.sample.Main;
@@ -8,6 +9,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -54,8 +57,8 @@ public class Controller {
     }
 
     private void checkData(String userName, String userPassWord) throws IOException, ClassNotFoundException{
-
-        if(database.registeredUsers.isEmpty()){
+        database.loadObjects();
+        if(database.registeredUsers.size() == 0){             // Toto treba prepisat
             errorMessage.setText("User does not exist");
             return;
         }
@@ -65,8 +68,16 @@ public class Controller {
         if(!database.registeredUsers.isEmpty()){
             for(User user : (ArrayList<User>)in.readObject()){
                 if(user.getUserName().equals(userName) && user.getPassWord().equals(userPassWord)){
+
+                    //MainScreenController controller = new MainScreenController();
+                    //controller.currentUser = new User("Test", "Test");
+
+//                    DatabaseOfUsers.currentUser = new User("Test", "Test");
+                    DatabaseOfUsers.currentUser = user;
+//                    controller.displayData();
                     Main main = new Main();
                     main.changeScene("/GUI/MainScreen.fxml");
+//                    controller.displayData();
                 }
             }
         }

@@ -46,6 +46,7 @@ public class User implements Serializable {
         return Long.parseLong(lastId);
     }
 
+
     public long getUserId() {
         return userId;
     }

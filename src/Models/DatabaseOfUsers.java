@@ -10,10 +10,10 @@ public class DatabaseOfUsers {
     public ArrayList<User> activeUsers = new ArrayList<User>();
     public File userData = new File("src/Project/Files/userData.txt");
 
+    public static User currentUser;
 
     public void storeData(long userId, String userName, String passWord){
         try {
-
             userName.replaceAll("\\s","");
             passWord.replaceAll("\\s","");
             BufferedWriter writer = new BufferedWriter(new FileWriter(userData, true));

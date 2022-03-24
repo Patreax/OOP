@@ -8,8 +8,11 @@ import java.util.Scanner;
 public class Auction {
     public long auctionId;
     private long lastAuctionId;
+    private final int maxBids = 3;
 
     private Bid[] placedBids;
+
+    //public DatabaseOfAuctions databaseOfAuctions;
 
     public Car car;
 
@@ -17,7 +20,7 @@ public class Auction {
 
     public Auction(Car car){
         this.car = car;
-        placedBids = new Bid[3];
+        placedBids = new Bid[maxBids];
         // Function for generating id needed
         this.auctionId = getLastId() + 1L;
         storeLastId(lastAuctionId);
@@ -48,6 +51,20 @@ public class Auction {
         return Long.parseLong(lastId);
     }
 
+    public void receiveBid(Bid bid){
+        boolean isFull = true;
+        for(int i=0; i<maxBids; i++){
+            if(this.placedBids[i] == null){
+                placedBids[i] = bid;
+                isFull = false;
+                System.out.println("Bid with amount " + placedBids[i].amount + " has been placed");
+                break;
+            }
+        }
+        if(isFull)
+            System.out.println("No more spaces for bids");
+    }
+
     public static void main(String[] args) {
 //        Car c1 = new Car("Audi", "A7");
 //        Car c2 = new Car("Hyundai", "I30");
@@ -66,5 +83,12 @@ public class Auction {
         admin.createAuction(database.auctions, car2);
 
         database.displayAuctions();
+
+        Customer customer = new Customer();
+        customer.placeBid(database.auctions, 64, 1);
+        customer.placeBid(database.auctions, 64, 10);
+        customer.placeBid(database.auctions, 64, 100);
+        customer.placeBid(database.auctions, 64, 1000);
+
     }
 }
