@@ -3,9 +3,10 @@ package Models;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class Auction {
+public class Auction implements Serializable {
     public long auctionId;
     private long lastAuctionId;
     private final int maxBids = 3;
@@ -51,18 +52,44 @@ public class Auction {
         return Long.parseLong(lastId);
     }
 
-    public void receiveBid(Bid bid){
+    public void receiveBid(Bid bid, Auction auction){
         boolean isFull = true;
         for(int i=0; i<maxBids; i++){
             if(this.placedBids[i] == null){
                 placedBids[i] = bid;
                 isFull = false;
+                if(i == 2)
+                    isFull = true;
                 System.out.println("Bid with amount " + placedBids[i].amount + " has been placed");
                 break;
             }
         }
-        if(isFull)
+        if(isFull){
             System.out.println("No more spaces for bids");
+            double max = placedBids[0].amount;
+            Bid winningBid = null;
+            for(Bid b : placedBids){
+                if(b.amount > max){
+                    max = b.amount;
+                    winningBid = b;
+                }
+            }
+            if (winningBid != null){
+                System.out.println(winningBid.getBidsUser().getUserName());
+                winningBid.getBidsUser().garage.getCars().add(auction.car);        //  Giving car to the customer
+                System.out.println("Customer " + winningBid.getBidsUser().getUserName() + " won the car " + auction.car.model);
+                for(Car c : winningBid.getBidsUser().garage.getCars()){
+                    System.out.println(c);
+                }
+            }
+
+
+        }
+
+    }
+
+    public void giveCar(){
+
     }
 
     public static void main(String[] args) {
@@ -75,20 +102,30 @@ public class Auction {
 
         DatabaseOfAuctions database = new DatabaseOfAuctions();
 
-        Car car1 = new Car("Hyundai", "I30");
+        Car car1 = new Car("Hyundai", "i30");
         Car car2 = new Car("Audi", "A7");
         Admin admin = new Admin();
-//        admin.newCar = car1;
-        admin.createAuction(database.auctions, car1);
-        admin.createAuction(database.auctions, car2);
+
+        try{
+            admin.createAuction(database.auctions, car1);
+            admin.createAuction(database.auctions, car2);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
 
         database.displayAuctions();
 
-        Customer customer = new Customer();
-        customer.placeBid(database.auctions, 64, 1);
-        customer.placeBid(database.auctions, 64, 10);
-        customer.placeBid(database.auctions, 64, 100);
-        customer.placeBid(database.auctions, 64, 1000);
+        Customer customer = new Customer("Patrik");
+        Customer customer1 = new Customer("Jack");
+        customer1.placeBid(database.auctions, 105, 1);
+        customer.placeBid(database.auctions, 105, 10);
+        customer1.placeBid(database.auctions, 105, 100);
+        customer1.placeBid(database.auctions, 106, 1000);
+        customer.placeBid(database.auctions, 106, 50000);
+        customer1.placeBid(database.auctions, 106, 10000);
+
+        System.out.println();
 
     }
 }

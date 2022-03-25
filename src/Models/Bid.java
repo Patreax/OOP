@@ -9,4 +9,8 @@ public class Bid {
         this.bidsUser = bidsUser;
         this.amount = amount;
     }
+
+    public Customer getBidsUser() {
+        return bidsUser;
+    }
 }

@@ -11,6 +11,6 @@ public class Wallet {
     }
 
     public void exchange(double currency){
-        this.bids = currency * exchangeConstant;
+        this.bids += currency * exchangeConstant;
     }
 }

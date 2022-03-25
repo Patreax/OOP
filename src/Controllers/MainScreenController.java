@@ -1,7 +1,6 @@
 package Controllers;
 
 import Models.DatabaseOfUsers;
-import Models.User;
 import Project.sample.Main;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -17,33 +16,32 @@ public class MainScreenController {
     @FXML
     private Button showDataButton;
     @FXML
-    private Label userIDLabel;
+    public Label userIDLabel;
     @FXML
     public Label userNameLabel;
+    @FXML
+    public Label userCurrencyLabel;
 
     public MainScreenController(){
-        System.out.println("Controller created");
-//        displayData();
-//        this.userNameLabel.setText(DatabaseOfUsers.currentUser.getUserName());
-        Platform.runLater(() -> userNameLabel.setText(DatabaseOfUsers.currentUser.getUserName()));
+        Platform.runLater(() -> displayData());
+//        Platform.runLater(this::displayData);
     }
 
     public void displayData(){
-        //MainScreenController controller = new MainScreenController();
-        //System.out.println("Meno: " + this.currentUser.getUserName());
-//        userNameLabel.setText(this.currentUser.userName);
-//        userNameLabel.setText(this.currentUser.userName);
-//        userIDLabel.setText(this.currentUser.passWord);
-
+        userCurrencyLabel.setText("1000");
         userNameLabel.setText(DatabaseOfUsers.currentUser.getUserName());
-
-//        Platform.runLater(() -> userNameLabel.setText(currentUser.getUserName()));
+        userIDLabel.setText(Long.toString(DatabaseOfUsers.currentUser.getUserId()));
     }
 
-
-
     public void logOut() throws IOException {
+        DatabaseOfUsers.currentUser = null;
         Main main = new Main();
         main.changeScene("/GUI/sample.fxml");
     }
+
+    public void newWindow() throws IOException{
+        Main main = new Main();
+        main.openNewWindow("/GUI/AuctionCreator.fxml");
+    }
+
 }

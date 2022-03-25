@@ -2,6 +2,7 @@ package Models;
 
 //import Project.User;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Admin extends User {
@@ -14,8 +15,10 @@ public class Admin extends User {
 //        auctions.add(newAuction);
 //    }
 
-    public void createAuction(ArrayList<Auction> auctions, Car newCar){
+    public void createAuction(ArrayList<Auction> auctions, Car newCar) throws IOException {
         Auction newAuction = new Auction(newCar);
-        auctions.add(newAuction);
+        //auctions.add(newAuction);
+        Serializator serializator = new Serializator();
+        serializator.serialize(newAuction, DatabaseOfAuctions.auctions, DatabaseOfAuctions.auctionData);
     }
 }

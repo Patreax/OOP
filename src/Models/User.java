@@ -4,8 +4,8 @@ import java.io.*;
 import java.util.Scanner;
 
 public class User implements Serializable {
-    protected long userId;
-    private String userName;
+    private long userId;
+    protected String userName;
     private String passWord;
     protected long lastId;
     File lastUserIdFile = new File("src/Project/Files/lastUserIdFile.txt");

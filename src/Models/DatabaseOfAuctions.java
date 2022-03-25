@@ -4,8 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class DatabaseOfAuctions {
-    public ArrayList<Auction> auctions = new ArrayList<>();
-    File auctionData = new File("src/Project/Files/auctionData.txt");
+    public static ArrayList<Auction> auctions = new ArrayList<>();
+    public static File auctionData = new File("src/Project/Files/auctionData.txt");
 
     public void displayAuctions(){
         for(Auction a : auctions){
