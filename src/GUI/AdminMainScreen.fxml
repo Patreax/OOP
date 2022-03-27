@@ -7,13 +7,13 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminMainScreenController">
    <bottom>
       <HBox style="-fx-background-color: #9999ff;" BorderPane.alignment="CENTER">
          <children>
@@ -35,17 +35,12 @@
    <left>
       <VBox spacing="20.0" style="-fx-background-color: #6699ff;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="auctionButton" mnemonicParsing="false" onAction="#showAuctions" prefHeight="26.0" prefWidth="138.0" text="Show Auctions">
+            <Button fx:id="auctionButton" mnemonicParsing="false" onAction="#newWindow" prefHeight="26.0" prefWidth="138.0" text="Create Auction">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="garageButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#showCars" prefHeight="26.0" prefWidth="138.0" text="Garage">
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" />
-               </VBox.margin>
-            </Button>
-            <Button layoutX="10.0" layoutY="36.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="138.0" text="Wallet">
+            <Button fx:id="showAucionsButton" layoutX="10.0" layoutY="63.0" mnemonicParsing="false" onAction="#showAuctions" prefHeight="26.0" prefWidth="138.0" text="Show Aucions">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" />
                </VBox.margin>
@@ -55,9 +50,6 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="placeBidButton" mnemonicParsing="false" onAction="#placeBidToAuction" text="Place Bid" />
-            <TextField fx:id="auctionIdField" promptText="Auction ID" />
-            <TextField fx:id="auctionAmountField" promptText="Amount" />
          </children>
          <BorderPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" />
@@ -101,10 +93,13 @@
                   <Insets top="5.0" />
                </padding>
             </Label>
-            <Label fx:id="userCurrencyLabel" layoutX="168.0" layoutY="10.0" text="Currency">
+            <Label layoutX="231.0" layoutY="10.0" text="ADMIN">
                <padding>
                   <Insets top="5.0" />
                </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Label>
             <Pane HBox.hgrow="ALWAYS" />
             <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOut" prefHeight="26.0" prefWidth="97.0" text="Log Out">

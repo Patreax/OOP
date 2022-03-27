@@ -15,7 +15,7 @@ public class Admin extends User {
 //        auctions.add(newAuction);
 //    }
 
-    public void createAuction(ArrayList<Auction> auctions, Car newCar) throws IOException {
+    public static void createAuction(Car newCar) throws IOException {
         Auction newAuction = new Auction(newCar);
         //auctions.add(newAuction);
         Serializator serializator = new Serializator();

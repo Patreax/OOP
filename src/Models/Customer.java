@@ -16,10 +16,10 @@ public class Customer extends User {
 
     }
 
-    public void placeBid(ArrayList<Auction> auctions, int auctionId, double amount){
+    public void placeBid(int auctionId, double amount){
         Bid newBid = new Bid(this, amount);
-        if(auctions.size() != 0){
-            for (Auction a : auctions){
+        if(DatabaseOfAuctions.auctions.size() != 0){
+            for (Auction a : DatabaseOfAuctions.auctions){
                 if (a.auctionId == auctionId){
                     a.receiveBid(newBid, a);
                     return;

@@ -42,8 +42,10 @@ public class Controller {
     private Button registerButton;
 
     public void logIn() throws IOException, ClassNotFoundException{
+        DatabaseOfAuctions.loadObjects();
         checkData(userNameField.getText(), userPasswordField.getText());
         //mainController.currentUser = new User(userNameField.getText(), userPasswordField.getText());
+
     }
 
     public void register() throws IOException, ClassNotFoundException{
@@ -67,6 +69,14 @@ public class Controller {
         ObjectInputStream in = new ObjectInputStream(new FileInputStream(userData));
         if(!database.registeredUsers.isEmpty()){
             for(User user : (ArrayList<User>)in.readObject()){
+                // Admin
+                if(user.getUserName().equals("Patrik") && user.getPassWord().equals(userPassWord)){
+                    DatabaseOfUsers.currentUser = user;
+                    Main main = new Main();
+                    main.changeScene("/GUI/AdminMainScreen.fxml");
+                    return;
+                }
+
                 if(user.getUserName().equals(userName) && user.getPassWord().equals(userPassWord)){
 
                     //MainScreenController controller = new MainScreenController();
@@ -75,9 +85,11 @@ public class Controller {
 //                    DatabaseOfUsers.currentUser = new User("Test", "Test");
                     DatabaseOfUsers.currentUser = user;
 //                    controller.displayData();
+                    in.close();
                     Main main = new Main();
                     main.changeScene("/GUI/MainScreen.fxml");
 //                    controller.displayData();
+                    return;
                 }
             }
         }

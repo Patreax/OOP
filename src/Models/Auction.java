@@ -10,6 +10,7 @@ public class Auction implements Serializable {
     public long auctionId;
     private long lastAuctionId;
     private final int maxBids = 3;
+    private int numberOfBids = 0;
 
     private Bid[] placedBids;
 
@@ -57,6 +58,7 @@ public class Auction implements Serializable {
         for(int i=0; i<maxBids; i++){
             if(this.placedBids[i] == null){
                 placedBids[i] = bid;
+                numberOfBids++;
                 isFull = false;
                 if(i == 2)
                     isFull = true;
@@ -92,6 +94,14 @@ public class Auction implements Serializable {
 
     }
 
+    public int getMaxBids() {
+        return maxBids;
+    }
+
+    public int getNumberOfBids() {
+        return numberOfBids;
+    }
+
     public static void main(String[] args) {
 //        Car c1 = new Car("Audi", "A7");
 //        Car c2 = new Car("Hyundai", "I30");
@@ -107,8 +117,8 @@ public class Auction implements Serializable {
         Admin admin = new Admin();
 
         try{
-            admin.createAuction(database.auctions, car1);
-            admin.createAuction(database.auctions, car2);
+            admin.createAuction(car1);
+            admin.createAuction(car2);
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -118,12 +128,12 @@ public class Auction implements Serializable {
 
         Customer customer = new Customer("Patrik");
         Customer customer1 = new Customer("Jack");
-        customer1.placeBid(database.auctions, 105, 1);
-        customer.placeBid(database.auctions, 105, 10);
-        customer1.placeBid(database.auctions, 105, 100);
-        customer1.placeBid(database.auctions, 106, 1000);
-        customer.placeBid(database.auctions, 106, 50000);
-        customer1.placeBid(database.auctions, 106, 10000);
+        customer1.placeBid(111, 1);
+        customer.placeBid(111, 10);
+        customer1.placeBid(111, 100);
+        customer1.placeBid( 106, 1000);
+        customer.placeBid( 106, 50000);
+        customer1.placeBid( 106, 10000);
 
         System.out.println();
 

@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class Car implements Serializable {
     public String brand;
     public String model;
-    private double price;
-    private int year;
+    public double price;
+    public int year;
     private int kilometers;
     private FUEL fuel;
 
@@ -32,6 +32,14 @@ public class Car implements Serializable {
         this.transmission = transmission;
         this.color = color;
     }
+
+    public Car(String brand, String model, double price, int year){
+        this.brand = brand;
+        this.model = model;
+        this.price = price;
+        this.year = year;
+    }
+
     public Car(String brand, String model){
         this.brand = brand;
         this.model = model;

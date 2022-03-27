@@ -43,7 +43,7 @@ public class DatabaseOfUsers {
 
     }
 
-    public void loadObjects() throws IOException, ClassNotFoundException, EOFException{
+    public void loadObjects() throws IOException, ClassNotFoundException{
         if(userData.length() == 0)
             return;
         ObjectInputStream in = new ObjectInputStream(new FileInputStream(userData));
