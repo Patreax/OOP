@@ -1,16 +1,32 @@
 package Models;
 
-public class Wallet {
-    private double currency;
-    private double bids;            // Virtual currency used in auctions
-    private double exchangeConstant = 0.75;
+import java.io.Serializable;
 
-    public Wallet(double currency){
-        this.currency = currency;
-        this.bids = 0;
+public class Wallet implements Serializable {
+    private double currency = 0;
+    private double bids = 0;            // Virtual currency used in auctions
+    private final double exchangeConstant = 0.75;
+
+    public Wallet(){
+//        Customer currentCustomer = (Customer) DatabaseOfUsers.currentUser;
+//        this.currency = currentCustomer.getWallet().getCurrency();
+//        this.bids = currentCustomer.getWallet().getBids();
     }
 
     public void exchange(double currency){
         this.bids += currency * exchangeConstant;
+        this.currency -= currency;
+    }
+
+    public void addCurrency(double currency){
+        this.currency += currency;
+    }
+
+    public double getCurrency() {
+        return currency;
+    }
+
+    public double getBids() {
+        return bids;
     }
 }

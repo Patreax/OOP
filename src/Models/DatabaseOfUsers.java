@@ -6,9 +6,9 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class DatabaseOfUsers {
-    public ArrayList<User> registeredUsers = new ArrayList<User>();
+    public static ArrayList<User> registeredUsers = new ArrayList<User>();
     public ArrayList<User> activeUsers = new ArrayList<User>();
-    public File userData = new File("src/Project/Files/userData.txt");
+    public static File userData = new File("src/Project/Files/userData.txt");
 
     public static User currentUser;
 
@@ -37,7 +37,7 @@ public class DatabaseOfUsers {
         ObjectInputStream in = new ObjectInputStream(new FileInputStream(userData));
         for(User user : (ArrayList<User>)in.readObject()){
             System.out.println("Name: " + user.getUserName());
-            System.out.println("Password: " + user.getPassWord());
+            System.out.println("Password: " + user.getPassword());
         }
         in.close();
 

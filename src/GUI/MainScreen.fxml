@@ -45,7 +45,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" />
                </VBox.margin>
             </Button>
-            <Button layoutX="10.0" layoutY="36.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="138.0" text="Wallet">
+            <Button fx:id="walletButton" layoutX="10.0" layoutY="36.0" mnemonicParsing="false" onAction="#openWallet" prefHeight="26.0" prefWidth="138.0" text="Wallet">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" />
                </VBox.margin>

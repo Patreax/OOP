@@ -40,7 +40,7 @@ public class AdminMainScreenController {
 //        DatabaseOfAuctions.displayAuctions();
         for(Auction a : DatabaseOfAuctions.auctions){
             textArea.appendText("ID: " + a.auctionId + "\t Brand: " + a.car.brand + "\t Model: " + a.car.model + "\n");
-            textArea.appendText("Price: " + a.car.price + "\t Year: " + a.car.year + "\n");
+            textArea.appendText("Price: " + a.car.price + "\t Year: " + a.car.year + "\t Bids: " +a.getNumberOfBids() +"/" + a.getMaxBids() + "\n");
             textArea.appendText("\n");
         }
     }

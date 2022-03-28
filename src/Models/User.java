@@ -4,15 +4,18 @@ import java.io.*;
 import java.util.Scanner;
 
 public class User implements Serializable {
-    private long userId;
+    protected long userId;
     protected String userName;
-    private String passWord;
-    protected long lastId;
-    File lastUserIdFile = new File("src/Project/Files/lastUserIdFile.txt");
+    protected String password;
 
-    public User(String userName, String passWord){
+    protected static long lastId;
+    public static File lastUserIdFile = new File("src/Project/Files/lastUserIdFile.txt");
+
+    protected PersonalGarage garage = new PersonalGarage();
+
+    public User(String userName, String password){
         this.userName = userName;
-        this.passWord = passWord;
+        this.password = password;
         this.userId = getLastId() + 1L;
         storeLastId(lastId);
     }
@@ -21,7 +24,7 @@ public class User implements Serializable {
     }
 
 
-    private void storeLastId(long lastId){
+    protected static void storeLastId(long lastId){
         lastId +=1;
         try{
             FileWriter writer = new FileWriter(lastUserIdFile);
@@ -32,7 +35,7 @@ public class User implements Serializable {
         }
     }
 
-    private long getLastId(){
+    protected static long getLastId(){
         String lastId = "0";
         try {
             Scanner reader = new Scanner(lastUserIdFile);
@@ -42,7 +45,7 @@ public class User implements Serializable {
         } catch (IOException e){
             System.out.println("Error has occurred");
         }
-        this.lastId = Long.parseLong(lastId);
+        User.lastId = Long.parseLong(lastId);
         return Long.parseLong(lastId);
     }
 
@@ -51,35 +54,12 @@ public class User implements Serializable {
         return userId;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
     public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public String getPassword() {
+        return password;
     }
 
-    public String getPassWord() {
-        return passWord;
-    }
-
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
-    }
-
-    public void setLastId(long lastId) {
-        this.lastId = lastId;
-    }
-
-    public File getLastUserIdFile() {
-        return lastUserIdFile;
-    }
-
-    public void setLastUserIdFile(File lastUserIdFile) {
-        this.lastUserIdFile = lastUserIdFile;
-    }
 }

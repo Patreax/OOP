@@ -10,7 +10,7 @@ public class Auction implements Serializable {
     public long auctionId;
     private long lastAuctionId;
     private final int maxBids = 3;
-    private int numberOfBids = 0;
+    private int numberOfBids;
 
     private Bid[] placedBids;
 
@@ -23,6 +23,7 @@ public class Auction implements Serializable {
     public Auction(Car car){
         this.car = car;
         placedBids = new Bid[maxBids];
+        this.numberOfBids = 0;
         // Function for generating id needed
         this.auctionId = getLastId() + 1L;
         storeLastId(lastAuctionId);
@@ -56,9 +57,13 @@ public class Auction implements Serializable {
     public void receiveBid(Bid bid, Auction auction){
         boolean isFull = true;
         for(int i=0; i<maxBids; i++){
+            if(this.placedBids[i] != null && this.placedBids[i].getBidsUser().getUserName().equals(bid.getBidsUser().getUserName())){
+                System.out.println("User has already made a bid");
+                return;
+            }
             if(this.placedBids[i] == null){
                 placedBids[i] = bid;
-                numberOfBids++;
+                this.numberOfBids++;
                 isFull = false;
                 if(i == 2)
                     isFull = true;
@@ -71,23 +76,18 @@ public class Auction implements Serializable {
             double max = placedBids[0].amount;
             Bid winningBid = null;
             for(Bid b : placedBids){
-                if(b.amount > max){
+                if(b.amount >= max){
                     max = b.amount;
                     winningBid = b;
                 }
             }
             if (winningBid != null){
-                System.out.println(winningBid.getBidsUser().getUserName());
-                winningBid.getBidsUser().garage.getCars().add(auction.car);        //  Giving car to the customer
+                StandardUser winner = (StandardUser) winningBid.getBidsUser();
+                winner.getGarage().getCars().add(auction.car);        //  Giving car to the customer
                 System.out.println("Customer " + winningBid.getBidsUser().getUserName() + " won the car " + auction.car.model);
-                for(Car c : winningBid.getBidsUser().garage.getCars()){
-                    System.out.println(c);
-                }
             }
-
-
+            DatabaseOfAuctions.auctions.remove(this);
         }
-
     }
 
     public void giveCar(){
@@ -114,7 +114,7 @@ public class Auction implements Serializable {
 
         Car car1 = new Car("Hyundai", "i30");
         Car car2 = new Car("Audi", "A7");
-        Admin admin = new Admin();
+        Admin admin = new Admin("Meno", "Heslo");
 
         try{
             admin.createAuction(car1);
@@ -126,8 +126,8 @@ public class Auction implements Serializable {
 
         database.displayAuctions();
 
-        Customer customer = new Customer("Patrik");
-        Customer customer1 = new Customer("Jack");
+        Customer customer = new Customer("Patrik", "Heslo");
+        Customer customer1 = new Customer("Jack", "Heslo");
         customer1.placeBid(111, 1);
         customer.placeBid(111, 10);
         customer1.placeBid(111, 100);

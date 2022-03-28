@@ -10,4 +10,10 @@ public class Serializator<O> {
         out.writeObject(arrayList);
         out.close();
     }
+
+    public void saveData(ArrayList<O> arrayList, File file) throws IOException{
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
+        out.writeObject(arrayList);
+        out.close();
+    }
 }

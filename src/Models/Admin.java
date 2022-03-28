@@ -10,6 +10,12 @@ public class Admin extends User {
 //    public Car newCar;
     private DatabaseOfAuctions databaseOfAuctions;
 
+    public Admin(String userName, String password){
+        this.userName = userName;
+        this.password = password;
+    }
+
+
 //    public void createAuction(ArrayList<Auction> auctions, Car newCar){
 //        Auction newAuction = new Auction(newCar);
 //        auctions.add(newAuction);

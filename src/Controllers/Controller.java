@@ -1,8 +1,6 @@
 package Controllers;
 
-import Models.DatabaseOfAuctions;
-import Models.DatabaseOfUsers;
-import Models.User;
+import Models.*;
 import Project.sample.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -50,7 +48,15 @@ public class Controller {
 
     public void register() throws IOException, ClassNotFoundException{
         if(checkDuplicates(userNameField.getText())){
-            User newUser = new User(userNameField.getText(), userPasswordField.getText());
+
+            if(userNameField.getText().contains("Admin")){
+                Admin newUser = new Admin(userNameField.getText(), userPasswordField.getText());
+                database.storeObject(newUser);
+                errorMessage.setText("User has been registered");
+                return;
+            }
+
+            StandardUser newUser = new StandardUser(userNameField.getText(), userPasswordField.getText());
 //            database.storeData(newUser.getUserId(), userNameField.getText(), userPasswordField.getText());
 //            database.registeredUsers.add(newUser);
             database.storeObject(newUser);
@@ -70,14 +76,20 @@ public class Controller {
         if(!database.registeredUsers.isEmpty()){
             for(User user : (ArrayList<User>)in.readObject()){
                 // Admin
-                if(user.getUserName().equals("Patrik") && user.getPassWord().equals(userPassWord)){
+                if(user instanceof Admin && user.getUserName().equals(userName) && user.getPassword().equals(userPassWord)){
                     DatabaseOfUsers.currentUser = user;
                     Main main = new Main();
                     main.changeScene("/GUI/AdminMainScreen.fxml");
                     return;
                 }
+//                if(user.getUserName().equals("Patrik") && user.getPassWord().equals(userPassWord)){
+//                    DatabaseOfUsers.currentUser = user;
+//                    Main main = new Main();
+//                    main.changeScene("/GUI/AdminMainScreen.fxml");
+//                    return;
+//                }
 
-                if(user.getUserName().equals(userName) && user.getPassWord().equals(userPassWord)){
+                if(user.getUserName().equals(userName) && user.getPassword().equals(userPassWord)){
 
                     //MainScreenController controller = new MainScreenController();
                     //controller.currentUser = new User("Test", "Test");

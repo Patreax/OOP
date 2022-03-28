@@ -1,9 +1,6 @@
 package Controllers;
 
-import Models.Auction;
-import Models.Customer;
-import Models.DatabaseOfAuctions;
-import Models.DatabaseOfUsers;
+import Models.*;
 import Project.sample.Main;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -12,7 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class MainScreenController {
@@ -54,6 +53,15 @@ public class MainScreenController {
     public void logOut() throws IOException {
         DatabaseOfUsers.currentUser = null;
 
+
+        Serializator serializator = new Serializator();
+        serializator.saveData(DatabaseOfAuctions.auctions, DatabaseOfAuctions.auctionData);
+        serializator.saveData(DatabaseOfUsers.registeredUsers, DatabaseOfUsers.userData);
+
+//        ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(DatabaseOfAuctions.auctionData));
+//        output.writeObject(DatabaseOfAuctions.auctions);
+//        output.close();
+
         // Resetting auction to prevent duplicates
 //        DatabaseOfAuctions.auctions.removeAll(DatabaseOfAuctions.auctions);
         DatabaseOfAuctions.auctions.clear();
@@ -80,20 +88,48 @@ public class MainScreenController {
         }
     }
 
-    public void placeBidToAuction(){
-        System.out.println("Ide to");
+    public void placeBidToAuction() throws IOException, ClassNotFoundException{
+
 //        Customer currentUser = (Customer) DatabaseOfUsers.currentUser;
-        Customer currentUser = new Customer();
-        currentUser.placeBid(Integer.parseInt(auctionIdField.getText()), Double.parseDouble(auctionAmountField.getText()));
+        try{
+            StandardUser currentUser = (StandardUser) DatabaseOfUsers.currentUser;
+
+            currentUser.placeBid(Integer.parseInt(auctionIdField.getText()), Double.parseDouble(auctionAmountField.getText()));
+        } catch (NumberFormatException e){
+            textArea.appendText("Invalid input\n");
+        } catch (ClassCastException f){
+            textArea.appendText("Cast not working\n");
+        }
+
+        textArea.setText("");
+        showAuctions();
+//        System.out.println("Customer");
+//        System.out.println(DatabaseOfUsers.currentUser instanceof Customer);
+//        System.out.println("Standard User");
+//        System.out.println(DatabaseOfUsers.currentUser instanceof StandardUser);
+//        System.out.println("User");
+//        System.out.println(DatabaseOfUsers.currentUser instanceof User);
+//        System.out.println("Admin");
+//        System.out.println(DatabaseOfUsers.currentUser instanceof Admin);
+
     }
 
     public void showCars(){
-        textArea.appendText("Cars\n");
+//        textArea.appendText("Cars\n");
+        StandardUser currentUser = (StandardUser) DatabaseOfUsers.currentUser;
+        for(Car car : currentUser.getGarage().getCars()){
+            textArea.appendText(car.brand + car.model + "\n");
+        }
     }
 
     public void clear(){
         textArea.setText("");
 //        auctionButton.setVisible(false);
+    }
+
+    public void openWallet() throws IOException{
+        Main main = new Main();
+        main.openNewWindow("/GUI/Wallet.fxml");
     }
 
 }

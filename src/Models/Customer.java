@@ -2,15 +2,17 @@ package Models;
 
 //import Project.User;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Customer extends User {
     protected Wallet wallet;
     protected DatabaseOfAuctions databaseOfAuctions;
-    public PersonalGarage garage = new PersonalGarage();
+    protected PersonalGarage garage;
 
-    public Customer(String name){
-        this.userName = name;
+    public Customer(String userName, String password){
+        super(userName, password);
+        this.wallet = new Wallet();
     }
     public Customer(){
 
@@ -30,4 +32,7 @@ public class Customer extends User {
             System.out.println("Auction with given Id not found");
     }
 
+    public Wallet getWallet() {
+        return wallet;
+    }
 }
