@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 public class Auction implements Serializable {
     public long auctionId;
+    public Boolean isPremium = false;
+
     private long lastAuctionId;
     private final int maxBids = 3;
     private int numberOfBids;
@@ -24,9 +26,12 @@ public class Auction implements Serializable {
         this.car = car;
         placedBids = new Bid[maxBids];
         this.numberOfBids = 0;
-        // Function for generating id needed
         this.auctionId = getLastId() + 1L;
         storeLastId(lastAuctionId);
+    }
+
+    public Auction(){
+
     }
 
     private void storeLastId(long lastId){
@@ -117,8 +122,8 @@ public class Auction implements Serializable {
         Admin admin = new Admin("Meno", "Heslo");
 
         try{
-            admin.createAuction(car1);
-            admin.createAuction(car2);
+            admin.createAuction(car1, false);
+            admin.createAuction(car2, false);
         } catch (IOException e){
             e.printStackTrace();
         }

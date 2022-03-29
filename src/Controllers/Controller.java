@@ -40,7 +40,7 @@ public class Controller {
     private Button registerButton;
 
     public void logIn() throws IOException, ClassNotFoundException{
-        DatabaseOfAuctions.loadObjects();
+//        DatabaseOfAuctions.loadObjects();                                                                 // TOTO TOTO TOTO TOTO TOTO TOTO
         checkData(userNameField.getText(), userPasswordField.getText());
         //mainController.currentUser = new User(userNameField.getText(), userPasswordField.getText());
 
@@ -49,8 +49,14 @@ public class Controller {
     public void register() throws IOException, ClassNotFoundException{
         if(checkDuplicates(userNameField.getText())){
 
-            if(userNameField.getText().contains("Admin")){
+            if(userNameField.getText().contains("Admin")){                                          // ADMIN
                 Admin newUser = new Admin(userNameField.getText(), userPasswordField.getText());
+                database.storeObject(newUser);
+                errorMessage.setText("User has been registered");
+                return;
+            }
+            if(userNameField.getText().contains("Premium")){                                        // PREMIUM
+                PremiumUser newUser = new PremiumUser(userNameField.getText(), userPasswordField.getText());
                 database.storeObject(newUser);
                 errorMessage.setText("User has been registered");
                 return;
@@ -78,10 +84,20 @@ public class Controller {
                 // Admin
                 if(user instanceof Admin && user.getUserName().equals(userName) && user.getPassword().equals(userPassWord)){
                     DatabaseOfUsers.currentUser = user;
+                    DatabaseOfAuctions.loadObjects();
                     Main main = new Main();
                     main.changeScene("/GUI/AdminMainScreen.fxml");
                     return;
                 }
+                if(user instanceof PremiumUser && user.getUserName().equals(userName) && user.getPassword().equals(userPassWord)){
+                    DatabaseOfUsers.currentUser = user;
+                    DatabaseOfAuctions.loadObjects();
+                    Main main = new Main();
+                    main.changeScene("/GUI/MainScreen.fxml");
+                    return;
+                }
+
+
 //                if(user.getUserName().equals("Patrik") && user.getPassWord().equals(userPassWord)){
 //                    DatabaseOfUsers.currentUser = user;
 //                    Main main = new Main();
@@ -96,6 +112,7 @@ public class Controller {
 
 //                    DatabaseOfUsers.currentUser = new User("Test", "Test");
                     DatabaseOfUsers.currentUser = user;
+                    DatabaseOfAuctions.loadObjects();
 //                    controller.displayData();
                     in.close();
                     Main main = new Main();

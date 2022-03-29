@@ -1,11 +1,11 @@
 package Controllers;
 
-import Models.Admin;
-import Models.Car;
+import Models.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -41,6 +41,17 @@ public class AuctionCreator {
     private Button createAuctionButton;
     @FXML
     private Button backButton;
+    @FXML
+    private CheckBox premium;
+    @FXML
+    private CheckBox standardCarBox;
+    @FXML
+    private CheckBox electricCarBox;
+    @FXML
+    private CheckBox hybridCarBox;
+
+
+    CheckBox[] arrayOfCheckBoxes = {standardCarBox, electricCarBox, hybridCarBox};
 
     public void create() throws IOException {
 //        if(brand.getText().equals("") || model.getText().equals("") || price.getText().equals("") || year.getText().equals("") || kilometers.getText().equals("") || fuel.getText().equals("") || engine.getText().equals("") || power.getText().equals("") || transmission.getText().equals("") || color.getText().equals("")){
@@ -54,14 +65,30 @@ public class AuctionCreator {
 //                "\t" + transmission.getText() + "\t" + color.getText());
 
         try{
-            Car newCar = new Car(brand.getText(), model.getText(), Double.parseDouble(price.getText()), Integer.parseInt(year.getText()));
-            Admin.createAuction(newCar);
+            Car newCar;
+            if(standardCarBox.isSelected()){
+                newCar = new StandardCar(brand.getText(), model.getText(), Double.parseDouble(price.getText()), Integer.parseInt(year.getText()));
+                System.out.println("Standard");
+            }
+            else if (electricCarBox.isSelected()){
+                newCar = new ElectricCar(brand.getText(), model.getText(), Double.parseDouble(price.getText()), Integer.parseInt(year.getText()));
+                System.out.println("Electric");
+            }
+            else{
+                newCar = new HybridCar(brand.getText(), model.getText(), Double.parseDouble(price.getText()), Integer.parseInt(year.getText()));
+                System.out.println("Hybrid");
+            }
+
+
+//            Car newCar = new Car(brand.getText(), model.getText(), Double.parseDouble(price.getText()), Integer.parseInt(year.getText()));
+            if(premium.isSelected())
+                Admin.createAuction(newCar, true);
+            else
+                Admin.createAuction(newCar, false);
             errorMessage.setText("Auction created");
         } catch (NumberFormatException e){
             errorMessage.setText("Enter valid data");
         }
-
-
 
     }
 

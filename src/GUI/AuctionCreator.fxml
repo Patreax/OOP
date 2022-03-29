@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
@@ -12,7 +13,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #6699ff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AuctionCreator">
    <center>
-      <HBox prefHeight="400.0" prefWidth="279.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="298.0" prefWidth="311.0" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="CENTER" prefHeight="400.0" prefWidth="85.0" spacing="11.0">
                <children>
@@ -79,7 +80,22 @@
       <HBox prefHeight="400.0" prefWidth="170.0" BorderPane.alignment="CENTER" />
    </left>
    <right>
-      <HBox prefHeight="345.0" prefWidth="228.0" BorderPane.alignment="CENTER" />
+      <VBox prefHeight="298.0" prefWidth="210.0" spacing="15.0" BorderPane.alignment="CENTER">
+         <children>
+            <CheckBox fx:id="standardCarBox" mnemonicParsing="false" text="Standard">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </CheckBox>
+            <CheckBox fx:id="electricCarBox" mnemonicParsing="false" text="Electric" />
+            <CheckBox fx:id="hybridCarBox" mnemonicParsing="false" text="Hybrid" />
+            <CheckBox fx:id="premium" mnemonicParsing="false" text="Premium">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </CheckBox>
+         </children>
+      </VBox>
    </right>
    <top>
       <Label text="Auction Creator" BorderPane.alignment="CENTER">

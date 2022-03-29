@@ -81,7 +81,10 @@ public class MainScreenController {
     public void showAuctions() throws IOException, ClassNotFoundException{
 //        DatabaseOfAuctions.loadObjects();
 //        DatabaseOfAuctions.displayAuctions();
+        Boolean premiumUser = DatabaseOfUsers.currentUser instanceof PremiumUser;
         for(Auction a : DatabaseOfAuctions.auctions){
+            if (a.isPremium && !premiumUser)
+                continue;
             textArea.appendText("ID: " + a.auctionId + "\t Brand: " + a.car.brand + "\t Model: " + a.car.model + "\n");
             textArea.appendText("Price: " + a.car.price + "\t Year: " + a.car.year + "\t Bids: " +a.getNumberOfBids() +"/" + a.getMaxBids() + "\n");
             textArea.appendText("\n");

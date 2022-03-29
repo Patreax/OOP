@@ -3,6 +3,7 @@ package Models;
 //import Project.User;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class Admin extends User {
@@ -13,6 +14,8 @@ public class Admin extends User {
     public Admin(String userName, String password){
         this.userName = userName;
         this.password = password;
+        this.userId = getLastId() + 1L;
+        storeLastId(lastId);
     }
 
 
@@ -21,8 +24,9 @@ public class Admin extends User {
 //        auctions.add(newAuction);
 //    }
 
-    public static void createAuction(Car newCar) throws IOException {
+    public static void createAuction(Car newCar, boolean isPremium) throws IOException {
         Auction newAuction = new Auction(newCar);
+        newAuction.isPremium = isPremium;
         //auctions.add(newAuction);
         Serializator serializator = new Serializator();
         serializator.serialize(newAuction, DatabaseOfAuctions.auctions, DatabaseOfAuctions.auctionData);

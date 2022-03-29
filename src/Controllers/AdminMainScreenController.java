@@ -1,8 +1,6 @@
 package Controllers;
 
-import Models.Auction;
-import Models.DatabaseOfAuctions;
-import Models.DatabaseOfUsers;
+import Models.*;
 import Project.sample.Main;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -43,6 +41,35 @@ public class AdminMainScreenController {
             textArea.appendText("Price: " + a.car.price + "\t Year: " + a.car.year + "\t Bids: " +a.getNumberOfBids() +"/" + a.getMaxBids() + "\n");
             textArea.appendText("\n");
         }
+    }
+
+    public void showStatistics(){
+        textArea.appendText("Admin: " + countUsers(Admin.class) + "\n");
+        textArea.appendText("Premium User: " + countUsers(PremiumUser.class) + "\n");
+        textArea.appendText("Standard User: " + countUsers(StandardUser.class) + "\n");
+
+        textArea.appendText("Standard Car: " + countAuctions(StandardCar.class) + "\n");
+        textArea.appendText("Electric Car: " + countAuctions(ElectricCar.class) + "\n");
+        textArea.appendText("Hybrid Car: " + countAuctions(HybridCar.class) + "\n");
+    }
+
+    private int countUsers(Class Type){
+        int number = 0;
+
+        for (User user : DatabaseOfUsers.registeredUsers){
+            if (Type.isInstance(user))
+                number++;
+        }
+        return number;
+    }
+    private int countAuctions(Class Type){
+        int number = 0;
+
+        for (Auction auction : DatabaseOfAuctions.auctions){
+            if (Type.isInstance(auction.car))
+                number++;
+        }
+        return number;
     }
 
     public void clear(){

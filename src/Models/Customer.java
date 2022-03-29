@@ -6,13 +6,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Customer extends User {
-    protected Wallet wallet;
+//    protected Wallet wallet;              // toto
+    protected Wallet wallet = new Wallet();
     protected DatabaseOfAuctions databaseOfAuctions;
     protected PersonalGarage garage;
 
     public Customer(String userName, String password){
         super(userName, password);
-        this.wallet = new Wallet();
+//        this.wallet = new Wallet();       // toto
     }
     public Customer(){
 

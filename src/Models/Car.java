@@ -44,4 +44,8 @@ public class Car implements Serializable {
         this.brand = brand;
         this.model = model;
     }
+
+    public Car(){
+
+    }
 }

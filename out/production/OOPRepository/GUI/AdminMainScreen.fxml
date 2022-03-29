@@ -45,6 +45,11 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" />
                </VBox.margin>
             </Button>
+            <Button fx:id="showStatisticButton" layoutX="20.0" layoutY="77.0" mnemonicParsing="false" onAction="#showStatistics" prefHeight="26.0" prefWidth="138.0" text="Statistics">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" />
+               </VBox.margin>
+            </Button>
             <Button fx:id="clearButton" layoutX="10.0" layoutY="89.0" mnemonicParsing="false" onAction="#clear" prefHeight="26.0" prefWidth="138.0" text="Clear">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" />
