@@ -65,6 +65,7 @@ public class MainScreenController {
         // Resetting auction to prevent duplicates
 //        DatabaseOfAuctions.auctions.removeAll(DatabaseOfAuctions.auctions);
         DatabaseOfAuctions.auctions.clear();
+        DatabaseOfUsers.registeredUsers.clear();                // Toto som spravil pri reflexii
 //        for(Auction a : DatabaseOfAuctions.auctions)
 //            DatabaseOfAuctions.auctions.remove(a);
 

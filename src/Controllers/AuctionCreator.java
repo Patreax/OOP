@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class AuctionCreator {
@@ -51,7 +52,8 @@ public class AuctionCreator {
     private CheckBox hybridCarBox;
 
 
-    CheckBox[] arrayOfCheckBoxes = {standardCarBox, electricCarBox, hybridCarBox};
+    //CheckBox[] arrayOfCheckBoxes = new CheckBox[]{standardCarBox, electricCarBox, hybridCarBox};
+    ArrayList<CheckBox> arrayOfCheckBoxes = new ArrayList<>();
 
     public void create() throws IOException {
 //        if(brand.getText().equals("") || model.getText().equals("") || price.getText().equals("") || year.getText().equals("") || kilometers.getText().equals("") || fuel.getText().equals("") || engine.getText().equals("") || power.getText().equals("") || transmission.getText().equals("") || color.getText().equals("")){
@@ -65,6 +67,8 @@ public class AuctionCreator {
 //                "\t" + transmission.getText() + "\t" + color.getText());
 
         try{
+            checkBoxes();
+
             Car newCar;
             if(standardCarBox.isSelected()){
                 newCar = new StandardCar(brand.getText(), model.getText(), Double.parseDouble(price.getText()), Integer.parseInt(year.getText()));
@@ -88,8 +92,30 @@ public class AuctionCreator {
             errorMessage.setText("Auction created");
         } catch (NumberFormatException e){
             errorMessage.setText("Enter valid data");
+        } catch (TooManySelectedBoxesException e){
+            errorMessage.setText("Select only one box");
+        } catch (NoSelectedBoxException e){
+            errorMessage.setText("Select one box");
         }
 
+    }
+
+    private void checkBoxes() throws TooManySelectedBoxesException, NoSelectedBoxException{
+        arrayOfCheckBoxes.add(standardCarBox);
+        arrayOfCheckBoxes.add(electricCarBox);
+        arrayOfCheckBoxes.add(hybridCarBox);
+
+        int checkedBoxes = 0;
+        for(CheckBox box : arrayOfCheckBoxes){
+            if(box.isSelected())
+                checkedBoxes++;
+        }
+
+        if(checkedBoxes >= 2)
+            throw new TooManySelectedBoxesException();
+
+        if(checkedBoxes == 0)
+            throw new NoSelectedBoxException();
     }
 
     public void back(ActionEvent actionEvent){

@@ -82,6 +82,7 @@ public class AdminMainScreenController {
         // Resetting auction to prevent duplicates
 
         DatabaseOfAuctions.auctions.clear();
+        DatabaseOfUsers.registeredUsers.clear();                // Toto som spravil pri reflexii
 
         // Loading first screen
         Main main = new Main();

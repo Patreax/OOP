@@ -24,8 +24,9 @@ public class Controller {
 
     //  MainScreenController mainController = new MainScreenController();
 
-    public Controller(){
-
+    public Controller() throws IOException, ClassNotFoundException{
+        DatabaseOfUsers.loadObjects();
+        DatabaseOfAuctions.loadObjects();
     }
 
     @FXML
@@ -71,27 +72,27 @@ public class Controller {
     }
 
     private void checkData(String userName, String userPassWord) throws IOException, ClassNotFoundException{
-        database.loadObjects();
-        if(database.registeredUsers.size() == 0){             // Toto treba prepisat
+//        database.loadObjects();               // Naposledy pri reflexii
+        if (DatabaseOfUsers.registeredUsers.size() == 0){             // Toto treba prepisat
             errorMessage.setText("User does not exist");
             return;
         }
 
 
         ObjectInputStream in = new ObjectInputStream(new FileInputStream(userData));
-        if(!database.registeredUsers.isEmpty()){
+        if(!DatabaseOfUsers.registeredUsers.isEmpty()){
             for(User user : (ArrayList<User>)in.readObject()){
                 // Admin
                 if(user instanceof Admin && user.getUserName().equals(userName) && user.getPassword().equals(userPassWord)){
                     DatabaseOfUsers.currentUser = user;
-                    DatabaseOfAuctions.loadObjects();
+//                    DatabaseOfAuctions.loadObjects();         // Naposledy pri reflexii
                     Main main = new Main();
                     main.changeScene("/GUI/AdminMainScreen.fxml");
                     return;
                 }
                 if(user instanceof PremiumUser && user.getUserName().equals(userName) && user.getPassword().equals(userPassWord)){
                     DatabaseOfUsers.currentUser = user;
-                    DatabaseOfAuctions.loadObjects();
+//                    DatabaseOfAuctions.loadObjects();         // Naposledy pri reflexii
                     Main main = new Main();
                     main.changeScene("/GUI/MainScreen.fxml");
                     return;
@@ -112,7 +113,7 @@ public class Controller {
 
 //                    DatabaseOfUsers.currentUser = new User("Test", "Test");
                     DatabaseOfUsers.currentUser = user;
-                    DatabaseOfAuctions.loadObjects();
+//                    DatabaseOfAuctions.loadObjects();             // Naposledy pri reflexii
 //                    controller.displayData();
                     in.close();
                     Main main = new Main();
@@ -158,9 +159,9 @@ public class Controller {
     }
 
     public boolean checkDuplicates(String userName) throws IOException, ClassNotFoundException{
-        database.loadObjects();
-        if(!database.registeredUsers.isEmpty()){
-            for(User user : database.registeredUsers){
+//        database.loadObjects();                       // Naposledy pri reflexii
+        if(!DatabaseOfUsers.registeredUsers.isEmpty()){
+            for(User user : DatabaseOfUsers.registeredUsers){
                 if(user.getUserName().equals(userName)){
                     errorMessage.setText("Name is already taken");
                     return false;
