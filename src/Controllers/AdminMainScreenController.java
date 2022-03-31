@@ -36,14 +36,22 @@ public class AdminMainScreenController {
     public void showAuctions() throws IOException, ClassNotFoundException{
 //        DatabaseOfAuctions.loadObjects();
 //        DatabaseOfAuctions.displayAuctions();
-        for(Auction a : DatabaseOfAuctions.auctions){
+
+        new Thread(() -> {for(Auction a : DatabaseOfAuctions.auctions){
             textArea.appendText("ID: " + a.auctionId + "\t Brand: " + a.car.brand + "\t Model: " + a.car.model + "\n");
             textArea.appendText("Price: " + a.car.price + "\t Year: " + a.car.year + "\t Bids: " +a.getNumberOfBids() +"/" + a.getMaxBids() + "\n");
             textArea.appendText("\n");
-        }
+        }}).start();
+
+
+//        for(Auction a : DatabaseOfAuctions.auctions){
+//            textArea.appendText("ID: " + a.auctionId + "\t Brand: " + a.car.brand + "\t Model: " + a.car.model + "\n");
+//            textArea.appendText("Price: " + a.car.price + "\t Year: " + a.car.year + "\t Bids: " +a.getNumberOfBids() +"/" + a.getMaxBids() + "\n");
+//            textArea.appendText("\n");
+//        }
     }
 
-    public void showStatistics(){
+    public void calculateStatistics(){
         textArea.appendText("Admin: " + countUsers(Admin.class) + "\n");
         textArea.appendText("Premium User: " + countUsers(PremiumUser.class) + "\n");
         textArea.appendText("Standard User: " + countUsers(StandardUser.class) + "\n");
@@ -51,6 +59,17 @@ public class AdminMainScreenController {
         textArea.appendText("Standard Car: " + countAuctions(StandardCar.class) + "\n");
         textArea.appendText("Electric Car: " + countAuctions(ElectricCar.class) + "\n");
         textArea.appendText("Hybrid Car: " + countAuctions(HybridCar.class) + "\n");
+    }
+
+    public void showStatistics(){
+//        new Thread(this::calculateStatistics).start();
+        new Thread(() -> {textArea.appendText("Admin: " + countUsers(Admin.class) + "\n");
+            textArea.appendText("Premium User: " + countUsers(PremiumUser.class) + "\n");
+            textArea.appendText("Standard User: " + countUsers(StandardUser.class) + "\n");
+
+            textArea.appendText("Standard Car: " + countAuctions(StandardCar.class) + "\n");
+            textArea.appendText("Electric Car: " + countAuctions(ElectricCar.class) + "\n");
+            textArea.appendText("Hybrid Car: " + countAuctions(HybridCar.class) + "\n");}).start();
     }
 
     private int countUsers(Class Type){

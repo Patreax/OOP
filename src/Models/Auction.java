@@ -12,7 +12,7 @@ public class Auction implements Serializable {
 
     private long lastAuctionId;
     private final int maxBids = 3;
-    private int numberOfBids;
+    public int numberOfBids;                    // toto bolo private
 
     private Bid[] placedBids;
 
@@ -22,12 +22,16 @@ public class Auction implements Serializable {
 
     File lastAuctionIdFile = new File("src/Project/Files/lastAuctionIdFile.txt");
 
+    public AuctionType auctionType;
+
     public Auction(Car car){
         this.car = car;
         placedBids = new Bid[maxBids];
         this.numberOfBids = 0;
         this.auctionId = getLastId() + 1L;
         storeLastId(lastAuctionId);
+
+        this.auctionType = new sealedBidAuction();
     }
 
     public Auction(){
@@ -59,40 +63,44 @@ public class Auction implements Serializable {
         return Long.parseLong(lastId);
     }
 
+//    public void receiveBid(Bid bid, Auction auction){
+//        boolean isFull = true;
+//        for(int i=0; i<maxBids; i++){
+//            if(this.placedBids[i] != null && this.placedBids[i].getBidsUser().getUserName().equals(bid.getBidsUser().getUserName())){
+//                System.out.println("User has already made a bid");
+//                return;
+//            }
+//            if(this.placedBids[i] == null){
+//                placedBids[i] = bid;
+//                this.numberOfBids++;
+//                isFull = false;
+//                if(i == 2)
+//                    isFull = true;
+//                System.out.println("Bid with amount " + placedBids[i].amount + " has been placed");
+//                break;
+//            }
+//        }
+//        if(isFull){
+//            System.out.println("No more spaces for bids");
+//            double max = placedBids[0].amount;
+//            Bid winningBid = null;
+//            for(Bid b : placedBids){
+//                if(b.amount >= max){
+//                    max = b.amount;
+//                    winningBid = b;
+//                }
+//            }
+//            if (winningBid != null){
+//                StandardUser winner = (StandardUser) winningBid.getBidsUser();
+//                winner.getGarage().getCars().add(auction.car);        //  Giving car to the customer
+//                System.out.println("Customer " + winningBid.getBidsUser().getUserName() + " won the car " + auction.car.model);
+//            }
+//            DatabaseOfAuctions.auctions.remove(this);
+//        }
+//    }
+
     public void receiveBid(Bid bid, Auction auction){
-        boolean isFull = true;
-        for(int i=0; i<maxBids; i++){
-            if(this.placedBids[i] != null && this.placedBids[i].getBidsUser().getUserName().equals(bid.getBidsUser().getUserName())){
-                System.out.println("User has already made a bid");
-                return;
-            }
-            if(this.placedBids[i] == null){
-                placedBids[i] = bid;
-                this.numberOfBids++;
-                isFull = false;
-                if(i == 2)
-                    isFull = true;
-                System.out.println("Bid with amount " + placedBids[i].amount + " has been placed");
-                break;
-            }
-        }
-        if(isFull){
-            System.out.println("No more spaces for bids");
-            double max = placedBids[0].amount;
-            Bid winningBid = null;
-            for(Bid b : placedBids){
-                if(b.amount >= max){
-                    max = b.amount;
-                    winningBid = b;
-                }
-            }
-            if (winningBid != null){
-                StandardUser winner = (StandardUser) winningBid.getBidsUser();
-                winner.getGarage().getCars().add(auction.car);        //  Giving car to the customer
-                System.out.println("Customer " + winningBid.getBidsUser().getUserName() + " won the car " + auction.car.model);
-            }
-            DatabaseOfAuctions.auctions.remove(this);
-        }
+        auctionType.receiveBid(bid, auction);
     }
 
     public void giveCar(){
@@ -107,40 +115,49 @@ public class Auction implements Serializable {
         return numberOfBids;
     }
 
-    public static void main(String[] args) {
-//        Car c1 = new Car("Audi", "A7");
-//        Car c2 = new Car("Hyundai", "I30");
-//        Auction a1 = new Auction(c1);
-//        Auction a2 = new Auction(c2);
-//        System.out.println("A1 id: " + a1.auctionId + " Brand: " + a1.car.brand + " Model: " + a1.car.model);
-//        System.out.println("A2 id: " + a2.auctionId + " Brand: " + a2.car.brand + " Model: " + a2.car.model);
+//    public static void main(String[] args) {
+////        Car c1 = new Car("Audi", "A7");
+////        Car c2 = new Car("Hyundai", "I30");
+////        Auction a1 = new Auction(c1);
+////        Auction a2 = new Auction(c2);
+////        System.out.println("A1 id: " + a1.auctionId + " Brand: " + a1.car.brand + " Model: " + a1.car.model);
+////        System.out.println("A2 id: " + a2.auctionId + " Brand: " + a2.car.brand + " Model: " + a2.car.model);
+//
+//        DatabaseOfAuctions database = new DatabaseOfAuctions();
+//
+//        Car car1 = new Car("Hyundai", "i30");
+//        Car car2 = new Car("Audi", "A7");
+//        Admin admin = new Admin("Meno", "Heslo");
+//
+//        try{
+//            admin.createAuction(car1, false);
+//            admin.createAuction(car2, false);
+//        } catch (IOException e){
+//            e.printStackTrace();
+//        }
+//
+//
+//        database.displayAuctions();
+//
+//        Customer customer = new Customer("Patrik", "Heslo");
+//        Customer customer1 = new Customer("Jack", "Heslo");
+//        customer1.placeBid(111, 1);
+//        customer.placeBid(111, 10);
+//        customer1.placeBid(111, 100);
+//        customer1.placeBid( 106, 1000);
+//        customer.placeBid( 106, 50000);
+//        customer1.placeBid( 106, 10000);
+//
+//        System.out.println();
+//
+//    }
 
-        DatabaseOfAuctions database = new DatabaseOfAuctions();
+                                                                // tieto veci som pridal
+    public Bid[] getPlacedBids() {
+        return placedBids;
+    }
 
-        Car car1 = new Car("Hyundai", "i30");
-        Car car2 = new Car("Audi", "A7");
-        Admin admin = new Admin("Meno", "Heslo");
-
-        try{
-            admin.createAuction(car1, false);
-            admin.createAuction(car2, false);
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-
-
-        database.displayAuctions();
-
-        Customer customer = new Customer("Patrik", "Heslo");
-        Customer customer1 = new Customer("Jack", "Heslo");
-        customer1.placeBid(111, 1);
-        customer.placeBid(111, 10);
-        customer1.placeBid(111, 100);
-        customer1.placeBid( 106, 1000);
-        customer.placeBid( 106, 50000);
-        customer1.placeBid( 106, 10000);
-
-        System.out.println();
-
+    public void setNumberOfBids(int numberOfBids) {
+        this.numberOfBids = numberOfBids;
     }
 }
