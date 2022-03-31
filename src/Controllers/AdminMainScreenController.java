@@ -1,5 +1,6 @@
 package Controllers;
 
+import GUI.AboutScreen;
 import Models.*;
 import Project.sample.Main;
 import javafx.application.Platform;
@@ -106,5 +107,10 @@ public class AdminMainScreenController {
         // Loading first screen
         Main main = new Main();
         main.changeScene("/GUI/sample.fxml");
+    }
+
+    public void showAboutScreen(){
+        new AboutScreen();
+        System.out.println("Malo by to ist");
     }
 }
