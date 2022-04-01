@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 
 public class AboutScreen extends Stage {
-    private Label label = new Label("Thank you for using EasyCarBid");
+    private Label label = new Label("Thank you for using EasyCarBid\t\t\t");
     private Button backButton = new Button("Back");
 
     public AboutScreen() {
@@ -22,6 +22,7 @@ public class AboutScreen extends Stage {
 
         pane.getChildren().add(label);
         pane.getChildren().add(backButton);
+
 
 
         backButton.setOnAction(e -> close());

@@ -3,17 +3,20 @@ package Models;
 //import Project.User;
 
 import java.io.Serializable;
+import java.lang.management.GarbageCollectorMXBean;
 import java.util.ArrayList;
 
 public class Customer extends User {
 //    protected Wallet wallet;              // toto
-    protected Wallet wallet = new Wallet();
+//    protected Wallet wallet = new Wallet();               // teraz toto
+    protected Wallet wallet;
     protected DatabaseOfAuctions databaseOfAuctions;
     protected PersonalGarage garage;
 
     public Customer(String userName, String password){
         super(userName, password);
 //        this.wallet = new Wallet();       // toto
+        this.garage = new PersonalGarage();
     }
     public Customer(){
 
@@ -35,5 +38,9 @@ public class Customer extends User {
 
     public Wallet getWallet() {
         return wallet;
+    }
+
+    public PersonalGarage getGarage() {
+        return garage;
     }
 }

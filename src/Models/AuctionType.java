@@ -7,12 +7,7 @@ public interface AuctionType {
 
 
 }
-class sealedBidAuction implements AuctionType, Serializable {
-
-//    private int numberOfBids = 0;               // pridal som = 0
-//    private final int maxBids = 3;
-//
-//    private Bid[] placedBids;
+class SealedBidAuction implements AuctionType, Serializable {
 
     @Override
     public void receiveBid(Bid bid, Auction auction) {
@@ -47,6 +42,35 @@ class sealedBidAuction implements AuctionType, Serializable {
                 winner.getGarage().getCars().add(auction.car);        //  Giving car to the customer
                 System.out.println("Customer " + winningBid.getBidsUser().getUserName() + " won the car " + auction.car.model);
             }
+            DatabaseOfAuctions.auctions.remove(auction);
+        }
+    }
+}
+class AbsoluteAuction implements AuctionType, Serializable{
+
+    @Override
+    public void receiveBid(Bid bid, Auction auction) {
+        for(int i=0; i<auction.getMaxBids(); i++) {
+            if (auction.getPlacedBids()[i] != null && auction.getPlacedBids()[i].getBidsUser().getUserId() == bid.getBidsUser().getUserId()) {
+                System.out.println("User has already made a bid");
+                return;
+            }
+            if(auction.getPlacedBids()[i] == null){
+                if(bid.amount > auction.highestBid){
+                    auction.getPlacedBids()[i] = bid;
+                    auction.highestBid = bid.amount;
+                    auction.numberOfBids++;
+                    System.out.println("Bid with amount " + auction.getPlacedBids()[i].amount + " has been placed");
+                    break;
+                }
+                else System.out.println("You must bid more than " + auction.highestBid);
+            }
+        }
+        if(auction.numberOfBids == auction.getMaxBids()){
+            System.out.println("No more spaces for bids");
+            Customer currentCustomer = (Customer) DatabaseOfUsers.currentUser;
+            currentCustomer.getGarage().getCars().add(auction.car);        //  Giving car to the customer
+            System.out.println("Customer " + currentCustomer + " won the car " + auction.car.model);
             DatabaseOfAuctions.auctions.remove(auction);
         }
     }

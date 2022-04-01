@@ -111,6 +111,5 @@ public class AdminMainScreenController {
 
     public void showAboutScreen(){
         new AboutScreen();
-        System.out.println("Malo by to ist");
     }
 }

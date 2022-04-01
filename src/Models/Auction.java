@@ -12,7 +12,8 @@ public class Auction implements Serializable {
 
     private long lastAuctionId;
     private final int maxBids = 3;
-    public int numberOfBids;                    // toto bolo private
+    public int numberOfBids;                // toto bolo private
+    public double highestBid = 0;
 
     private Bid[] placedBids;
 
@@ -31,7 +32,7 @@ public class Auction implements Serializable {
         this.auctionId = getLastId() + 1L;
         storeLastId(lastAuctionId);
 
-        this.auctionType = new sealedBidAuction();
+        this.auctionType = new AbsoluteAuction();
     }
 
     public Auction(){

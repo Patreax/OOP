@@ -2,7 +2,9 @@ package Models;
 
 //import Models.Customer;
 
-public class PremiumUser extends Customer {
+import java.io.Serializable;
+
+public class PremiumUser extends Customer implements Serializable {
 
     private PersonalGarage garage = new PersonalGarage();
 //    private Wallet wallet;

@@ -94,10 +94,10 @@ public class MainScreenController {
 
     public void placeBidToAuction() throws IOException, ClassNotFoundException{
 
-//        Customer currentUser = (Customer) DatabaseOfUsers.currentUser;
-        try{
-            StandardUser currentUser = (StandardUser) DatabaseOfUsers.currentUser;
 
+        try{
+//            StandardUser currentUser = (StandardUser) DatabaseOfUsers.currentUser;
+            Customer currentUser = (Customer) DatabaseOfUsers.currentUser;
             currentUser.placeBid(Integer.parseInt(auctionIdField.getText()), Double.parseDouble(auctionAmountField.getText()));
         } catch (NumberFormatException e){
             textArea.appendText("Invalid input\n");
@@ -120,7 +120,8 @@ public class MainScreenController {
 
     public void showCars(){
 //        textArea.appendText("Cars\n");
-        StandardUser currentUser = (StandardUser) DatabaseOfUsers.currentUser;
+//        StandardUser currentUser = (StandardUser) DatabaseOfUsers.currentUser;
+        Customer currentUser = (Customer) DatabaseOfUsers.currentUser;
         for(Car car : currentUser.getGarage().getCars()){
             textArea.appendText(car.brand + car.model + "\n");
         }
