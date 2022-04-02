@@ -48,6 +48,9 @@ public class Controller {
     }
 
     public void register() throws IOException, ClassNotFoundException{
+
+        AuctionManager auctionManager = AuctionManager.getInstance();
+
         if(checkDuplicates(userNameField.getText())){
 
             if(userNameField.getText().contains("Admin")){                                          // ADMIN

@@ -8,7 +8,7 @@ public interface AuctionType {
 
 }
 class SealedBidAuction implements AuctionType, Serializable {
-
+    AuctionManager auctionManager = AuctionManager.getInstance();
     @Override
     public void receiveBid(Bid bid, Auction auction) {
         boolean isFull = true;
@@ -47,7 +47,7 @@ class SealedBidAuction implements AuctionType, Serializable {
     }
 }
 class AbsoluteAuction implements AuctionType, Serializable{
-
+    AuctionManager auctionManager = AuctionManager.getInstance();
     @Override
     public void receiveBid(Bid bid, Auction auction) {
         for(int i=0; i<auction.getMaxBids(); i++) {
@@ -71,6 +71,7 @@ class AbsoluteAuction implements AuctionType, Serializable{
             Customer currentCustomer = (Customer) DatabaseOfUsers.currentUser;
             currentCustomer.getGarage().getCars().add(auction.car);        //  Giving car to the customer
             System.out.println("Customer " + currentCustomer + " won the car " + auction.car.model);
+            auctionManager.setAuction(auction);
             DatabaseOfAuctions.auctions.remove(auction);
         }
     }

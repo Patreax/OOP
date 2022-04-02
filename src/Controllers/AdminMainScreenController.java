@@ -109,6 +109,21 @@ public class AdminMainScreenController {
         main.changeScene("/GUI/sample.fxml");
     }
 
+    public void showNews(){
+//        Admin observer = (Admin) DatabaseOfUsers.currentUser;
+//        for (String message : observer.news){
+//            textArea.appendText(message + "\n");
+//            System.out.println(message);
+//        }
+
+        for(String message : Admin.news){
+            textArea.appendText(message + "\n");
+            System.out.println(message);
+        }
+
+        System.out.println("Tlacidko funguje");
+    }
+
     public void showAboutScreen(){
         new AboutScreen();
     }

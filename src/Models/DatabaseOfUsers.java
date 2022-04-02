@@ -44,11 +44,14 @@ public class DatabaseOfUsers {
     }
 
     public static void loadObjects() throws IOException, ClassNotFoundException{
+        AuctionManager auctionManager = AuctionManager.getInstance();
         if(userData.length() == 0)
             return;
         ObjectInputStream in = new ObjectInputStream(new FileInputStream(userData));
         for(User user : (ArrayList<User>)in.readObject()){
             registeredUsers.add(user);
+            if(user instanceof Admin)
+                auctionManager.register((Observer) user);
         }
         in.close();
     }

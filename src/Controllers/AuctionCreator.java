@@ -50,6 +50,11 @@ public class AuctionCreator {
     private CheckBox electricCarBox;
     @FXML
     private CheckBox hybridCarBox;
+    @FXML
+    private CheckBox absoluteAuctionCheckBox;
+    @FXML
+    private CheckBox sealedBidAuctionCheckBox;
+
 
 
     //CheckBox[] arrayOfCheckBoxes = new CheckBox[]{standardCarBox, electricCarBox, hybridCarBox};
@@ -69,6 +74,7 @@ public class AuctionCreator {
         try{
             checkBoxes();
 
+            AuctionType auctionType;
             Car newCar;
             if(standardCarBox.isSelected()){
                 newCar = new StandardCar(brand.getText(), model.getText(), Double.parseDouble(price.getText()), Integer.parseInt(year.getText()));
@@ -83,6 +89,8 @@ public class AuctionCreator {
                 System.out.println("Hybrid");
             }
 
+//            if(absoluteAuctionCheckBox.isSelected())
+//                auctionType = new SealedBidAuction();
 
 //            Car newCar = new Car(brand.getText(), model.getText(), Double.parseDouble(price.getText()), Integer.parseInt(year.getText()));
             if(premium.isSelected())

@@ -6,16 +6,17 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class Admin extends User {
-//    private DatabaseOfAuctions auctionDatabase = new DatabaseOfAuctions();
-//    public Car newCar;
-    private DatabaseOfAuctions databaseOfAuctions;
+public class Admin extends User implements Observer {
+
+    public static ArrayList<String> news = new ArrayList<>();
 
     public Admin(String userName, String password){
         this.userName = userName;
         this.password = password;
         this.userId = getLastId() + 1L;
         storeLastId(lastId);
+
+//        news = new ArrayList<>();
     }
 
 
@@ -30,5 +31,13 @@ public class Admin extends User {
         //auctions.add(newAuction);
         Serializator serializator = new Serializator();
         serializator.serialize(newAuction, DatabaseOfAuctions.auctions, DatabaseOfAuctions.auctionData);
+    }
+
+
+    @Override
+    public void update(Auction auction) {
+        String message = "Auction: " + auction.auctionId + ". " + auction.car + " has been sold";
+        Admin.news.add(message);
+        System.out.println("Message added");
     }
 }
