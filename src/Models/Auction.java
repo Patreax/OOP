@@ -25,14 +25,14 @@ public class Auction implements Serializable {
 
     public AuctionType auctionType;
 
-    public Auction(Car car){
+    public Auction(Car car, AuctionType auctionType){
         this.car = car;
         placedBids = new Bid[maxBids];
         this.numberOfBids = 0;
         this.auctionId = getLastId() + 1L;
         storeLastId(lastAuctionId);
 
-        this.auctionType = new AbsoluteAuction();
+        this.auctionType = auctionType;
     }
 
     public Auction(){

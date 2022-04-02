@@ -25,8 +25,8 @@ public class Admin extends User implements Observer {
 //        auctions.add(newAuction);
 //    }
 
-    public static void createAuction(Car newCar, boolean isPremium) throws IOException {
-        Auction newAuction = new Auction(newCar);
+    public static void createAuction(Car newCar, boolean isPremium, AuctionType auctionType) throws IOException {
+        Auction newAuction = new Auction(newCar, auctionType);
         newAuction.isPremium = isPremium;
         //auctions.add(newAuction);
         Serializator serializator = new Serializator();

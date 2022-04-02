@@ -99,12 +99,12 @@
             <Line endX="100.0" startX="-100.0" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                <children>
-                  <CheckBox mnemonicParsing="false" text="Absolute">
+                  <CheckBox fx:id="absoluteAuctionCheckBox" mnemonicParsing="false" text="Absolute">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </CheckBox>
-                  <CheckBox mnemonicParsing="false" text="Sealed Bid">
+                  <CheckBox fx:id="sealedBidAuctionCheckBox" mnemonicParsing="false" text="Sealed Bid">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

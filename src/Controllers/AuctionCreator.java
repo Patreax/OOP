@@ -89,14 +89,18 @@ public class AuctionCreator {
                 System.out.println("Hybrid");
             }
 
-//            if(absoluteAuctionCheckBox.isSelected())
-//                auctionType = new SealedBidAuction();
+            if(absoluteAuctionCheckBox.isSelected())
+                auctionType = new AbsoluteAuction();
+            else if (sealedBidAuctionCheckBox.isSelected())
+                auctionType = new SealedBidAuction();
+            else
+                throw new NoSelectedBoxException();
 
 //            Car newCar = new Car(brand.getText(), model.getText(), Double.parseDouble(price.getText()), Integer.parseInt(year.getText()));
             if(premium.isSelected())
-                Admin.createAuction(newCar, true);
+                Admin.createAuction(newCar, true, auctionType);
             else
-                Admin.createAuction(newCar, false);
+                Admin.createAuction(newCar, false, auctionType);
             errorMessage.setText("Auction created");
         } catch (NumberFormatException e){
             errorMessage.setText("Enter valid data");
