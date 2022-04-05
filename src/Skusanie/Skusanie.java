@@ -1,9 +1,6 @@
 package Skusanie;
 
-import Models.Customer;
-import Models.PremiumUser;
-import Models.StandardUser;
-import Models.User;
+import Models.Users.User;
 
 
 import java.io.*;

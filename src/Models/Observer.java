@@ -1,7 +1,6 @@
 package Models;
 
-
-import java.util.ArrayList;
+import Models.Auctions.Auction;
 
 public interface Observer {
     void update(Auction auction);

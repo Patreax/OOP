@@ -1,6 +1,6 @@
 package Skusanie;
 
-import Models.User;
+import Models.Users.User;
 
 public class Skusanie1 {
     public User user;

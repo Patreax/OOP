@@ -1,5 +1,7 @@
 package Models;
 
+import Models.Users.Customer;
+
 import java.io.Serializable;
 
 public class Bid implements Serializable {

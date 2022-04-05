@@ -2,6 +2,14 @@ package Controllers;
 
 import GUI.AboutScreen;
 import Models.*;
+import Models.Auctions.Auction;
+import Models.Cars.ElectricCar;
+import Models.Cars.HybridCar;
+import Models.Cars.StandardCar;
+import Models.Users.Admin;
+import Models.Users.PremiumUser;
+import Models.Users.StandardUser;
+import Models.Users.User;
 import Project.sample.Main;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -20,11 +28,10 @@ public class AdminMainScreenController {
     private TextArea textArea;
 
     public AdminMainScreenController(){
-        Platform.runLater(() -> displayData());
-//        Platform.runLater(this::displayData);
+        Platform.runLater(this::displayData);
     }
 
-    private void displayData(){
+    private void displayData(){         // Displaying Admin data
         userNameLabel.setText(DatabaseOfUsers.currentUser.getUserName());
         userIDLabel.setText(Long.toString(DatabaseOfUsers.currentUser.getUserId()));
     }
@@ -34,22 +41,15 @@ public class AdminMainScreenController {
         main.openNewWindow("/GUI/AuctionCreator.fxml");
     }
 
-    public void showAuctions() throws IOException, ClassNotFoundException{
-//        DatabaseOfAuctions.loadObjects();
-//        DatabaseOfAuctions.displayAuctions();
-
-        new Thread(() -> {for(Auction a : DatabaseOfAuctions.auctions){
-            textArea.appendText("ID: " + a.auctionId + "\t Brand: " + a.car.brand + "\t Model: " + a.car.model + "\n");
+    public void showAuctions() {
+        // Going through all the auction via iterator
+        new Thread(() -> {
+            for(Auction a : DatabaseOfAuctions.auctions){
+            textArea.appendText("ID: " + a.getAuctionId() + "\t Brand: " + a.car.brand + "\t Model: " + a.car.model + "\n");
             textArea.appendText("Price: " + a.car.price + "\t Year: " + a.car.year + "\t Bids: " +a.getNumberOfBids() +"/" + a.getMaxBids() + "\n");
             textArea.appendText("\n");
         }}).start();
 
-
-//        for(Auction a : DatabaseOfAuctions.auctions){
-//            textArea.appendText("ID: " + a.auctionId + "\t Brand: " + a.car.brand + "\t Model: " + a.car.model + "\n");
-//            textArea.appendText("Price: " + a.car.price + "\t Year: " + a.car.year + "\t Bids: " +a.getNumberOfBids() +"/" + a.getMaxBids() + "\n");
-//            textArea.appendText("\n");
-//        }
     }
 
     public void calculateStatistics(){
@@ -62,7 +62,7 @@ public class AdminMainScreenController {
         textArea.appendText("Hybrid Car: " + countAuctions(HybridCar.class) + "\n");
     }
 
-    public void showStatistics(){
+    public void showStatistics(){                           // Reflexia
 //        new Thread(this::calculateStatistics).start();
         new Thread(() -> {textArea.appendText("Admin: " + countUsers(Admin.class) + "\n");
             textArea.appendText("Premium User: " + countUsers(PremiumUser.class) + "\n");
@@ -97,19 +97,22 @@ public class AdminMainScreenController {
     }
 
     public void logOut() throws IOException {
+        // Setting current user to null
         DatabaseOfUsers.currentUser = null;
-
-        // Resetting auction to prevent duplicates
-
+        // Saving all the data
+        Serializator serializator = new Serializator();
+        serializator.saveData(DatabaseOfAuctions.auctions, DatabaseOfAuctions.auctionData);
+        serializator.saveData(DatabaseOfUsers.registeredUsers, DatabaseOfUsers.userData);
+        // Clearing the user and auction database
         DatabaseOfAuctions.auctions.clear();
-        DatabaseOfUsers.registeredUsers.clear();                // Toto som spravil pri reflexii
+        DatabaseOfUsers.registeredUsers.clear();
 
         // Loading first screen
         Main main = new Main();
         main.changeScene("/GUI/sample.fxml");
     }
 
-    public void showNews(){
+    public void showNews(){         // Part of observer
 //        Admin observer = (Admin) DatabaseOfUsers.currentUser;
 //        for (String message : observer.news){
 //            textArea.appendText(message + "\n");
@@ -120,8 +123,6 @@ public class AdminMainScreenController {
             textArea.appendText(message + "\n");
             System.out.println(message);
         }
-
-        System.out.println("Tlacidko funguje");
     }
 
     public void showAboutScreen(){

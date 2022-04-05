@@ -1,8 +1,8 @@
 package Controllers;
 
-import Models.Customer;
+import Models.Users.Customer;
 import Models.DatabaseOfUsers;
-import Models.StandardUser;
+import Models.Users.StandardUser;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,7 +35,7 @@ public class WalletController {
         this.bidsLabel.setText(Double.toString(currentCustomer.getWallet().getBids()));
     }
 
-    public void back(ActionEvent actionEvent){
+    public void back(ActionEvent actionEvent){      // Closing the window
         Node n = (Node) actionEvent.getSource();
         Stage stage = (Stage) n.getScene().getWindow();
         stage.close();

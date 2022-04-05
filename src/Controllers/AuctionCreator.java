@@ -1,6 +1,15 @@
 package Controllers;
 
-import Models.*;
+import Models.Auctions.AbsoluteAuction;
+import Models.Auctions.AuctionType;
+import Models.Auctions.SealedBidAuction;
+import Models.Cars.Car;
+import Models.Cars.ElectricCar;
+import Models.Cars.HybridCar;
+import Models.Cars.StandardCar;
+import Models.Exceptions.NoSelectedBoxException;
+import Models.Exceptions.TooManySelectedBoxesException;
+import Models.Users.Admin;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -55,27 +64,16 @@ public class AuctionCreator {
     @FXML
     private CheckBox sealedBidAuctionCheckBox;
 
-
-
-    //CheckBox[] arrayOfCheckBoxes = new CheckBox[]{standardCarBox, electricCarBox, hybridCarBox};
     ArrayList<CheckBox> arrayOfCheckBoxes = new ArrayList<>();
 
     public void create() throws IOException {
-//        if(brand.getText().equals("") || model.getText().equals("") || price.getText().equals("") || year.getText().equals("") || kilometers.getText().equals("") || fuel.getText().equals("") || engine.getText().equals("") || power.getText().equals("") || transmission.getText().equals("") || color.getText().equals("")){
-//            errorMessage.setText("Fill in all the blank spaces");
-////            System.out.println("Problem");
-//            return;
-//        }
-//        System.out.println("Ide to");
-//        System.out.println(brand.getText() + "\t" + model.getText() + "\t" + price.getText() + "\t" + year.getText() + "\t" + kilometers.getText() + "\t" +
-//                fuel.getText() + "\t" + engine.getText() + "\t" + power.getText() +
-//                "\t" + transmission.getText() + "\t" + color.getText());
 
         try{
             checkBoxes();
 
             AuctionType auctionType;
             Car newCar;
+            // Deciding whether the car is sta
             if(standardCarBox.isSelected()){
                 newCar = new StandardCar(brand.getText(), model.getText(), Double.parseDouble(price.getText()), Integer.parseInt(year.getText()));
                 System.out.println("Standard");
@@ -88,7 +86,7 @@ public class AuctionCreator {
                 newCar = new HybridCar(brand.getText(), model.getText(), Double.parseDouble(price.getText()), Integer.parseInt(year.getText()));
                 System.out.println("Hybrid");
             }
-
+            // Deciding the type of auction
             if(absoluteAuctionCheckBox.isSelected())
                 auctionType = new AbsoluteAuction();
             else if (sealedBidAuctionCheckBox.isSelected())
@@ -96,7 +94,7 @@ public class AuctionCreator {
             else
                 throw new NoSelectedBoxException();
 
-//            Car newCar = new Car(brand.getText(), model.getText(), Double.parseDouble(price.getText()), Integer.parseInt(year.getText()));
+            // Marking the auction as premium
             if(premium.isSelected())
                 Admin.createAuction(newCar, true, auctionType);
             else
@@ -109,10 +107,10 @@ public class AuctionCreator {
         } catch (NoSelectedBoxException e){
             errorMessage.setText("Select one box");
         }
-
     }
 
     private void checkBoxes() throws TooManySelectedBoxesException, NoSelectedBoxException{
+        // Checking the checkBoxes and throwing exceptions if needed
         arrayOfCheckBoxes.add(standardCarBox);
         arrayOfCheckBoxes.add(electricCarBox);
         arrayOfCheckBoxes.add(hybridCarBox);
@@ -130,7 +128,7 @@ public class AuctionCreator {
             throw new NoSelectedBoxException();
     }
 
-    public void back(ActionEvent actionEvent){
+    public void back(ActionEvent actionEvent){  // closing the window
         Node n = (Node) actionEvent.getSource();
         Stage stage = (Stage) n.getScene().getWindow();
         stage.close();

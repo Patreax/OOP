@@ -1,5 +1,7 @@
 package Models;
 
+import Models.Cars.Car;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 

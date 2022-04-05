@@ -23,8 +23,6 @@ public class AboutScreen extends Stage {
         pane.getChildren().add(label);
         pane.getChildren().add(backButton);
 
-
-
         backButton.setOnAction(e -> close());
 
         setScene(new Scene(pane, 500, 300));
