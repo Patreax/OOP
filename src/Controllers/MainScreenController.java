@@ -1,7 +1,9 @@
 package Controllers;
 
 import Models.*;
+import Models.Auctions.AbsoluteAuction;
 import Models.Auctions.Auction;
+import Models.Auctions.SealedBidAuction;
 import Models.Cars.Car;
 import Models.Users.Customer;
 import Models.Users.PremiumUser;
@@ -13,6 +15,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 public class MainScreenController {
 
@@ -23,7 +26,7 @@ public class MainScreenController {
     @FXML
     private Label userCurrencyLabel;
     @FXML
-    public TextArea textArea;
+    private TextArea textArea;
     @FXML
     private TextField auctionIdField;
     @FXML
@@ -33,6 +36,14 @@ public class MainScreenController {
 //        Platform.runLater(() -> displayData());
         Platform.runLater(this::displayData);
     }
+
+//    private static MainScreenController single_instance = null;
+//    public static MainScreenController getInstance(){     // Singleton
+//        if (single_instance == null)
+//            single_instance = new MainScreenController();
+//
+//        return single_instance;
+//    }
 
     private void displayData(){
         userCurrencyLabel.setText("1000");
@@ -61,6 +72,13 @@ public class MainScreenController {
         for(Auction a : DatabaseOfAuctions.auctions){
             if (a.isPremium && !premiumUser)
                 continue;
+            if (a.auctionType instanceof AbsoluteAuction){
+                textArea.appendText("Absolute Auction:\n");
+                textArea.appendText("Last bid: " + a.highestBid + "\n");
+            }
+
+            else if (a.auctionType instanceof SealedBidAuction)
+                textArea.appendText("Sealed Bid Auction:\n");
             textArea.appendText("ID: " + a.getAuctionId() + "\t Brand: " + a.car.brand + "\t Model: " + a.car.model + "\n");
             textArea.appendText("Price: " + a.car.price + "\t Year: " + a.car.year + "\t Bids: " +a.getNumberOfBids() +"/" + a.getMaxBids() + "\n");
             textArea.appendText("\n");
@@ -100,7 +118,7 @@ public class MainScreenController {
     public void showCars(){
         Customer currentUser = (Customer) DatabaseOfUsers.currentUser;
         for(Car car : currentUser.getGarage().getCars()){
-            textArea.appendText(car.brand + car.model + "\n");
+            textArea.appendText(car.brand + " " + car.model + "\n");
         }
     }
 

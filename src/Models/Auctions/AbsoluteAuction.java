@@ -4,16 +4,21 @@ import Models.Bid;
 import Models.DatabaseOfAuctions;
 import Models.DatabaseOfUsers;
 import Models.Users.Customer;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 
 import java.io.Serializable;
 
 public class AbsoluteAuction implements AuctionType, Serializable {
     AuctionManager auctionManager = AuctionManager.getInstance();
+//    MainScreenController mainScreenController = MainScreenController.getInstance();
+    
     @Override
     public void receiveBid(Bid bid, Auction auction) {
         for(int i=0; i<auction.getMaxBids(); i++) {
             if (auction.getPlacedBids()[i] != null && auction.getPlacedBids()[i].getBidsUser().getUserId() == bid.getBidsUser().getUserId()) {
                 System.out.println("User has already made a bid");
+//                mainScreenController.textArea.appendText("User has already made a bid");
                 return;
             }
             if(auction.getPlacedBids()[i] == null){
