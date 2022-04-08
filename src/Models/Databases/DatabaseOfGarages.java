@@ -9,7 +9,7 @@ import Models.Wallet;
 import java.io.*;
 import java.util.ArrayList;
 
-public class DatabaseOfGarages {
+public class DatabaseOfGarages extends Database{
     public static ArrayList<PersonalGarage> garages = new ArrayList<>();
     public static File garageData = new File("src/Project/Files/garageData.txt");
 

@@ -23,6 +23,8 @@ public class Customer extends User {
         id++;
         this.walletId = id;
         this.garageId = id;
+
+//        this.userId = ++userIdCounter;
     }
     public Customer(){
 

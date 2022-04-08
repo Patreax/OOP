@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
-public class DatabaseOfAuctions {
+public class DatabaseOfAuctions extends Database{
     public static ArrayList<Auction> auctions = new ArrayList<>();
     public static File auctionData = new File("src/Project/Files/auctionData.txt");
 

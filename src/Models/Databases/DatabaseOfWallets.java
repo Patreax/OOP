@@ -2,13 +2,12 @@ package Models.Databases;
 
 
 import Models.Users.Customer;
-import Models.Users.User;
 import Models.Wallet;
 
 import java.io.*;
 import java.util.ArrayList;
 
-public class DatabaseOfWallets {
+public class DatabaseOfWallets extends Database{
     public static ArrayList<Wallet> wallets = new ArrayList<>();
     public static File walletData = new File("src/Project/Files/walletData.txt");
 

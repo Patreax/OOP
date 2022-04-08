@@ -33,7 +33,7 @@ public class Skusanie {
 //                System.out.println("Customer");
 //        }
 
-        User user = new User("Meno", "Heslo");
+//        User user = new User("Meno", "Heslo");
 //        StandardUser standardUser = new StandardUser();
 
     }

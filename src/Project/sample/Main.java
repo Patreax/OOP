@@ -11,6 +11,11 @@ import java.io.IOException;
 public class Main extends Application {
 
     public static Stage stg;
+    public static Main mainInstance = null;
+
+    public Main(){
+        mainInstance = this;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception{

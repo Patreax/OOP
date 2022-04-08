@@ -35,6 +35,10 @@ public class Wallet implements Serializable {
         return bids;
     }
 
+    public void setBids(double bids) {
+        this.bids = bids;
+    }
+
     public int getWalletId() {
         return walletId;
     }

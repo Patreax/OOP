@@ -107,6 +107,9 @@ public class AuctionCreator {
         } catch (NoSelectedBoxException e){
             errorMessage.setText("Select one box");
         }
+
+        Stage stage = (Stage) createAuctionButton.getScene().getWindow();
+        stage.close();
     }
 
     private void checkBoxes() throws TooManySelectedBoxesException, NoSelectedBoxException{

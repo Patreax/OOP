@@ -22,14 +22,16 @@ import java.io.IOException;
 
 public class MainScreenController {
 
+    public static MainScreenController mainScreenControllerInstance = null;
+
     @FXML
     private Label userIDLabel;
     @FXML
     private Label userNameLabel;
     @FXML
-    private Label userCurrencyLabel;
+    public Label userCurrencyLabel;
     @FXML
-    private TextArea textArea;
+    public TextArea textArea;
     @FXML
     private TextField auctionIdField;
     @FXML
@@ -38,6 +40,7 @@ public class MainScreenController {
     public MainScreenController(){
 //        Platform.runLater(() -> displayData());
         Platform.runLater(this::displayData);
+        mainScreenControllerInstance = this;
     }
 
 //    private static MainScreenController single_instance = null;
@@ -49,7 +52,8 @@ public class MainScreenController {
 //    }
 
     private void displayData(){
-        userCurrencyLabel.setText("1000");
+        Customer currentCustomer = (Customer) DatabaseOfUsers.currentUser;
+        userCurrencyLabel.setText(Double.toString(currentCustomer.getWallet().getBids()));
         userNameLabel.setText(DatabaseOfUsers.currentUser.getUserName());
         userIDLabel.setText(Long.toString(DatabaseOfUsers.currentUser.getUserId()));
     }

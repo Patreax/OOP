@@ -13,15 +13,26 @@ public class User implements Serializable {
     protected static long lastId;
     public static File lastUserIdFile = new File("src/Project/Files/lastUserIdFile.txt");
 
-    protected PersonalGarage garage = new PersonalGarage();
+    protected static long userIdCounter = 0;
+
+//    protected PersonalGarage garage = new PersonalGarage();
+
 
     public User(String userName, String password){
         this.userName = userName;
         this.password = password;
-        this.userId = getLastId() + 1L;
-        storeLastId(lastId);
+
+//        this.userId = getLastId() + 1L;
+//        storeLastId(lastId);
+
+
+//        this.userId = ++userIdCounter;
     }
     public User(){
+
+    }
+
+    public void logIn(User user) throws IOException {
 
     }
 

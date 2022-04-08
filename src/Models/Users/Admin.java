@@ -5,6 +5,10 @@ import Models.Auctions.Auction;
 import Models.Auctions.AuctionType;
 import Models.Cars.Car;
 import Models.Databases.DatabaseOfAuctions;
+import Models.Databases.DatabaseOfGarages;
+import Models.Databases.DatabaseOfUsers;
+import Models.Databases.DatabaseOfWallets;
+import Project.sample.Main;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,8 +20,17 @@ public class Admin extends User implements Observer {
     public Admin(String userName, String password){
         this.userName = userName;
         this.password = password;
+
         this.userId = getLastId() + 1L;
         storeLastId(lastId);
+
+//        this.userId = ++userIdCounter;
+    }
+
+    public void logIn(User user) throws IOException {
+        DatabaseOfUsers.currentUser = user;
+
+        Main.mainInstance.changeScene("/GUI/AdminMainScreen.fxml");
     }
 
 

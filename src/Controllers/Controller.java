@@ -10,7 +10,6 @@ import Models.Users.Admin;
 import Models.Users.PremiumUser;
 import Models.Users.StandardUser;
 import Models.Users.User;
-import Project.sample.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -43,7 +42,7 @@ public class Controller {
         checkData(userNameField.getText(), userPasswordField.getText());
     }
 
-    public void register() throws IOException, ClassNotFoundException{
+    public void register() throws IOException{
 
         AuctionManager auctionManager = AuctionManager.getInstance();
         // Checking for empty spaces
@@ -89,30 +88,34 @@ public class Controller {
         ObjectInputStream in = new ObjectInputStream(new FileInputStream(DatabaseOfUsers.userData));
         if(!DatabaseOfUsers.registeredUsers.isEmpty()){
             for(User user : (ArrayList<User>)in.readObject()){
-                // Admin
-                if(user instanceof Admin && user.getUserName().equals(userName) && user.getPassword().equals(userPassWord)){
-                    DatabaseOfUsers.currentUser = user;
-                    Main main = new Main();
-                    main.changeScene("/GUI/AdminMainScreen.fxml");
-                    return;
-                }
-                // Premium
-                if(user instanceof PremiumUser && user.getUserName().equals(userName) && user.getPassword().equals(userPassWord)){
-                    DatabaseOfUsers.currentUser = user;
-                    DatabaseOfWallets.assignWallet();
-                    DatabaseOfGarages.assignGarage();
-                    Main main = new Main();
-                    main.changeScene("/GUI/MainScreen.fxml");
-                    return;
-                }
-
+//                // Admin
+//                if(user instanceof Admin && user.getUserName().equals(userName) && user.getPassword().equals(userPassWord)){
+//                    DatabaseOfUsers.currentUser = user;
+//                    Main main = new Main();
+//                    main.changeScene("/GUI/AdminMainScreen.fxml");
+//                    return;
+//                }
+//                // Premium
+//                if(user instanceof PremiumUser && user.getUserName().equals(userName) && user.getPassword().equals(userPassWord)){
+//                    DatabaseOfUsers.currentUser = user;
+//                    DatabaseOfWallets.assignWallet();
+//                    DatabaseOfGarages.assignGarage();
+//                    Main main = new Main();
+//                    main.changeScene("/GUI/MainScreen.fxml");
+//                    return;
+//                }
+//
                 if(user.getUserName().equals(userName) && user.getPassword().equals(userPassWord)){
-                    DatabaseOfUsers.currentUser = user;
-                    DatabaseOfWallets.assignWallet();
-                    DatabaseOfGarages.assignGarage();
+//                    DatabaseOfUsers.currentUser = user;
+//                    DatabaseOfWallets.assignWallet();
+//                    DatabaseOfGarages.assignGarage();
+//                    in.close();
+//                    Main main = new Main();
+//                    main.changeScene("/GUI/MainScreen.fxml");
+//                    return;
+
+                    user.logIn(user);
                     in.close();
-                    Main main = new Main();
-                    main.changeScene("/GUI/MainScreen.fxml");
                     return;
                 }
             }

@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+
 public class WalletController {
 
     @FXML
@@ -30,7 +31,7 @@ public class WalletController {
     }
 
     private void displayData(){
-        StandardUser currentCustomer = (StandardUser) DatabaseOfUsers.currentUser;
+        Customer currentCustomer = (Customer) DatabaseOfUsers.currentUser;
         this.currencyLabel.setText(Double.toString(currentCustomer.getWallet().getCurrency()));
         this.bidsLabel.setText(Double.toString(currentCustomer.getWallet().getBids()));
     }
@@ -42,9 +43,21 @@ public class WalletController {
     }
 
     public void exchangeCurrency(){
-        Customer currentCustomer = (Customer) DatabaseOfUsers.currentUser;
-        currentCustomer.getWallet().exchange(Double.parseDouble(exchangeField.getText()));
-        displayData();
+        try{
+            Customer currentCustomer = (Customer) DatabaseOfUsers.currentUser;
+            errorLabel.setText("");
+            if(Double.parseDouble(exchangeField.getText()) > currentCustomer.getWallet().getCurrency()){
+                errorLabel.setText("Not enough currency");
+                return;
+            }
+            currentCustomer.getWallet().exchange(Double.parseDouble(exchangeField.getText()));
+            displayData();
+            MainScreenController.mainScreenControllerInstance.userCurrencyLabel.setText(Double.toString(currentCustomer.getWallet().getBids()));
+
+        } catch (NumberFormatException e){
+            errorLabel.setText("Wrong format");
+        }
+
     }
 
     public void addCurrency(){
