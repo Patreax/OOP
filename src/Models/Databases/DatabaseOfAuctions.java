@@ -1,4 +1,4 @@
-package Models;
+package Models.Databases;
 
 import Models.Auctions.Auction;
 

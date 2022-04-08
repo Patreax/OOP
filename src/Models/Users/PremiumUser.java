@@ -15,6 +15,10 @@ public class PremiumUser extends Customer implements Serializable {
         this.userId = getLastId() + 1L;
         storeLastId(lastId);
 
-        this.wallet = new Wallet();
+
+        Customer.id++;
+        this.walletId = id;
+        this.garageId = id;
+//        this.wallet = new Wallet();
     }
 }

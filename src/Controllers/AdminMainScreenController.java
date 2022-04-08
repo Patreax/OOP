@@ -6,6 +6,8 @@ import Models.Auctions.Auction;
 import Models.Cars.ElectricCar;
 import Models.Cars.HybridCar;
 import Models.Cars.StandardCar;
+import Models.Databases.DatabaseOfAuctions;
+import Models.Databases.DatabaseOfUsers;
 import Models.Users.Admin;
 import Models.Users.PremiumUser;
 import Models.Users.StandardUser;

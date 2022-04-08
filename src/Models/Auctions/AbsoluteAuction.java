@@ -1,11 +1,9 @@
 package Models.Auctions;
 
 import Models.Bid;
-import Models.DatabaseOfAuctions;
-import Models.DatabaseOfUsers;
+import Models.Databases.DatabaseOfAuctions;
+import Models.Databases.DatabaseOfUsers;
 import Models.Users.Customer;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
 
 import java.io.Serializable;
 

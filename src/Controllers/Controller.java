@@ -2,6 +2,10 @@ package Controllers;
 
 import Models.*;
 import Models.Auctions.AuctionManager;
+import Models.Databases.DatabaseOfAuctions;
+import Models.Databases.DatabaseOfGarages;
+import Models.Databases.DatabaseOfUsers;
+import Models.Databases.DatabaseOfWallets;
 import Models.Users.Admin;
 import Models.Users.PremiumUser;
 import Models.Users.StandardUser;
@@ -31,6 +35,8 @@ public class Controller {
     public Controller() throws IOException, ClassNotFoundException{     // Loading the database af users and auctions
         DatabaseOfUsers.loadObjects();
         DatabaseOfAuctions.loadObjects();
+        DatabaseOfWallets.loadObjects();
+        DatabaseOfGarages.loadObjects();
     }
 
     public void logIn() throws IOException, ClassNotFoundException{
@@ -55,14 +61,21 @@ public class Controller {
             }
             if(userNameField.getText().contains("Premium")){                                        // Registering PREMIUM User
                 PremiumUser newUser = new PremiumUser(userNameField.getText(), userPasswordField.getText());
+                Wallet wallet = new Wallet();
+                PersonalGarage personalGarage = new PersonalGarage();
                 DatabaseOfUsers.storeObject(newUser);
+                DatabaseOfWallets.storeObject(wallet);
+                DatabaseOfGarages.storeObject(personalGarage);
                 errorMessage.setText("User has been registered");
                 return;
             }
 
             StandardUser newUser = new StandardUser(userNameField.getText(), userPasswordField.getText());  // registering STANDARD User
-
+            Wallet wallet = new Wallet();
+            PersonalGarage personalGarage = new PersonalGarage();
             DatabaseOfUsers.storeObject(newUser);
+            DatabaseOfWallets.storeObject(wallet);
+            DatabaseOfGarages.storeObject(personalGarage);
             errorMessage.setText("User has been registered");
         }
     }
@@ -86,6 +99,8 @@ public class Controller {
                 // Premium
                 if(user instanceof PremiumUser && user.getUserName().equals(userName) && user.getPassword().equals(userPassWord)){
                     DatabaseOfUsers.currentUser = user;
+                    DatabaseOfWallets.assignWallet();
+                    DatabaseOfGarages.assignGarage();
                     Main main = new Main();
                     main.changeScene("/GUI/MainScreen.fxml");
                     return;
@@ -93,6 +108,8 @@ public class Controller {
 
                 if(user.getUserName().equals(userName) && user.getPassword().equals(userPassWord)){
                     DatabaseOfUsers.currentUser = user;
+                    DatabaseOfWallets.assignWallet();
+                    DatabaseOfGarages.assignGarage();
                     in.close();
                     Main main = new Main();
                     main.changeScene("/GUI/MainScreen.fxml");

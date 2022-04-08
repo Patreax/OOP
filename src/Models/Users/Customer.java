@@ -3,15 +3,26 @@ package Models.Users;
 
 import Models.*;
 import Models.Auctions.Auction;
+import Models.Databases.DatabaseOfAuctions;
 
 public class Customer extends User {
     protected Wallet wallet;
     protected PersonalGarage garage;
 
+    public static int id = 0;
+    protected int walletId;
+    protected int garageId;
+
+
+
     public Customer(String userName, String password){
         super(userName, password);
 //        this.wallet = new Wallet();
-        this.garage = new PersonalGarage();
+//        this.garage = new PersonalGarage();
+
+        id++;
+        this.walletId = id;
+        this.garageId = id;
     }
     public Customer(){
 
@@ -34,7 +45,23 @@ public class Customer extends User {
         return wallet;
     }
 
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
+    }
+
     public PersonalGarage getGarage() {
         return garage;
+    }
+
+    public void setGarage(PersonalGarage garage) {
+        this.garage = garage;
+    }
+
+    public int getWalletId() {
+        return walletId;
+    }
+
+    public int getGarageId() {
+        return garageId;
     }
 }

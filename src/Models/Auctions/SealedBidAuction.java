@@ -1,7 +1,7 @@
 package Models.Auctions;
 
 import Models.Bid;
-import Models.DatabaseOfAuctions;
+import Models.Databases.DatabaseOfAuctions;
 import Models.Users.StandardUser;
 
 import java.io.Serializable;

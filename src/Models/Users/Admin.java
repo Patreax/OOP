@@ -4,6 +4,7 @@ import Models.*;
 import Models.Auctions.Auction;
 import Models.Auctions.AuctionType;
 import Models.Cars.Car;
+import Models.Databases.DatabaseOfAuctions;
 
 import java.io.IOException;
 import java.util.ArrayList;

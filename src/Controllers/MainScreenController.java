@@ -5,6 +5,10 @@ import Models.Auctions.AbsoluteAuction;
 import Models.Auctions.Auction;
 import Models.Auctions.SealedBidAuction;
 import Models.Cars.Car;
+import Models.Databases.DatabaseOfAuctions;
+import Models.Databases.DatabaseOfGarages;
+import Models.Databases.DatabaseOfUsers;
+import Models.Databases.DatabaseOfWallets;
 import Models.Users.Customer;
 import Models.Users.PremiumUser;
 import Project.sample.Main;
@@ -15,7 +19,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
-import java.io.Serializable;
 
 public class MainScreenController {
 
@@ -52,12 +55,14 @@ public class MainScreenController {
     }
 
     public void logOut() throws IOException {
-        // Setting current user to null
-        DatabaseOfUsers.currentUser = null;
         // Saving all the data
         Serializator serializator = new Serializator();
         serializator.saveData(DatabaseOfAuctions.auctions, DatabaseOfAuctions.auctionData);
         serializator.saveData(DatabaseOfUsers.registeredUsers, DatabaseOfUsers.userData);
+        serializator.saveData(DatabaseOfWallets.wallets, DatabaseOfWallets.walletData);
+        serializator.saveData(DatabaseOfGarages.garages, DatabaseOfGarages.garageData);
+        // Setting current user to null
+        DatabaseOfUsers.currentUser = null;
         // Clearing the user and auction database
         DatabaseOfAuctions.auctions.clear();
         DatabaseOfUsers.registeredUsers.clear();
