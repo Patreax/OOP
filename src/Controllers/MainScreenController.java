@@ -70,6 +70,8 @@ public class MainScreenController {
         // Clearing the user and auction database
         DatabaseOfAuctions.auctions.clear();
         DatabaseOfUsers.registeredUsers.clear();
+        DatabaseOfWallets.wallets.clear();
+        DatabaseOfGarages.garages.clear();
 
         // Loading first screen
         Main main = new Main();

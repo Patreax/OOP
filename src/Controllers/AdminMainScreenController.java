@@ -7,7 +7,9 @@ import Models.Cars.ElectricCar;
 import Models.Cars.HybridCar;
 import Models.Cars.StandardCar;
 import Models.Databases.DatabaseOfAuctions;
+import Models.Databases.DatabaseOfGarages;
 import Models.Databases.DatabaseOfUsers;
+import Models.Databases.DatabaseOfWallets;
 import Models.Users.Admin;
 import Models.Users.PremiumUser;
 import Models.Users.StandardUser;
@@ -108,6 +110,8 @@ public class AdminMainScreenController {
         // Clearing the user and auction database
         DatabaseOfAuctions.auctions.clear();
         DatabaseOfUsers.registeredUsers.clear();
+        DatabaseOfWallets.wallets.clear();
+        DatabaseOfGarages.garages.clear();
 
         // Loading first screen
         Main main = new Main();
