@@ -40,7 +40,7 @@ public class AbsoluteAuction implements AuctionType, Serializable {
             currentCustomer.getWallet().setBids(currentCustomer.getWallet().getBids() - auction.highestBid); // taking the money
             MainScreenController.mainScreenControllerInstance.userCurrencyLabel.setText(Double.toString(currentCustomer.getWallet().getBids()));
 //            System.out.println("Customer " + currentCustomer + " won the car " + auction.car.model);
-            auctionManager.setAuction(auction);
+            auctionManager.notifyObserver(auction);
             DatabaseOfAuctions.auctions.remove(auction);
         }
     }

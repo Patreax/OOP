@@ -24,7 +24,7 @@ public class DatabaseOfUsers extends Database{
         out.close();
     }
 
-    public static void loadObjects() throws IOException, ClassNotFoundException{
+    public void loadObjects() throws IOException, ClassNotFoundException{
         AuctionManager auctionManager = AuctionManager.getInstance();
         if(userData.length() == 0)
             return;

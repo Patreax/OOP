@@ -2,10 +2,7 @@ package Controllers;
 
 import Models.*;
 import Models.Auctions.AuctionManager;
-import Models.Databases.DatabaseOfAuctions;
-import Models.Databases.DatabaseOfGarages;
-import Models.Databases.DatabaseOfUsers;
-import Models.Databases.DatabaseOfWallets;
+import Models.Databases.*;
 import Models.Users.Admin;
 import Models.Users.PremiumUser;
 import Models.Users.StandardUser;
@@ -32,10 +29,13 @@ public class Controller {
 
 
     public Controller() throws IOException, ClassNotFoundException{     // Loading the database af users and auctions
-        DatabaseOfUsers.loadObjects();
-        DatabaseOfAuctions.loadObjects();
-        DatabaseOfWallets.loadObjects();
-        DatabaseOfGarages.loadObjects();
+//        DatabaseOfUsers.loadObjects();
+//        DatabaseOfAuctions.loadObjects();
+//        DatabaseOfWallets.loadObjects();
+//        DatabaseOfGarages.loadObjects();
+        for(Database database : Database.databases){
+            database.loadObjects();
+        }
     }
 
     public void logIn() throws IOException, ClassNotFoundException{
@@ -55,6 +55,7 @@ public class Controller {
             if(userNameField.getText().contains("Admin")){                                          // Registering ADMIN
                 Admin newUser = new Admin(userNameField.getText(), userPasswordField.getText());
                 DatabaseOfUsers.storeObject(newUser);
+                auctionManager.register(newUser);
                 errorMessage.setText("User has been registered");
                 return;
             }
@@ -87,7 +88,8 @@ public class Controller {
 
         ObjectInputStream in = new ObjectInputStream(new FileInputStream(DatabaseOfUsers.userData));
         if(!DatabaseOfUsers.registeredUsers.isEmpty()){
-            for(User user : (ArrayList<User>)in.readObject()){
+//            for(User user : (ArrayList<User>)in.readObject()){
+                for(User user : DatabaseOfUsers.registeredUsers){
 //                // Admin
 //                if(user instanceof Admin && user.getUserName().equals(userName) && user.getPassword().equals(userPassWord)){
 //                    DatabaseOfUsers.currentUser = user;

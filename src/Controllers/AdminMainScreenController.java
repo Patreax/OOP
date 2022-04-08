@@ -118,14 +118,12 @@ public class AdminMainScreenController {
         Admin observer = (Admin) DatabaseOfUsers.currentUser;
         for (String message : observer.news){
             textArea.appendText(message + "\n");
-            textArea.appendText("Toto uz ide");
-            System.out.println(message);
         }
 
-        for(String message : Admin.news){
-            textArea.appendText(message + "\n");
-            System.out.println(message);
-        }
+//        for(String message : Admin.news){
+//            textArea.appendText(message + "\n");
+//            System.out.println(message);
+//        }
     }
 
     public void showAboutScreen(){

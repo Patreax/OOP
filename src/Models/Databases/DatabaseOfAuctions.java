@@ -12,7 +12,7 @@ public class DatabaseOfAuctions extends Database{
     public static ArrayList<Auction> auctions = new ArrayList<>();
     public static File auctionData = new File("src/Project/Files/auctionData.txt");
 
-    public static void loadObjects() throws IOException, ClassNotFoundException{
+    public void loadObjects() throws IOException, ClassNotFoundException{
         if(auctionData.length() == 0)
             return;
         ObjectInputStream in = new ObjectInputStream(new FileInputStream(auctionData));

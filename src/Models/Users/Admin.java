@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class Admin extends User implements Observer {
 
-    public static ArrayList<String> news = new ArrayList<>();
+    public ArrayList<String> news = new ArrayList<>();
 
     public Admin(String userName, String password){
         this.userName = userName;
@@ -44,8 +44,8 @@ public class Admin extends User implements Observer {
 
     @Override
     public void update(Auction auction) {
-        String message = "Auction: " + auction.getAuctionId() + ". " + auction.car + " has been sold";
-        Admin.news.add(message);
+        String message = "Auction: " + auction.getAuctionId() + ". " + auction.car.brand + " " + auction.car.model  + " has been sold";
+        this.news.add(message);
         System.out.println("Message added");
     }
 }

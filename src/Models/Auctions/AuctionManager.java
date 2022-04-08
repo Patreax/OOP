@@ -36,14 +36,14 @@ public class AuctionManager implements Subject, Serializable {
     }
 
     @Override
-    public void notifyObserver() {
+    public void notifyObserver(Auction auction) {
         for(Observer observer : observers){
             observer.update(auction);
         }
     }
 
-    public void setAuction(Auction auction){
-        this.auction = auction;
-        notifyObserver();
-    }
+//    public void setAuction(Auction auction){
+//        this.auction = auction;
+//        notifyObserver();
+//    }
 }

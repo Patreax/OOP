@@ -45,6 +45,7 @@ public class SealedBidAuction implements AuctionType, Serializable {
             }
             if (winningBid != null){
                 Customer winner = (Customer) winningBid.getBidsUser();
+                auctionManager.notifyObserver(auction);
                 winner.getGarage().getCars().add(auction.car);        //  Giving car to the customer
                 winner.getWallet().setBids(winner.getWallet().getBids() - winningBid.amount);   // taking the money
                 MainScreenController.mainScreenControllerInstance.userCurrencyLabel.setText(Double.toString(winner.getWallet().getBids()));

@@ -29,7 +29,7 @@ public class DatabaseOfWallets extends Database{
     }
 
 
-    public static void loadObjects() throws IOException, ClassNotFoundException{
+    public void loadObjects() throws IOException, ClassNotFoundException{
         if(walletData.length() == 0)
             return;
         ObjectInputStream in = new ObjectInputStream(new FileInputStream(walletData));

@@ -30,7 +30,7 @@ public class DatabaseOfGarages extends Database{
         out.close();
     }
 
-    public static void loadObjects() throws IOException, ClassNotFoundException{
+    public void loadObjects() throws IOException, ClassNotFoundException{
         if(garageData.length() == 0)
             return;
         ObjectInputStream in = new ObjectInputStream(new FileInputStream(garageData));

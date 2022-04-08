@@ -4,11 +4,13 @@ import java.io.IOException;
 
 public abstract class Database {
 
-    public static void loadObjects() throws IOException, ClassNotFoundException{
+    public static Database[] databases = {new DatabaseOfAuctions(), new DatabaseOfGarages(), new DatabaseOfUsers(), new DatabaseOfWallets()};
+
+    public void loadObjects() throws IOException, ClassNotFoundException{
 
     }
 
-    public static void storeObject() throws IOException{
+    public void storeObject() throws IOException{
 
     }
 

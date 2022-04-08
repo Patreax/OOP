@@ -3,6 +3,7 @@ package Models.Users;
 import Models.PersonalGarage;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class User implements Serializable {
@@ -17,6 +18,7 @@ public class User implements Serializable {
 
 //    protected PersonalGarage garage = new PersonalGarage();
 
+    protected ArrayList<String> news;
 
     public User(String userName, String password){
         this.userName = userName;
@@ -27,6 +29,7 @@ public class User implements Serializable {
 
 
 //        this.userId = ++userIdCounter;
+
     }
     public User(){
 
