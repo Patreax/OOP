@@ -29,7 +29,7 @@ public class Controller {
 
 
     public Controller() throws IOException, ClassNotFoundException{     // Loading the database af users and auctions
-//        DatabaseOfUsers.loadObjects();
+//        DatabaseOfUsers.loadObjects();                                // Polymorfia
 //        DatabaseOfAuctions.loadObjects();
 //        DatabaseOfWallets.loadObjects();
 //        DatabaseOfGarages.loadObjects();
@@ -80,7 +80,7 @@ public class Controller {
         }
     }
 
-    private void checkData(String userName, String userPassWord) throws IOException, ClassNotFoundException{
+    private void checkData(String userName, String userPassWord) throws IOException{
         if (DatabaseOfUsers.registeredUsers.size() == 0){             // Checking for empty array of registered users
             errorMessage.setText("User does not exist");
             return;

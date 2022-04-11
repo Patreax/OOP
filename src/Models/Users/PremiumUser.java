@@ -1,5 +1,8 @@
 package Models.Users;
 
+import Models.Auctions.Auction;
+import Models.Bid;
+import Models.Databases.DatabaseOfAuctions;
 import Models.Databases.DatabaseOfGarages;
 import Models.Databases.DatabaseOfUsers;
 import Models.Databases.DatabaseOfWallets;
@@ -34,5 +37,18 @@ public class PremiumUser extends Customer implements Serializable {
         DatabaseOfGarages.assignGarage();
 
         Main.mainInstance.changeScene("/GUI/MainScreen.fxml");
+    }
+
+    public void placeBid(int auctionId, double amount){
+        Bid newBid = new Bid(this, amount);
+        if(DatabaseOfAuctions.auctions.size() != 0){
+            for (Auction a : DatabaseOfAuctions.auctions){
+                if (a.getAuctionId() == auctionId){
+                    a.receiveBid(newBid, a);
+                    return;
+                }
+            }
+        } else
+            System.out.println("Auction with given Id not found");
     }
 }

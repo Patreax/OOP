@@ -4,7 +4,6 @@ import Controllers.MainScreenController;
 import Models.Bid;
 import Models.Databases.DatabaseOfAuctions;
 import Models.Users.Customer;
-import Models.Users.StandardUser;
 
 import java.io.Serializable;
 

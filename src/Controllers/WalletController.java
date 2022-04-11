@@ -2,7 +2,6 @@ package Controllers;
 
 import Models.Users.Customer;
 import Models.Databases.DatabaseOfUsers;
-import Models.Users.StandardUser;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
