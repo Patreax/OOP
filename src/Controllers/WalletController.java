@@ -1,7 +1,7 @@
 package Controllers;
 
-import Models.Users.Customer;
 import Models.Databases.DatabaseOfUsers;
+import Models.Users.Customer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,27 +25,27 @@ public class WalletController {
     private TextField addCurrencyField;
 
 
-    public WalletController(){
+    public WalletController() {
         Platform.runLater(this::displayData);
     }
 
-    private void displayData(){
+    private void displayData() {
         Customer currentCustomer = (Customer) DatabaseOfUsers.currentUser;
         this.currencyLabel.setText(Double.toString(currentCustomer.getWallet().getCurrency()));
         this.bidsLabel.setText(Double.toString(currentCustomer.getWallet().getBids()));
     }
 
-    public void back(ActionEvent actionEvent){      // Closing the window
+    public void back(ActionEvent actionEvent) {      // Closing the window
         Node n = (Node) actionEvent.getSource();
         Stage stage = (Stage) n.getScene().getWindow();
         stage.close();
     }
 
-    public void exchangeCurrency(){
-        try{
+    public void exchangeCurrency() {
+        try {
             Customer currentCustomer = (Customer) DatabaseOfUsers.currentUser;
             errorLabel.setText("");
-            if(Double.parseDouble(exchangeField.getText()) > currentCustomer.getWallet().getCurrency()){
+            if (Double.parseDouble(exchangeField.getText()) > currentCustomer.getWallet().getCurrency()) {
                 errorLabel.setText("Not enough currency");
                 return;
             }
@@ -53,13 +53,13 @@ public class WalletController {
             displayData();
             MainScreenController.mainScreenControllerInstance.userCurrencyLabel.setText(Double.toString(currentCustomer.getWallet().getBids()));
 
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             errorLabel.setText("Wrong format");
         }
 
     }
 
-    public void addCurrency(){
+    public void addCurrency() {
         Customer currentCustomer = (Customer) DatabaseOfUsers.currentUser;
         currentCustomer.getWallet().addCurrency(Double.parseDouble(addCurrencyField.getText()));
         displayData();

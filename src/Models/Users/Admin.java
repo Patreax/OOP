@@ -5,9 +5,7 @@ import Models.Auctions.Auction;
 import Models.Auctions.AuctionType;
 import Models.Cars.Car;
 import Models.Databases.DatabaseOfAuctions;
-import Models.Databases.DatabaseOfGarages;
 import Models.Databases.DatabaseOfUsers;
-import Models.Databases.DatabaseOfWallets;
 import Project.sample.Main;
 
 import java.io.IOException;
@@ -15,11 +13,13 @@ import java.util.ArrayList;
 
 public class Admin extends User implements Observer {
 
-    public ArrayList<String> news = new ArrayList<>();
-
+//    public ArrayList<String> news = new ArrayList<>();
+//    public ArrayList<String> news;
     public Admin(String userName, String password){
         this.userName = userName;
         this.password = password;
+
+
 
         this.userId = getLastId() + 1L;
         storeLastId(lastId);
@@ -33,9 +33,8 @@ public class Admin extends User implements Observer {
         Main.mainInstance.changeScene("/GUI/AdminMainScreen.fxml");
     }
 
-
-    public static void createAuction(Car newCar, boolean isPremium, AuctionType auctionType) throws IOException {
-        Auction newAuction = new Auction(newCar, auctionType);
+    public static void createAuction(Car newCar, boolean isPremium, AuctionType auctionType, double minimumPrice) throws IOException {
+        Auction newAuction = new Auction(newCar, auctionType, minimumPrice);
         newAuction.isPremium = isPremium;
         Serializator serializator = new Serializator();
         serializator.serialize(newAuction, DatabaseOfAuctions.auctions, DatabaseOfAuctions.auctionData);
@@ -44,8 +43,8 @@ public class Admin extends User implements Observer {
 
     @Override
     public void update(Auction auction) {
-        String message = "Auction: " + auction.getAuctionId() + ". " + auction.car.brand + " " + auction.car.model  + " has been sold";
+        String message = "Auction: " + auction.getAuctionId() + ". " + auction.car.getBrand() + " " + auction.car.getModel()  + " has been sold";
         this.news.add(message);
-        System.out.println("Message added");
+        System.out.println(message);
     }
 }

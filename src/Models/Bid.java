@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class Bid implements Serializable {
     private Customer bidsUser;
-    public double amount;
+    private double amount;
 
 
     public Bid(Customer bidsUser, double amount){
@@ -16,5 +16,9 @@ public class Bid implements Serializable {
 
     public Customer getBidsUser() {
         return bidsUser;
+    }
+
+    public double getAmount() {
+        return amount;
     }
 }

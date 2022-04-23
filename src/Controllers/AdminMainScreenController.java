@@ -49,8 +49,8 @@ public class AdminMainScreenController {
         // Going through all the auction via iterator
         new Thread(() -> {
             for(Auction a : DatabaseOfAuctions.auctions){
-            textArea.appendText("ID: " + a.getAuctionId() + "\t Brand: " + a.car.brand + "\t Model: " + a.car.model + "\n");
-            textArea.appendText("Price: " + a.car.price + "\t Year: " + a.car.year + "\t Bids: " +a.getNumberOfBids() +"/" + a.getMaxBids() + "\n");
+            textArea.appendText("ID: " + a.getAuctionId() + "\t Brand: " + a.car.getBrand() + "\t Model: " + a.car.getModel() + "\n");
+            textArea.appendText("Price: " + a.car.getPrice() + "\t Year: " + a.car.getYear() + "\t Bids: " +a.getNumberOfBids() +"/" + a.getMaxBids() + "\n");
             textArea.appendText("\n");
         }}).start();
 
@@ -119,7 +119,7 @@ public class AdminMainScreenController {
     }
 
     public void showNews(){         // Part of observer
-        Admin observer = (Admin) DatabaseOfUsers.currentUser;
+        Observer observer = (Observer) DatabaseOfUsers.currentUser;
         for (String message : observer.news){
             textArea.appendText(message + "\n");
         }

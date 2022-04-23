@@ -43,19 +43,22 @@ public class StandardUser extends Customer {
         Main.mainInstance.changeScene("/GUI/MainScreen.fxml");
     }
 
-    public void placeBid(int auctionId, double amount){
+    public String placeBid(int auctionId, double amount){
+        String message = "";
         Bid newBid = new Bid(this, amount);
         if(DatabaseOfAuctions.auctions.size() != 0){
             for (Auction a : DatabaseOfAuctions.auctions){
                 if (a.getAuctionId() == auctionId) {
                     if(a.isPremium)
-                        return;
-                    a.receiveBid(newBid, a);
-                    return;
+                        return null;
+                    message = a.receiveBid(newBid, a);
+                    return message;
                 }
             }
         } else
-            System.out.println("Auction with given Id not found");
+//            System.out.println("Auction with given Id not found");
+            message = "Auction with given Id not found";
+        return message;
     }
 
     public PersonalGarage getGarage() {

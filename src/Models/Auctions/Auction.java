@@ -11,8 +11,9 @@ import java.util.Scanner;
 
 public class Auction implements Serializable {
 
-    public Boolean isPremium = false;
+    public Boolean isPremium;
     public int numberOfBids;
+    private double minimumPrice = 0;
     public double highestBid = 0;
 
     private long auctionId;
@@ -28,10 +29,12 @@ public class Auction implements Serializable {
 
     public AuctionType auctionType;
 
-    public Auction(Car car, AuctionType auctionType){
+    public Auction(Car car, AuctionType auctionType, double minimumPrice){
         this.car = car;
         placedBids = new Bid[maxBids];
         this.numberOfBids = 0;
+        this.isPremium = false;
+        this.minimumPrice = minimumPrice;
         this.auctionId = getLastId() + 1L;
         storeLastId(lastAuctionId);
 
@@ -103,8 +106,10 @@ public class Auction implements Serializable {
 //        }
 //    }
 
-    public void receiveBid(Bid bid, Auction auction){
-        auctionType.receiveBid(bid, auction);
+    public String receiveBid(Bid bid, Auction auction){
+
+        String message = auctionType.receiveBid(bid, auction);
+        return message;
     }
 
     public long getAuctionId() {
@@ -121,5 +126,9 @@ public class Auction implements Serializable {
 
     public Bid[] getPlacedBids() {
         return placedBids;
+    }
+
+    public double getMinimumPrice() {
+        return minimumPrice;
     }
 }

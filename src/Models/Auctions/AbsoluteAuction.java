@@ -10,31 +10,43 @@ import java.io.Serializable;
 
 public class AbsoluteAuction implements AuctionType, Serializable {
     AuctionManager auctionManager = AuctionManager.getInstance();
+    String message = "";
+
 
     @Override
-    public void receiveBid(Bid bid, Auction auction) {
+    public String receiveBid(Bid bid, Auction auction) {
+
+        if(bid.getAmount() < auction.getMinimumPrice()){
+            message = "You must bid at least " + auction.getMinimumPrice();
+            return message;
+        }
+
         for(int i=0; i<auction.getMaxBids(); i++) {
             if (auction.getPlacedBids()[i] != null && auction.getPlacedBids()[i].getBidsUser().getUserId() == bid.getBidsUser().getUserId()) {
-                System.out.println("User has already made a bid");
-                MainScreenController.mainScreenControllerInstance.textArea.appendText("You have already made a bid");
-                return;
+//                System.out.println("User has already made a bid");
+//                MainScreenController.mainScreenControllerInstance.textArea.appendText("You have already made a bid");
+                message = "You have already made a bid";
+                return message;
             }
             if(auction.getPlacedBids()[i] == null){
-                if(bid.amount > auction.highestBid){
+                if(bid.getAmount() > auction.highestBid){
                     auction.getPlacedBids()[i] = bid;
-                    auction.highestBid = bid.amount;
+                    auction.highestBid = bid.getAmount();
                     auction.numberOfBids++;
-                    System.out.println("Bid with amount " + auction.getPlacedBids()[i].amount + " has been placed");
-                    MainScreenController.mainScreenControllerInstance.textArea.appendText("Bid with amount " + auction.getPlacedBids()[i].amount + " has been placed");
+                    message = "Bid with amount " + auction.getPlacedBids()[i].getAmount() + " has been placed";
+//                    System.out.println("Bid with amount " + auction.getPlacedBids()[i].getAmount() + " has been placed");
+//                    MainScreenController.mainScreenControllerInstance.textArea.appendText("Bid with amount " + auction.getPlacedBids()[i].getAmount() + " has been placed");
                     break;
                 }
-                else MainScreenController.mainScreenControllerInstance.textArea.appendText("You must bid more than " + auction.highestBid);
+                else
+                    message = "You must bid more than " + auction.highestBid;
+//                    MainScreenController.mainScreenControllerInstance.textArea.appendText("You must bid more than " + auction.highestBid);
                     //System.out.println("You must bid more than " + auction.highestBid);
             }
         }
         if(auction.numberOfBids == auction.getMaxBids()){
-            System.out.println("No more spaces for bids");
-            MainScreenController.mainScreenControllerInstance.textArea.appendText("No more spaces for bids");
+//            System.out.println("No more spaces for bids");
+//            MainScreenController.mainScreenControllerInstance.textArea.appendText("No more spaces for bids");
             Customer currentCustomer = (Customer) DatabaseOfUsers.currentUser;
             currentCustomer.getGarage().getCars().add(auction.car);        //  Giving car to the customer
             currentCustomer.getWallet().setBids(currentCustomer.getWallet().getBids() - auction.highestBid); // taking the money
@@ -43,6 +55,7 @@ public class AbsoluteAuction implements AuctionType, Serializable {
             auctionManager.notifyObserver(auction);
             DatabaseOfAuctions.auctions.remove(auction);
         }
+        return message;
     }
 }
 

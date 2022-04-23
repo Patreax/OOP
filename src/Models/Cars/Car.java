@@ -3,10 +3,11 @@ package Models.Cars;
 import java.io.Serializable;
 
 public class Car implements Serializable {
-    public String brand;
-    public String model;
-    public double price;
-    public int year;
+    protected String brand;
+    protected String model;
+    protected double price;
+    protected int year;
+
     private int kilometers;
     private FUEL fuel;
 
@@ -42,5 +43,21 @@ public class Car implements Serializable {
 
     public Car(){
 
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public int getYear() {
+        return year;
     }
 }

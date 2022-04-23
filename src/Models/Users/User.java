@@ -18,11 +18,13 @@ public class User implements Serializable {
 
 //    protected PersonalGarage garage = new PersonalGarage();
 
-    protected ArrayList<String> news;
+//    protected ArrayList<String> news;
 
     public User(String userName, String password){
         this.userName = userName;
         this.password = password;
+
+//        this.news = new ArrayList<>();
 
 //        this.userId = getLastId() + 1L;
 //        storeLastId(lastId);
