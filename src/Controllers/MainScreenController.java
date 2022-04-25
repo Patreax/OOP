@@ -5,10 +5,8 @@ import Models.Auctions.Auction;
 import Models.Auctions.SealedBidAuction;
 import Models.Cars.Car;
 import Models.Databases.DatabaseOfAuctions;
-import Models.Databases.DatabaseOfGarages;
 import Models.Databases.DatabaseOfUsers;
-import Models.Databases.DatabaseOfWallets;
-import Models.Serializator;
+import Models.MainScreenInterface;
 import Models.Users.Customer;
 import Models.Users.PremiumUser;
 import Project.sample.Main;
@@ -18,15 +16,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 
-public class MainScreenController {
+public class MainScreenController extends MainScreen implements MainScreenInterface {
 
     public static MainScreenController mainScreenControllerInstance;
 
@@ -45,12 +38,11 @@ public class MainScreenController {
     @FXML
     private TextField auctionAmountField;
 
-    public MainScreenController() throws FileNotFoundException {
+    public MainScreenController() {
         mainScreenControllerInstance = this;
 
         Platform.runLater(this::displayData);
 
-//        new Thread(this::displayTime).start();
     }
 
 //    private static MainScreenController single_instance = null;
@@ -61,7 +53,7 @@ public class MainScreenController {
 //        return single_instance;
 //    }
 
-    private void displayData() {
+    public void displayData() {
         Customer currentCustomer = (Customer) DatabaseOfUsers.currentUser;
         userCurrencyLabel.setText(Double.toString(currentCustomer.getWallet().getBids()));
         userNameLabel.setText(DatabaseOfUsers.currentUser.getUserName());
@@ -69,23 +61,25 @@ public class MainScreenController {
     }
 
     public void logOut() throws IOException {
-        // Saving all the data
-        Serializator serializator = new Serializator();
-        serializator.saveData(DatabaseOfAuctions.auctions, DatabaseOfAuctions.auctionData);
-        serializator.saveData(DatabaseOfUsers.registeredUsers, DatabaseOfUsers.userData);
-        serializator.saveData(DatabaseOfWallets.wallets, DatabaseOfWallets.walletData);
-        serializator.saveData(DatabaseOfGarages.garages, DatabaseOfGarages.garageData);
-        // Setting current user to null
-        DatabaseOfUsers.currentUser = null;
-        // Clearing the user and auction database
-        DatabaseOfAuctions.auctions.clear();
-        DatabaseOfUsers.registeredUsers.clear();
-        DatabaseOfWallets.wallets.clear();
-        DatabaseOfGarages.garages.clear();
+//        // Saving all the data
+//        Serializator serializator = new Serializator();
+//        serializator.saveData(DatabaseOfUsers.registeredUsers, DatabaseOfUsers.userData);
+//        serializator.saveData(DatabaseOfAuctions.auctions, DatabaseOfAuctions.auctionData);
+//        serializator.saveData(DatabaseOfWallets.wallets, DatabaseOfWallets.walletData);
+//        serializator.saveData(DatabaseOfGarages.garages, DatabaseOfGarages.garageData);
+//        // Setting current user to null
+//        DatabaseOfUsers.currentUser = null;
+//        // Clearing the user and auction database
+//        DatabaseOfUsers.registeredUsers.clear();
+//        DatabaseOfAuctions.auctions.clear();
+//        DatabaseOfWallets.wallets.clear();
+//        DatabaseOfGarages.garages.clear();
+//
+//        // Loading first screen
+//        Main main = new Main();
+//        main.changeScene("/GUI/sample.fxml");
 
-        // Loading first screen
-        Main main = new Main();
-        main.changeScene("/GUI/sample.fxml");
+        MainScreenInterface.super.logOut(DatabaseOfUsers.currentUser);
     }
 
     public void showAuctions() {                    // Showing auctions for different types of users
@@ -142,32 +136,10 @@ public class MainScreenController {
     public void showCars() {
         textArea.setText("");
         Customer currentUser = (Customer) DatabaseOfUsers.currentUser;
+        if(currentUser.getGarage().getCars().isEmpty())
+            textArea.appendText("You do not own any cars at the moment\n");
         for (Car car : currentUser.getGarage().getCars()) {
             textArea.appendText(car.getBrand() + " " + car.getModel() + "\n");
-        }
-    }
-
-    private void displayTime() {
-
-//        new Thread(() -> {}).start();
-
-        while (true) {
-
-//            Calendar now = Calendar.getInstance();
-//            int hour = now.get(Calendar.HOUR_OF_DAY);
-//            int minute = now.get(Calendar.MINUTE);
-//            timeLabel.setText(hour + ":" + minute);
-//            System.out.println(hour + ":" + minute);
-
-            DateFormat df = new SimpleDateFormat("h:mm a");
-            Date date = new Date();
-            String stringDate = df.format(date);
-            System.out.println(stringDate);
-            timeLabel.setText(stringDate);
-
-//            try {
-//                Thread.sleep(5000); } catch (Exception e) {
-//            }
         }
     }
 

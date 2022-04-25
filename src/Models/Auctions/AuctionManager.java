@@ -10,13 +10,13 @@ public class AuctionManager implements Subject, Serializable {
 
     private Auction auction;
 
-    private ArrayList<Observer> observers;
+    public static ArrayList<Observer> observers = new ArrayList<>();
 
     private static AuctionManager single_instance = null;
 
-    public AuctionManager(){
-        this.observers = new ArrayList<>();
-    }
+//    public AuctionManager(){
+//        observers = new ArrayList<>();
+//    }
 
     public static AuctionManager getInstance(){     // Singleton
         if (single_instance == null)
@@ -39,6 +39,7 @@ public class AuctionManager implements Subject, Serializable {
     public void notifyObserver(Auction auction) {
         for(Observer observer : observers){
             observer.update(auction);
+            System.out.println(observer);
         }
     }
 

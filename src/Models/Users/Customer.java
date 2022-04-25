@@ -1,7 +1,6 @@
 package Models.Users;
 
 
-import Controllers.MainScreenController;
 import Models.*;
 import Models.Auctions.Auction;
 import Models.Databases.DatabaseOfAuctions;

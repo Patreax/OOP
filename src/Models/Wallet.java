@@ -1,5 +1,6 @@
 package Models;
 
+import Models.Exceptions.TooMuchCurrencyException;
 import Models.Users.Customer;
 
 import java.io.Serializable;
@@ -18,7 +19,10 @@ public class Wallet implements Serializable {
         this.walletId = Customer.id;
     }
 
-    public void exchange(double currency){
+    public void exchange(double currency) throws TooMuchCurrencyException{
+        if(currency > this.bids)
+            throw new TooMuchCurrencyException();
+
         this.bids += currency * exchangeConstant;
         this.currency -= currency;
     }

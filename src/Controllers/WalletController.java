@@ -1,6 +1,7 @@
 package Controllers;
 
 import Models.Databases.DatabaseOfUsers;
+import Models.Exceptions.TooMuchCurrencyException;
 import Models.Users.Customer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -42,19 +43,24 @@ public class WalletController {
     }
 
     public void exchangeCurrency() {
+        Customer currentCustomer = (Customer) DatabaseOfUsers.currentUser;
+        errorLabel.setText("");
+
         try {
-            Customer currentCustomer = (Customer) DatabaseOfUsers.currentUser;
-            errorLabel.setText("");
-            if (Double.parseDouble(exchangeField.getText()) > currentCustomer.getWallet().getCurrency()) {
-                errorLabel.setText("Not enough currency");
-                return;
-            }
+//            if (Double.parseDouble(exchangeField.getText()) > currentCustomer.getWallet().getCurrency()) {
+//                errorLabel.setText("Not enough currency");
+//                return;
+//            }
             currentCustomer.getWallet().exchange(Double.parseDouble(exchangeField.getText()));
             displayData();
             MainScreenController.mainScreenControllerInstance.userCurrencyLabel.setText(Double.toString(currentCustomer.getWallet().getBids()));
 
         } catch (NumberFormatException e) {
             errorLabel.setText("Wrong format");
+        } catch (TooMuchCurrencyException e){
+            errorLabel.setText("Not enough currency");
+            System.out.println("TooMuchCurrencyException");
+            exchangeField.setText(Double.toString(currentCustomer.getWallet().getCurrency()));
         }
 
     }

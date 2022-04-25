@@ -22,7 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import java.io.IOException;
 
-public class AdminMainScreenController {
+public class AdminMainScreenController extends MainScreen implements MainScreenInterface {
 
     @FXML
     private Label userNameLabel;
@@ -35,7 +35,7 @@ public class AdminMainScreenController {
         Platform.runLater(this::displayData);
     }
 
-    private void displayData(){         // Displaying Admin data
+    public void displayData(){         // Displaying Admin data
         userNameLabel.setText(DatabaseOfUsers.currentUser.getUserName());
         userIDLabel.setText(Long.toString(DatabaseOfUsers.currentUser.getUserId()));
     }
@@ -101,33 +101,36 @@ public class AdminMainScreenController {
     }
 
     public void logOut() throws IOException {
-        // Setting current user to null
-        DatabaseOfUsers.currentUser = null;
-        // Saving all the data
-        Serializator serializator = new Serializator();
-        serializator.saveData(DatabaseOfAuctions.auctions, DatabaseOfAuctions.auctionData);
-        serializator.saveData(DatabaseOfUsers.registeredUsers, DatabaseOfUsers.userData);
-        // Clearing the user and auction database
-        DatabaseOfAuctions.auctions.clear();
-        DatabaseOfUsers.registeredUsers.clear();
-        DatabaseOfWallets.wallets.clear();
-        DatabaseOfGarages.garages.clear();
+//        // Setting current user to null
+//        DatabaseOfUsers.currentUser = null;
+//        // Saving all the data
+//        Serializator serializator = new Serializator();
+//        serializator.saveData(DatabaseOfAuctions.auctions, DatabaseOfAuctions.auctionData);
+//        serializator.saveData(DatabaseOfUsers.registeredUsers, DatabaseOfUsers.userData);
+//        // Clearing the user and auction database
+//        DatabaseOfAuctions.auctions.clear();
+//        DatabaseOfUsers.registeredUsers.clear();
+//        DatabaseOfWallets.wallets.clear();
+//        DatabaseOfGarages.garages.clear();
+//
+//        // Loading first screen
+//        Main main = new Main();
+//        main.changeScene("/GUI/sample.fxml");
 
-        // Loading first screen
-        Main main = new Main();
-        main.changeScene("/GUI/sample.fxml");
+        MainScreenInterface.super.logOut(DatabaseOfUsers.currentUser);
     }
 
     public void showNews(){         // Part of observer
-        Observer observer = (Observer) DatabaseOfUsers.currentUser;
-        for (String message : observer.news){
-            textArea.appendText(message + "\n");
-        }
-
-//        for(String message : Admin.news){
+//        Observer observer = (Observer) DatabaseOfUsers.currentUser;
+//        for (String message : observer.news){
 //            textArea.appendText(message + "\n");
-//            System.out.println(message);
 //        }
+
+        Admin admin = (Admin) DatabaseOfUsers.currentUser;
+        for(String message : admin.news){
+            textArea.appendText(message + "\n");
+            System.out.println(message);
+        }
     }
 
     public void showAboutScreen(){

@@ -12,19 +12,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Admin extends User implements Observer {
-
 //    public ArrayList<String> news = new ArrayList<>();
-//    public ArrayList<String> news;
+    public ArrayList<String> news;
+
+//    private News news;
+    public static int id = 0;
+    private int newsId;
     public Admin(String userName, String password){
         this.userName = userName;
         this.password = password;
 
-
+        this.news = new ArrayList<>();
 
         this.userId = getLastId() + 1L;
         storeLastId(lastId);
 
-//        this.userId = ++userIdCounter;
+        id++;
+        this.newsId = id;
     }
 
     public void logIn(User user) throws IOException {
@@ -37,7 +41,8 @@ public class Admin extends User implements Observer {
         Auction newAuction = new Auction(newCar, auctionType, minimumPrice);
         newAuction.isPremium = isPremium;
         Serializator serializator = new Serializator();
-        serializator.serialize(newAuction, DatabaseOfAuctions.auctions, DatabaseOfAuctions.auctionData);
+//        serializator.serialize(newAuction, DatabaseOfAuctions.auctions, DatabaseOfAuctions.auctionData);
+        serializator.serialize(newAuction);
     }
 
 
