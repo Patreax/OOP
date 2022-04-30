@@ -2,6 +2,10 @@ package Models.Cars;
 
 import java.io.Serializable;
 
+/**
+ * The <code>Car</code> class is a the main object of the auction
+ * It contains all information about the auctioned car
+ */
 public class Car implements Serializable {
     protected String brand;
     protected String model;
@@ -16,6 +20,7 @@ public class Car implements Serializable {
         Diesel,
         Electricity
     }
+
     private String engine;
     private String power;
     private String transmission;
@@ -34,14 +39,14 @@ public class Car implements Serializable {
 //        this.color = color;
 //    }
 
-    public Car(String brand, String model, double price, int year){
+    public Car(String brand, String model, double price, int year) {
         this.brand = brand;
         this.model = model;
         this.price = price;
         this.year = year;
     }
 
-    public Car(){
+    public Car() {
 
     }
 

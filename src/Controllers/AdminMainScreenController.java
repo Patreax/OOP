@@ -1,15 +1,13 @@
 package Controllers;
 
 import GUI.AboutScreen;
-import Models.*;
 import Models.Auctions.Auction;
 import Models.Cars.ElectricCar;
 import Models.Cars.HybridCar;
 import Models.Cars.StandardCar;
 import Models.Databases.DatabaseOfAuctions;
-import Models.Databases.DatabaseOfGarages;
 import Models.Databases.DatabaseOfUsers;
-import Models.Databases.DatabaseOfWallets;
+import Models.MainScreenInterface;
 import Models.Users.Admin;
 import Models.Users.PremiumUser;
 import Models.Users.StandardUser;
@@ -17,11 +15,17 @@ import Models.Users.User;
 import Project.sample.Main;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+
 import java.io.IOException;
 
+/**
+ * The <code>AdminMainScreenController</code> acts as a controller for AdminMainScreen.fxml file.
+ * It is responsible for accessing the main text area in said UI and for executing methods designed for the admin
+ *
+ * @see Admin
+ */
 public class AdminMainScreenController extends MainScreen implements MainScreenInterface {
 
     @FXML
@@ -31,11 +35,14 @@ public class AdminMainScreenController extends MainScreen implements MainScreenI
     @FXML
     private TextArea textArea;
 
-    public AdminMainScreenController(){
+    public AdminMainScreenController() {
         Platform.runLater(this::displayData);
     }
 
-    public void displayData(){         // Displaying Admin data
+    /**
+     * Displays username and user ID
+     */
+    public void displayData() {         // Displaying Admin data
         userNameLabel.setText(DatabaseOfUsers.currentUser.getUserName());
         userIDLabel.setText(Long.toString(DatabaseOfUsers.currentUser.getUserId()));
     }
@@ -45,18 +52,23 @@ public class AdminMainScreenController extends MainScreen implements MainScreenI
         main.openNewWindow("/GUI/AuctionCreator.fxml");
     }
 
+    /**
+     * Displays all the current auctions
+     */
     public void showAuctions() {
         // Going through all the auction via iterator
+        clear();
         new Thread(() -> {
-            for(Auction a : DatabaseOfAuctions.auctions){
-            textArea.appendText("ID: " + a.getAuctionId() + "\t Brand: " + a.car.getBrand() + "\t Model: " + a.car.getModel() + "\n");
-            textArea.appendText("Price: " + a.car.getPrice() + "\t Year: " + a.car.getYear() + "\t Bids: " +a.getNumberOfBids() +"/" + a.getMaxBids() + "\n");
-            textArea.appendText("\n");
-        }}).start();
+            for (Auction a : DatabaseOfAuctions.auctions) {
+                textArea.appendText("ID: " + a.getAuctionId() + "\t Brand: " + a.car.getBrand() + "\t Model: " + a.car.getModel() + "\n");
+                textArea.appendText("Price: " + a.car.getPrice() + "\t Year: " + a.car.getYear() + "\t Bids: " + a.getNumberOfBids() + "/" + a.getMaxBids() + "\n");
+                textArea.appendText("\n");
+            }
+        }).start();
 
     }
 
-    public void calculateStatistics(){
+    public void calculateStatistics() {
         textArea.appendText("Admin: " + countUsers(Admin.class) + "\n");
         textArea.appendText("Premium User: " + countUsers(PremiumUser.class) + "\n");
         textArea.appendText("Standard User: " + countUsers(StandardUser.class) + "\n");
@@ -66,40 +78,64 @@ public class AdminMainScreenController extends MainScreen implements MainScreenI
         textArea.appendText("Hybrid Car: " + countAuctions(HybridCar.class) + "\n");
     }
 
-    public void showStatistics(){                           // Reflexia
+    /**
+     * Displays number of users and auctions and their subclasses
+     */
+    public void showStatistics() {                           // Reflexia
 //        new Thread(this::calculateStatistics).start();
-        new Thread(() -> {textArea.appendText("Admin: " + countUsers(Admin.class) + "\n");
+        clear();
+        new Thread(() -> {
+            textArea.appendText("Admin: " + countUsers(Admin.class) + "\n");
             textArea.appendText("Premium User: " + countUsers(PremiumUser.class) + "\n");
             textArea.appendText("Standard User: " + countUsers(StandardUser.class) + "\n");
 
             textArea.appendText("Standard Car: " + countAuctions(StandardCar.class) + "\n");
             textArea.appendText("Electric Car: " + countAuctions(ElectricCar.class) + "\n");
-            textArea.appendText("Hybrid Car: " + countAuctions(HybridCar.class) + "\n");}).start();
+            textArea.appendText("Hybrid Car: " + countAuctions(HybridCar.class) + "\n");
+        }).start();
     }
 
-    private int countUsers(Class Type){
+    /**
+     * Counts the occurrences of objects derived from {@link User} class
+     *
+     * @param Type
+     * @return number of occurrences
+     */
+    private int countUsers(Class Type) {
         int number = 0;
 
-        for (User user : DatabaseOfUsers.registeredUsers){
+        for (User user : DatabaseOfUsers.registeredUsers) {
             if (Type.isInstance(user))
                 number++;
         }
         return number;
     }
-    private int countAuctions(Class Type){
+
+    /**
+     * Counts the occurrences of objects derived from {@link Auction} class
+     *
+     * @param Type
+     * @return number  of occurrences
+     */
+    private int countAuctions(Class Type) {
         int number = 0;
 
-        for (Auction auction : DatabaseOfAuctions.auctions){
+        for (Auction auction : DatabaseOfAuctions.auctions) {
             if (Type.isInstance(auction.car))
                 number++;
         }
         return number;
     }
 
-    public void clear(){
+    public void clear() {
         textArea.setText("");
     }
 
+    /**
+     * Saves user and auction data and logs out the current user
+     *
+     * @throws IOException
+     */
     public void logOut() throws IOException {
 //        // Setting current user to null
 //        DatabaseOfUsers.currentUser = null;
@@ -120,20 +156,18 @@ public class AdminMainScreenController extends MainScreen implements MainScreenI
         MainScreenInterface.super.logOut(DatabaseOfUsers.currentUser);
     }
 
-    public void showNews(){         // Part of observer
-//        Observer observer = (Observer) DatabaseOfUsers.currentUser;
-//        for (String message : observer.news){
-//            textArea.appendText(message + "\n");
-//        }
-
+    /**
+     * Displays news about sold auctions
+     */
+    public void showNews() {         // Part of observer
+        clear();
         Admin admin = (Admin) DatabaseOfUsers.currentUser;
-        for(String message : admin.news){
+        for (String message : admin.news) {
             textArea.appendText(message + "\n");
-            System.out.println(message);
         }
     }
 
-    public void showAboutScreen(){
+    public void showAboutScreen() {
         new AboutScreen();
     }
 }

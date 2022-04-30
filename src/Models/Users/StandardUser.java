@@ -2,22 +2,23 @@ package Models.Users;
 
 import Models.Auctions.Auction;
 import Models.Bid;
-import Models.Databases.DatabaseOfAuctions;
-import Models.Databases.DatabaseOfGarages;
-import Models.Databases.DatabaseOfUsers;
-import Models.Databases.DatabaseOfWallets;
+import Models.Databases.*;
 import Models.PersonalGarage;
 import Models.Wallet;
+import Models.WishList;
 import Project.sample.Main;
 
 import java.io.IOException;
 
+/**
+ * Objects of this class can see only the auctions that are no marked as premium
+ */
 public class StandardUser extends Customer {
 
 //    private PersonalGarage garage = new PersonalGarage();
 //    private Wallet wallet;
 
-    public StandardUser(String userName, String password){
+    public StandardUser(String userName, String password) {
         super(userName, password);
 
         this.userId = getLastId() + 1L;
@@ -31,7 +32,7 @@ public class StandardUser extends Customer {
         Customer.id++;
         this.walletId = id;
         this.garageId = id;
-
+        this.wishListId = id;
 
     }
 
@@ -39,17 +40,18 @@ public class StandardUser extends Customer {
         DatabaseOfUsers.currentUser = user;
         DatabaseOfWallets.assignWallet();
         DatabaseOfGarages.assignGarage();
+        DatabaseOfWishLists.assignWishList();
 
         Main.mainInstance.changeScene("/GUI/MainScreen.fxml");
     }
 
-    public String placeBid(int auctionId, double amount){
+    public String placeBid(int auctionId, double amount) {
         String message = "";
         Bid newBid = new Bid(this, amount);
-        if(DatabaseOfAuctions.auctions.size() != 0){
-            for (Auction a : DatabaseOfAuctions.auctions){
+        if (DatabaseOfAuctions.auctions.size() != 0) {
+            for (Auction a : DatabaseOfAuctions.auctions) {
                 if (a.getAuctionId() == auctionId) {
-                    if(a.isPremium)
+                    if (a.isPremium)
                         return null;
                     message = a.receiveBid(newBid, a);
                     return message;
@@ -64,7 +66,12 @@ public class StandardUser extends Customer {
     public PersonalGarage getGarage() {
         return garage;
     }
+
     public Wallet getWallet() {
         return wallet;
+    }
+
+    public WishList getWishList() {
+        return wishList;
     }
 }

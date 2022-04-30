@@ -1,24 +1,27 @@
 package Models.Users;
 
-import Models.*;
 import Models.Auctions.Auction;
 import Models.Auctions.AuctionType;
 import Models.Cars.Car;
-import Models.Databases.DatabaseOfAuctions;
 import Models.Databases.DatabaseOfUsers;
+import Models.Observer;
+import Models.Serializator;
 import Project.sample.Main;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Objects of this class are able to create auctions, see the statistics and the news
+ */
 public class Admin extends User implements Observer {
-//    public ArrayList<String> news = new ArrayList<>();
     public ArrayList<String> news;
 
-//    private News news;
+    //    private News news;
     public static int id = 0;
     private int newsId;
-    public Admin(String userName, String password){
+
+    public Admin(String userName, String password) {
         this.userName = userName;
         this.password = password;
 
@@ -48,8 +51,7 @@ public class Admin extends User implements Observer {
 
     @Override
     public void update(Auction auction) {
-        String message = "Auction: " + auction.getAuctionId() + ". " + auction.car.getBrand() + " " + auction.car.getModel()  + " has been sold";
+        String message = "Auction: " + auction.getAuctionId() + ". " + auction.car.getBrand() + " " + auction.car.getModel() + " has been sold";
         this.news.add(message);
-        System.out.println(message);
     }
 }

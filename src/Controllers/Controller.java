@@ -1,23 +1,27 @@
 package Controllers;
 
-import Models.*;
 import Models.Auctions.AuctionManager;
 import Models.Databases.*;
+import Models.PersonalGarage;
 import Models.Users.Admin;
 import Models.Users.PremiumUser;
 import Models.Users.StandardUser;
 import Models.Users.User;
+import Models.Wallet;
+import Models.WishList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
 
-
+/**
+ * The <code>Controller</code> class acts as a controller for sample.fxml file
+ * It is responsible for registering and logging in the user
+ */
 public class Controller {
 
     @FXML
@@ -28,44 +32,59 @@ public class Controller {
     private Label errorMessage;
 
 
-    public Controller() throws IOException, ClassNotFoundException{     // Loading the database af users and auctions
+    public Controller() throws IOException, ClassNotFoundException {     // Loading the database af users and auctions
 //        DatabaseOfUsers.loadObjects();                                // Polymorfia
 //        DatabaseOfAuctions.loadObjects();
 //        DatabaseOfWallets.loadObjects();
 //        DatabaseOfGarages.loadObjects();
-        for(Database database : Database.databases){
+        // Loads all the necessary data
+        for (Database database : Database.databases) {
             database.loadObjects();
         }
     }
 
-    public void logIn() throws IOException, ClassNotFoundException{
+    /**
+     * Checks the input data and logs in the user
+     *
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    public void logIn() throws IOException, ClassNotFoundException {
         checkData(userNameField.getText(), userPasswordField.getText());
     }
 
-    public void register() throws IOException{
+    /**
+     * Takes data from input fields and creates new object of type {@link User} and stores it in the {@link DatabaseOfUsers}.
+     * Also creates aggregated objects
+     *
+     * @throws IOException
+     */
+    public void register() throws IOException {
 
         AuctionManager auctionManager = AuctionManager.getInstance();
         // Checking for empty spaces
-        if(userNameField.getText().equals("") || userNameField.getText().equals(" ") || userPasswordField.getText().equals("") || userPasswordField.getText().equals(" ")){
+        if (userNameField.getText().equals("") || userNameField.getText().equals(" ") || userPasswordField.getText().equals("") || userPasswordField.getText().equals(" ")) {
             errorMessage.setText("Incorrect user data format");
             return;
         }
         // Checking for duplicates
-        if(checkDuplicates(userNameField.getText())){
-            if(userNameField.getText().contains("Admin")){                                          // Registering ADMIN
+        if (checkDuplicates(userNameField.getText())) {
+            if (userNameField.getText().contains("Admin")) {                                          // Registering ADMIN
                 Admin newUser = new Admin(userNameField.getText(), userPasswordField.getText());
                 DatabaseOfUsers.storeObject(newUser);
                 auctionManager.register(newUser);
                 errorMessage.setText("User has been registered");
                 return;
             }
-            if(userNameField.getText().contains("Premium")){                                        // Registering PREMIUM User
+            if (userNameField.getText().contains("Premium")) {                                        // Registering PREMIUM User
                 PremiumUser newUser = new PremiumUser(userNameField.getText(), userPasswordField.getText());
                 Wallet wallet = new Wallet();
                 PersonalGarage personalGarage = new PersonalGarage();
+                WishList wishList = new WishList();
                 DatabaseOfUsers.storeObject(newUser);
                 DatabaseOfWallets.storeObject(wallet);
                 DatabaseOfGarages.storeObject(personalGarage);
+                DatabaseOfWishLists.storeObject(wishList);
                 errorMessage.setText("User has been registered");
                 return;
             }
@@ -73,23 +92,32 @@ public class Controller {
             StandardUser newUser = new StandardUser(userNameField.getText(), userPasswordField.getText());  // registering STANDARD User
             Wallet wallet = new Wallet();
             PersonalGarage personalGarage = new PersonalGarage();
+            WishList wishList = new WishList();
             DatabaseOfUsers.storeObject(newUser);
             DatabaseOfWallets.storeObject(wallet);
             DatabaseOfGarages.storeObject(personalGarage);
+            DatabaseOfWishLists.storeObject(wishList);
             errorMessage.setText("User has been registered");
         }
     }
 
-    private void checkData(String userName, String userPassWord) throws IOException{
-        if (DatabaseOfUsers.registeredUsers.size() == 0){             // Checking for empty array of registered users
+    /**
+     * Checks data provided by user and if valid, logs in the user.
+     *
+     * @param userName
+     * @param userPassWord
+     * @throws IOException
+     */
+    private void checkData(String userName, String userPassWord) throws IOException {
+        if (DatabaseOfUsers.registeredUsers.size() == 0) {             // Checking for empty array of registered users
             errorMessage.setText("User does not exist");
             return;
         }
 
         ObjectInputStream in = new ObjectInputStream(new FileInputStream(DatabaseOfUsers.userData));
-        if(!DatabaseOfUsers.registeredUsers.isEmpty()){
+        if (!DatabaseOfUsers.registeredUsers.isEmpty()) {
 //            for(User user : (ArrayList<User>)in.readObject()){
-                for(User user : DatabaseOfUsers.registeredUsers){
+            for (User user : DatabaseOfUsers.registeredUsers) {
 //                // Admin
 //                if(user instanceof Admin && user.getUserName().equals(userName) && user.getPassword().equals(userPassWord)){
 //                    DatabaseOfUsers.currentUser = user;
@@ -107,7 +135,7 @@ public class Controller {
 //                    return;
 //                }
 //
-                if(user.getUserName().equals(userName) && user.getPassword().equals(userPassWord)){
+                if (user.getUserName().equals(userName) && user.getPassword().equals(userPassWord)) {
 //                    DatabaseOfUsers.currentUser = user;
 //                    DatabaseOfWallets.assignWallet();
 //                    DatabaseOfGarages.assignGarage();
@@ -126,10 +154,16 @@ public class Controller {
         errorMessage.setText("Name or password is incorrect");
     }
 
+    /**
+     * Checks whether the user with given username already exists
+     *
+     * @param userName
+     * @return false if the user already exists. Otherwise returns true
+     */
     public boolean checkDuplicates(String userName) {       // Checking for duplicates
-        if(!DatabaseOfUsers.registeredUsers.isEmpty()){
-            for(User user : DatabaseOfUsers.registeredUsers){
-                if(user.getUserName().equals(userName)){
+        if (!DatabaseOfUsers.registeredUsers.isEmpty()) {
+            for (User user : DatabaseOfUsers.registeredUsers) {
+                if (user.getUserName().equals(userName)) {
                     errorMessage.setText("Name is already taken");
                     return false;
                 }

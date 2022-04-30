@@ -1,0 +1,6 @@
+Auction 1: 20000.0 has been placed by a at 2022-04-27 at 13:30:18
+Auction 2: 50000.0 has been placed by a at 2022-04-27 at 13:30:24
+Auction 1: 25000.0 has been placed by s at 2022-04-27 at 13:30:39
+Auction 2: 55000.0 has been placed by s at 2022-04-27 at 13:30:47
+Auction 1: 30000.0 has been placed by Patrik at 2022-04-27 at 13:31:05
+Auction 2: 60000.0 has been placed by Patrik at 2022-04-27 at 13:31:14

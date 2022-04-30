@@ -51,7 +51,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="clearButton" layoutX="10.0" layoutY="89.0" mnemonicParsing="false" onAction="#clear" prefHeight="26.0" prefWidth="138.0" text="Clear">
+            <Button fx:id="wishList" layoutX="10.0" layoutY="89.0" mnemonicParsing="false" onAction="#wishList" prefHeight="26.0" prefWidth="138.0" text="WishList">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" />
                </VBox.margin>

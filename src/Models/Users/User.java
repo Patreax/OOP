@@ -1,11 +1,14 @@
 package Models.Users;
 
-import Models.PersonalGarage;
-
-import java.io.*;
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.Scanner;
 
+/**
+ * The <code>User</code> class is a super class to {@link Customer}, {@link Admin}, {@link StandardUser}, {@link PremiumUser}
+ */
 public class User implements Serializable {
     protected long userId;
     protected String userName;
@@ -20,7 +23,7 @@ public class User implements Serializable {
 
 //    protected ArrayList<String> news;
 
-    public User(String userName, String password){
+    public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
 
@@ -33,7 +36,8 @@ public class User implements Serializable {
 //        this.userId = ++userIdCounter;
 
     }
-    public User(){
+
+    public User() {
 
     }
 
@@ -41,26 +45,25 @@ public class User implements Serializable {
 
     }
 
-
-    protected static void storeLastId(long lastId){
-        lastId +=1;
-        try{
+    protected static void storeLastId(long lastId) {
+        lastId += 1;
+        try {
             FileWriter writer = new FileWriter(lastUserIdFile);
             writer.write(Long.toString(lastId));
             writer.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Error has occurred");
         }
     }
 
-    protected static long getLastId(){
+    protected static long getLastId() {
         String lastId = "0";
         try {
             Scanner reader = new Scanner(lastUserIdFile);
             lastId = reader.nextLine();
             lastId.replaceAll("\n", "");
             reader.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Error has occurred");
         }
         User.lastId = Long.parseLong(lastId);

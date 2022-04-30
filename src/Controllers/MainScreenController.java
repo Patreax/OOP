@@ -18,7 +18,11 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-
+/**
+ * The <code>MainScreenController</code> class acts as a controller for the MainScreen.fxml file
+ * It is responsible for offering {@link Models.Users.StandardUser} and {@link PremiumUser} methods designed for them
+ * It allows them to display auctions, wishList a particular auction, open garage and wallet assigned to them and place a bid to specific auction
+ */
 public class MainScreenController extends MainScreen implements MainScreenInterface {
 
     public static MainScreenController mainScreenControllerInstance;
@@ -53,6 +57,9 @@ public class MainScreenController extends MainScreen implements MainScreenInterf
 //        return single_instance;
 //    }
 
+    /**
+     * Displays data about current user
+     */
     public void displayData() {
         Customer currentCustomer = (Customer) DatabaseOfUsers.currentUser;
         userCurrencyLabel.setText(Double.toString(currentCustomer.getWallet().getBids()));
@@ -60,6 +67,11 @@ public class MainScreenController extends MainScreen implements MainScreenInterf
         userIDLabel.setText(Long.toString(DatabaseOfUsers.currentUser.getUserId()));
     }
 
+    /**
+     * Saves user and auction data and logs out the current user
+     *
+     * @throws IOException
+     */
     public void logOut() throws IOException {
 //        // Saving all the data
 //        Serializator serializator = new Serializator();
@@ -82,6 +94,11 @@ public class MainScreenController extends MainScreen implements MainScreenInterf
         MainScreenInterface.super.logOut(DatabaseOfUsers.currentUser);
     }
 
+    /**
+     * Displays all available auctions
+     * If the current user is instance of {@link Models.Users.StandardUser}, then he can not see premium auctions
+     * Different data is displayed, depending on the type of the auction
+     */
     public void showAuctions() {                    // Showing auctions for different types of users
         textArea.setText("");
         boolean premiumUser = DatabaseOfUsers.currentUser instanceof PremiumUser;
@@ -100,6 +117,10 @@ public class MainScreenController extends MainScreen implements MainScreenInterf
 
     }
 
+    /**
+     * Checks whether the auction ID is available adn if the placed amount is above 0
+     * Then calls placeBid() method situated in {@link Customer} class.
+     */
     public void placeBidToAuction() {
         String message = "";
 
@@ -133,13 +154,41 @@ public class MainScreenController extends MainScreen implements MainScreenInterf
         textArea.appendText(message + "\n");
     }
 
+    /**
+     * Displays cars owned by current user
+     *
+     * @see Models.PersonalGarage
+     */
     public void showCars() {
         textArea.setText("");
         Customer currentUser = (Customer) DatabaseOfUsers.currentUser;
-        if(currentUser.getGarage().getCars().isEmpty())
+        if (currentUser.getGarage().getCars().isEmpty())
             textArea.appendText("You do not own any cars at the moment\n");
         for (Car car : currentUser.getGarage().getCars()) {
             textArea.appendText(car.getBrand() + " " + car.getModel() + "\n");
+        }
+    }
+
+    public void wishList() {
+        // este poriesit duplikaty
+        Customer currentUser = (Customer) DatabaseOfUsers.currentUser;
+
+        for (Auction auction : currentUser.getWishList().wishListAuctions) {
+            if (Long.parseLong(auctionIdField.getText()) == auction.getAuctionId()) {
+                System.out.println("duplikat");
+                return;                                                                               // duplikat
+            }
+
+        }
+
+        for (Auction a : DatabaseOfAuctions.auctions) {
+            if (Long.parseLong(auctionIdField.getText()) == a.getAuctionId()) {
+                currentUser.getWishList().wishListAuctions.add(a);
+                System.out.println("Auction added");
+//                for(Auction au : currentUser.getWishList().wishListAuctions){             // len vypis
+//                    textArea.appendText(au.car.getBrand() + au.car.getModel());
+//                }
+            }
         }
     }
 

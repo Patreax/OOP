@@ -5,13 +5,16 @@ import Models.Users.Customer;
 
 import java.io.Serializable;
 
+/**
+ * Objects of this class are assigned to each {@link Customer} and hold information about given customer's currency and bids (special currency)
+ */
 public class Wallet implements Serializable {
     private double currency = 0;
     private double bids = 0;                         // Virtual currency used in auctions
     private final double exchangeConstant = 0.75;
     private int walletId;
 
-    public Wallet(){
+    public Wallet() {
 //        Customer currentCustomer = (Customer) DatabaseOfUsers.currentUser;
 //        this.currency = currentCustomer.getWallet().getCurrency();
 //        this.bids = currentCustomer.getWallet().getBids();
@@ -19,15 +22,21 @@ public class Wallet implements Serializable {
         this.walletId = Customer.id;
     }
 
-    public void exchange(double currency) throws TooMuchCurrencyException{
-        if(currency > this.bids)
+    /**
+     * Exchanges currency to bids
+     *
+     * @param currency
+     * @throws TooMuchCurrencyException
+     */
+    public void exchange(double currency) throws TooMuchCurrencyException {
+        if (currency > this.bids)
             throw new TooMuchCurrencyException();
 
         this.bids += currency * exchangeConstant;
         this.currency -= currency;
     }
 
-    public void addCurrency(double currency){
+    public void addCurrency(double currency) {
         this.currency += currency;
     }
 

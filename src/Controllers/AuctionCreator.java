@@ -23,7 +23,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
+/**
+ * The <code>AuctionCreator</code> class is responsible for collecting data about the car that will be auctioned and about the auction itself
+ * It also acts as a controller for the AuctionCreator.fxml file
+ */
 public class AuctionCreator {
 
     @FXML
@@ -83,6 +86,17 @@ public class AuctionCreator {
 //        arrayOfCheckBoxes.add(this.hybridCarBox);
     }
 
+    /**
+     * Collects all the necessary data about new auction and calls admin's createAuction() method to create new auction
+     * User must decide whether the auction is of type standard, electric or hybrid.
+     * He can also decide whether it will be premium or not
+     * Lastly he decides the type of the auction. {@link AbsoluteAuction} or {@link SealedBidAuction}
+     *
+     * @throws IOException
+     * @throws InterruptedException
+     * @see Admin
+     * @see Models.Auctions.Auction
+     */
     public void create() throws IOException, InterruptedException {
         Stage stage = (Stage) createAuctionButton.getScene().getWindow();
         boolean problem = false;
@@ -133,6 +147,13 @@ public class AuctionCreator {
 
     }
 
+    /**
+     * Checks the number of checkboxes
+     * Throws exception if multiples types of auction are selected at once
+     *
+     * @throws TooManySelectedBoxesException
+     * @throws NoSelectedBoxException
+     */
     private void checkBoxes() throws TooManySelectedBoxesException, NoSelectedBoxException {
         // Checking the checkBoxes and throwing exceptions if needed
 //        arrayOfCheckBoxes.add(standardCarBox);
@@ -157,6 +178,11 @@ public class AuctionCreator {
 
     }
 
+    /**
+     * Closes the current window
+     *
+     * @param actionEvent
+     */
     public void back(ActionEvent actionEvent) {  // closing the window
         Node n = (Node) actionEvent.getSource();
         Stage stage = (Stage) n.getScene().getWindow();
