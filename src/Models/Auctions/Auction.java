@@ -24,6 +24,7 @@ public class Auction implements Serializable {
     private long lastAuctionId;
     private final int maxBids = 3;
 
+    private int numberOfWishLists;
 
     private Bid[] placedBids;
 
@@ -39,6 +40,7 @@ public class Auction implements Serializable {
         this.numberOfBids = 0;
         this.isPremium = false;
         this.minimumPrice = minimumPrice;
+        this.numberOfWishLists = 0;
         this.auctionId = getLastId() + 1L;
         storeLastId(lastAuctionId);
 
@@ -164,5 +166,13 @@ public class Auction implements Serializable {
 
     public double getMinimumPrice() {
         return minimumPrice;
+    }
+
+    public int getNumberOfWishLists() {
+        return numberOfWishLists;
+    }
+
+    public void setNumberOfWishLists(int numberOfWishLists) {
+        this.numberOfWishLists = numberOfWishLists;
     }
 }

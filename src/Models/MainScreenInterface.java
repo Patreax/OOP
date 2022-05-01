@@ -28,6 +28,7 @@ public interface MainScreenInterface {
 //            serializator.saveData(DatabaseOfGarages.garages, DatabaseOfGarages.garageData);
             serializator.saveData(Database.DatabaseType.Wallet);
             serializator.saveData(Database.DatabaseType.Garage);
+            serializator.saveData(Database.DatabaseType.Wishlist);
         }
         // Setting current user to null
         DatabaseOfUsers.currentUser = null;
@@ -36,7 +37,7 @@ public interface MainScreenInterface {
         DatabaseOfAuctions.auctions.clear();
         DatabaseOfWallets.wallets.clear();
         DatabaseOfGarages.garages.clear();
-//        AuctionManager.observers.clear();
+        DatabaseOfWishLists.wishLists.clear();
         AuctionManager auctionManager = AuctionManager.getInstance();
         auctionManager.observers.clear();
 

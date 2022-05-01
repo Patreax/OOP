@@ -17,8 +17,8 @@
                   <Font name="System Bold" size="46.0" />
                </font>
             </Label>
-            <PasswordField fx:id="userPasswordField" layoutX="226.0" layoutY="240.0" promptText="Password" />
-            <TextField fx:id="userNameField" layoutX="225.0" layoutY="200.0" promptText="Username" />
+            <PasswordField fx:id="userPasswordField" layoutX="226.0" layoutY="240.0" onAction="#logIn" promptText="Password" />
+            <TextField fx:id="userNameField" layoutX="225.0" layoutY="200.0" onAction="#logIn" promptText="Username" />
             <Label layoutX="149.0" layoutY="203.0" text="Username: ">
                <font>
                   <Font name="System Bold Italic" size="14.0" />

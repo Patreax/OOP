@@ -13,7 +13,8 @@ public abstract class Database {
         User,
         Auction,
         Wallet,
-        Garage
+        Garage,
+        Wishlist
     }
 
     /**

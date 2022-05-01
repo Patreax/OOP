@@ -35,30 +35,45 @@
    <left>
       <VBox spacing="20.0" style="-fx-background-color: #6699ff;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="auctionButton" mnemonicParsing="false" onAction="#newWindow" prefHeight="26.0" prefWidth="138.0" text="Create Auction">
+            <Button fx:id="createAuctionButton" mnemonicParsing="false" onAction="#newWindow" prefHeight="26.0" prefWidth="138.0" text="Create Auction">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Button>
-            <Button fx:id="showAucionsButton" layoutX="10.0" layoutY="63.0" mnemonicParsing="false" onAction="#showAuctions" prefHeight="26.0" prefWidth="138.0" text="Show Aucions">
+            <Button fx:id="showAuctionsButton" layoutX="10.0" layoutY="63.0" mnemonicParsing="false" onAction="#showAuctions" prefHeight="26.0" prefWidth="138.0" text="Show Auctions">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" />
                </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Button>
             <Button fx:id="showStatisticButton" layoutX="20.0" layoutY="77.0" mnemonicParsing="false" onAction="#showStatistics" prefHeight="26.0" prefWidth="138.0" text="Statistics">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" />
                </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Button>
-            <Button layoutX="20.0" layoutY="191.0" mnemonicParsing="false" onAction="#showNews" prefHeight="26.0" prefWidth="138.0" text="Show News">
+            <Button fx:id="showNewsButton" layoutX="20.0" layoutY="191.0" mnemonicParsing="false" onAction="#showNews" prefHeight="26.0" prefWidth="138.0" text="Show News">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" />
                </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Button>
-            <Button fx:id="clearButton" layoutX="10.0" layoutY="89.0" mnemonicParsing="false" onAction="#clear" prefHeight="26.0" prefWidth="138.0" text="Clear">
+            <Button fx:id="wishListStatisticsButton" layoutX="10.0" layoutY="89.0" mnemonicParsing="false" onAction="#wishListStatistics" prefHeight="26.0" prefWidth="138.0" text="Wishlists Statistics">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" />
                </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Button>
          </children>
          <BorderPane.margin>

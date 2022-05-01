@@ -1,5 +1,6 @@
 package Controllers;
 
+import GUI.InfoScreen;
 import Models.Auctions.AbsoluteAuction;
 import Models.Auctions.Auction;
 import Models.Auctions.SealedBidAuction;
@@ -11,10 +12,13 @@ import Models.Users.Customer;
 import Models.Users.PremiumUser;
 import Project.sample.Main;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
@@ -41,11 +45,49 @@ public class MainScreenController extends MainScreen implements MainScreenInterf
     private TextField auctionIdField;
     @FXML
     private TextField auctionAmountField;
+    @FXML
+    private Button placeBidButton;
+    @FXML
+    private Button addToWishListButton;
 
     public MainScreenController() {
         mainScreenControllerInstance = this;
+        final InfoScreen[] popUp = new InfoScreen[1];
 
-        Platform.runLater(this::displayData);
+//        Platform.runLater(this::displayData);
+        Platform.runLater(() -> {
+            displayData();
+            createEventHandlers();
+        });
+
+//        Platform.runLater(() -> {//Creating the mouse event handler
+//            EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+//                @Override
+//                public void handle(MouseEvent e) {
+//                        if(e.isSecondaryButtonDown()){
+//                            popUp[0] = new InfoScreen("Place Bid", "Choose auction by ID and choose amount to bid");
+//                        }
+//
+//
+//                }
+//            };
+//            EventHandler<MouseEvent> escape = new EventHandler<MouseEvent>() {
+//                @Override
+//                public void handle(MouseEvent e) {
+//                    popUp[0].close();
+//                }
+//            };
+//            //Registering the event filter
+//            placeBidButton.addEventFilter(MouseEvent.MOUSE_PRESSED, eventHandler);
+//            placeBidButton.addEventFilter(MouseEvent.MOUSE_RELEASED, escape);
+//
+////            placeBidButton.setOnMouseClicked(event -> {
+////                if(event.getButton() == MouseButton.SECONDARY){
+////                    popUp[0] = new AboutScreen();
+////                }
+////            });
+//
+//        });
 
     }
 
@@ -56,6 +98,40 @@ public class MainScreenController extends MainScreen implements MainScreenInterf
 //
 //        return single_instance;
 //    }
+
+    /**
+     * Creates event handlers for selected buttons
+     */
+    private void createEventHandlers() {
+        final InfoScreen[] popUp = new InfoScreen[2];
+        popUp[0] = new InfoScreen("Place Bid", "Choose auction by ID and choose your amount to bid");
+        popUp[1] = new InfoScreen("Add to WishList", "Choose auction by ID and add it to your wishList");
+
+        EventHandler<MouseEvent> placedBidsEventHandler = e -> {
+            if (e.isSecondaryButtonDown())
+                popUp[0].show();
+        };
+        EventHandler<MouseEvent> placedBidsEscape = e -> {
+            if (popUp[0].isShowing())
+                popUp[0].close();
+        };
+
+
+        EventHandler<MouseEvent> wishListEventHandler = e -> {
+            if (e.isSecondaryButtonDown())
+                popUp[1].show();
+        };
+        EventHandler<MouseEvent> wishListEscape = e -> {
+            if (popUp[1].isShowing())
+                popUp[1].close();
+        };
+
+        //Registering the event filter
+        placeBidButton.addEventFilter(MouseEvent.MOUSE_PRESSED, placedBidsEventHandler);
+        placeBidButton.addEventFilter(MouseEvent.MOUSE_RELEASED, placedBidsEscape);
+        addToWishListButton.addEventFilter(MouseEvent.MOUSE_PRESSED, wishListEventHandler);
+        addToWishListButton.addEventFilter(MouseEvent.MOUSE_RELEASED, wishListEscape);
+    }
 
     /**
      * Displays data about current user
@@ -169,27 +245,60 @@ public class MainScreenController extends MainScreen implements MainScreenInterf
         }
     }
 
-    public void wishList() {
+    public void addToWishList() {
         // este poriesit duplikaty
-        Customer currentUser = (Customer) DatabaseOfUsers.currentUser;
+        Customer currentCustomer = (Customer) DatabaseOfUsers.currentUser;
+        auctionIdField.setOpacity(1);
 
-        for (Auction auction : currentUser.getWishList().wishListAuctions) {
-            if (Long.parseLong(auctionIdField.getText()) == auction.getAuctionId()) {
-                System.out.println("duplikat");
-                return;                                                                               // duplikat
-            }
-
+        try {
+            Long.parseLong(auctionIdField.getText());
+        } catch (NumberFormatException e) {
+            clear();
+            textArea.appendText("Wrong ID format\n");
+            auctionIdField.setOpacity(0.5);
+            return;
         }
 
+        for (Object object : currentCustomer.getWishList().wishList) {
+            if (object instanceof Auction) {
+                Auction auction = (Auction) object;
+
+                if (Long.parseLong(auctionIdField.getText()) == auction.getAuctionId()) {
+                    clear();
+                    textArea.appendText("This auction is already in wishlist\n");
+//                System.out.println("duplikat");
+                    return;                                                                               // duplikat
+                }
+
+            }
+        }
         for (Auction a : DatabaseOfAuctions.auctions) {
             if (Long.parseLong(auctionIdField.getText()) == a.getAuctionId()) {
-                currentUser.getWishList().wishListAuctions.add(a);
-                System.out.println("Auction added");
+                a.setNumberOfWishLists(a.getNumberOfWishLists() + 1);
+                currentCustomer.getWishList().wishList.add(a);
+                textArea.appendText("Auction added to wishlist\n");
+                return;
+//                System.out.println("Auction added");
 //                for(Auction au : currentUser.getWishList().wishListAuctions){             // len vypis
 //                    textArea.appendText(au.car.getBrand() + au.car.getModel());
 //                }
             }
         }
+        textArea.appendText("Auction with given ID does not exist");
+    }
+
+    public void showWishList() {
+        Customer currentCustomer = (Customer) DatabaseOfUsers.currentUser;
+        clear();
+        for (Object object : currentCustomer.getWishList().wishList) {
+            if (object instanceof Auction) {
+                Auction auction = (Auction) object;
+
+                textArea.appendText(auction.car.getBrand() + " " + auction.car.getModel() + "\n");
+//            System.out.println(auction.car.getBrand() + auction.car.getModel() + "\n");
+            }
+        }
+
     }
 
     public void clear() {

@@ -88,6 +88,9 @@ public class Serializator<O> {
                 file = DatabaseOfGarages.garageData;
                 arrayList = DatabaseOfGarages.garages;
                 break;
+            case Wishlist:
+                file = DatabaseOfWishLists.wishListData;
+                arrayList = DatabaseOfWishLists.wishLists;
             default:
                 break;
         }

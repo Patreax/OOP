@@ -6,12 +6,12 @@ import Models.Users.Customer;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class WishList implements Serializable {
+public class WishList<O> implements Serializable {
+    public ArrayList<O> wishList;
     private int wishListId;
-    public ArrayList<Auction> wishListAuctions;
 
     public WishList() {
-        this.wishListAuctions = new ArrayList<>();
+        this.wishList = new ArrayList<>();
         this.wishListId = Customer.id;
     }
 
