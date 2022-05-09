@@ -25,14 +25,11 @@ public class Customer extends User {
 
     public Customer(String userName, String password) {
         super(userName, password);
-//        this.wallet = new Wallet();
-//        this.garage = new PersonalGarage();
 
         id++;
         this.walletId = id;
         this.garageId = id;
         this.wishListId = id;
-//        this.userId = ++userIdCounter;
     }
 
     public Customer() {
@@ -51,7 +48,6 @@ public class Customer extends User {
                 }
             }
         } else
-//            System.out.println("Auction with given Id not found");
             message = "Auction with given Id not found";
 
         return message;
@@ -91,9 +87,5 @@ public class Customer extends User {
 
     public int getWishListId() {
         return wishListId;
-    }
-
-    public void setWishListId(int wishListId) {
-        this.wishListId = wishListId;
     }
 }

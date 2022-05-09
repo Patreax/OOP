@@ -11,15 +11,9 @@ import java.util.ArrayList;
  * This class is responsible for serializing and saving the data
  * Generic approach allows this class to serialize multiple types of objects
  *
- * @param <O>
+ * @param <O> Generic parameter
  */
 public class Serializator<O> {
-//    public void serialize(O object, ArrayList<O> arrayList, File file) throws IOException{
-//        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
-//        arrayList.add(object);
-//        out.writeObject(arrayList);
-//        out.close();
-//    }
 
     /**
      * This method takes an object as a parameter and serialises every object respectively
@@ -52,16 +46,6 @@ public class Serializator<O> {
         }
     }
 
-//    public void saveData(ArrayList<O> arrayList, File file) throws IOException{
-//        PrintWriter writer = new PrintWriter(file);
-//        writer.print("");
-//        writer.close();
-//
-//        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
-//        out.writeObject(arrayList);
-//        out.close();
-//    }
-
     /**
      * This method saves all data contained in given database
      *
@@ -91,10 +75,12 @@ public class Serializator<O> {
             case Wishlist:
                 file = DatabaseOfWishLists.wishListData;
                 arrayList = DatabaseOfWishLists.wishLists;
+            case News:
+                file = DatabaseOfNews.newsData;
+                arrayList = DatabaseOfNews.newsArrayList;
             default:
                 break;
         }
-
 
         PrintWriter writer = new PrintWriter(file);
         writer.print("");

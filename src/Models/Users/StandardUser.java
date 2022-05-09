@@ -6,7 +6,7 @@ import Models.Databases.*;
 import Models.PersonalGarage;
 import Models.Wallet;
 import Models.WishList;
-import Project.sample.Main;
+import Project.Main.Main;
 
 import java.io.IOException;
 
@@ -15,19 +15,11 @@ import java.io.IOException;
  */
 public class StandardUser extends Customer {
 
-//    private PersonalGarage garage = new PersonalGarage();
-//    private Wallet wallet;
-
     public StandardUser(String userName, String password) {
         super(userName, password);
 
         this.userId = getLastId() + 1L;
         storeLastId(lastId);
-
-//        this.userId = ++userIdCounter;
-
-//        this.wallet = new Wallet();
-//        this.garage = new PersonalGarage();
 
         Customer.id++;
         this.walletId = id;
@@ -58,7 +50,6 @@ public class StandardUser extends Customer {
                 }
             }
         } else
-//            System.out.println("Auction with given Id not found");
             message = "Auction with given Id not found";
         return message;
     }

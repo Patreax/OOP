@@ -4,13 +4,12 @@ import GUI.InfoScreen;
 import Models.Auctions.AbsoluteAuction;
 import Models.Auctions.Auction;
 import Models.Auctions.SealedBidAuction;
-import Models.Cars.Car;
 import Models.Databases.DatabaseOfAuctions;
 import Models.Databases.DatabaseOfUsers;
 import Models.MainScreenInterface;
 import Models.Users.Customer;
 import Models.Users.PremiumUser;
-import Project.sample.Main;
+import Project.Main.Main;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 
@@ -52,42 +52,11 @@ public class MainScreenController extends MainScreen implements MainScreenInterf
 
     public MainScreenController() {
         mainScreenControllerInstance = this;
-        final InfoScreen[] popUp = new InfoScreen[1];
 
-//        Platform.runLater(this::displayData);
         Platform.runLater(() -> {
             displayData();
             createEventHandlers();
         });
-
-//        Platform.runLater(() -> {//Creating the mouse event handler
-//            EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
-//                @Override
-//                public void handle(MouseEvent e) {
-//                        if(e.isSecondaryButtonDown()){
-//                            popUp[0] = new InfoScreen("Place Bid", "Choose auction by ID and choose amount to bid");
-//                        }
-//
-//
-//                }
-//            };
-//            EventHandler<MouseEvent> escape = new EventHandler<MouseEvent>() {
-//                @Override
-//                public void handle(MouseEvent e) {
-//                    popUp[0].close();
-//                }
-//            };
-//            //Registering the event filter
-//            placeBidButton.addEventFilter(MouseEvent.MOUSE_PRESSED, eventHandler);
-//            placeBidButton.addEventFilter(MouseEvent.MOUSE_RELEASED, escape);
-//
-////            placeBidButton.setOnMouseClicked(event -> {
-////                if(event.getButton() == MouseButton.SECONDARY){
-////                    popUp[0] = new AboutScreen();
-////                }
-////            });
-//
-//        });
 
     }
 
@@ -104,33 +73,66 @@ public class MainScreenController extends MainScreen implements MainScreenInterf
      */
     private void createEventHandlers() {
         final InfoScreen[] popUp = new InfoScreen[2];
-        popUp[0] = new InfoScreen("Place Bid", "Choose auction by ID and choose your amount to bid");
+        popUp[0] = new InfoScreen("Place Bid", "Choose auction by ID and your amount to bid");
         popUp[1] = new InfoScreen("Add to WishList", "Choose auction by ID and add it to your wishList");
 
         EventHandler<MouseEvent> placedBidsEventHandler = e -> {
-            if (e.isSecondaryButtonDown())
+            if (e.isSecondaryButtonDown()) {
+                placeBidButton.textFillProperty().setValue(Color.ROYALBLUE);
                 popUp[0].show();
+                popUp[0].setX(placeBidButton.getLayoutX() + 550);
+                popUp[0].setY(placeBidButton.getLayoutY() + 200);
+            }
+
         };
         EventHandler<MouseEvent> placedBidsEscape = e -> {
-            if (popUp[0].isShowing())
+            if (popUp[0].isShowing()) {
+                placeBidButton.textFillProperty().setValue(Color.BLACK);
                 popUp[0].close();
+            }
         };
 
+        EventHandler<MouseEvent> placedBidsColorChange = e -> {
+            placeBidButton.textFillProperty().setValue(Color.ROYALBLUE);
+        };
+
+        EventHandler<MouseEvent> placedBidsColorChangeExit = e -> {
+            placeBidButton.textFillProperty().setValue(Color.BLACK);
+        };
 
         EventHandler<MouseEvent> wishListEventHandler = e -> {
-            if (e.isSecondaryButtonDown())
+            if (e.isSecondaryButtonDown()) {
+                addToWishListButton.textFillProperty().setValue(Color.ROYALBLUE);
                 popUp[1].show();
+                popUp[1].setX(addToWishListButton.getLayoutX() + 570);
+                popUp[1].setY(addToWishListButton.getLayoutY() + 175);
+            }
         };
         EventHandler<MouseEvent> wishListEscape = e -> {
-            if (popUp[1].isShowing())
+            if (popUp[1].isShowing()) {
+                addToWishListButton.textFillProperty().setValue(Color.BLACK);
                 popUp[1].close();
+            }
+        };
+
+        EventHandler<MouseEvent> wishListColorChange = e -> {
+            addToWishListButton.textFillProperty().setValue(Color.ROYALBLUE);
+        };
+
+        EventHandler<MouseEvent> wishListColorChangeExit = e -> {
+            addToWishListButton.textFillProperty().setValue(Color.BLACK);
         };
 
         //Registering the event filter
         placeBidButton.addEventFilter(MouseEvent.MOUSE_PRESSED, placedBidsEventHandler);
         placeBidButton.addEventFilter(MouseEvent.MOUSE_RELEASED, placedBidsEscape);
+        placeBidButton.addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, placedBidsColorChange);
+        placeBidButton.addEventFilter(MouseEvent.MOUSE_EXITED_TARGET, placedBidsColorChangeExit);
+
         addToWishListButton.addEventFilter(MouseEvent.MOUSE_PRESSED, wishListEventHandler);
         addToWishListButton.addEventFilter(MouseEvent.MOUSE_RELEASED, wishListEscape);
+        addToWishListButton.addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, wishListColorChange);
+        addToWishListButton.addEventFilter(MouseEvent.MOUSE_EXITED_TARGET, wishListColorChangeExit);
     }
 
     /**
@@ -149,24 +151,6 @@ public class MainScreenController extends MainScreen implements MainScreenInterf
      * @throws IOException
      */
     public void logOut() throws IOException {
-//        // Saving all the data
-//        Serializator serializator = new Serializator();
-//        serializator.saveData(DatabaseOfUsers.registeredUsers, DatabaseOfUsers.userData);
-//        serializator.saveData(DatabaseOfAuctions.auctions, DatabaseOfAuctions.auctionData);
-//        serializator.saveData(DatabaseOfWallets.wallets, DatabaseOfWallets.walletData);
-//        serializator.saveData(DatabaseOfGarages.garages, DatabaseOfGarages.garageData);
-//        // Setting current user to null
-//        DatabaseOfUsers.currentUser = null;
-//        // Clearing the user and auction database
-//        DatabaseOfUsers.registeredUsers.clear();
-//        DatabaseOfAuctions.auctions.clear();
-//        DatabaseOfWallets.wallets.clear();
-//        DatabaseOfGarages.garages.clear();
-//
-//        // Loading first screen
-//        Main main = new Main();
-//        main.changeScene("/GUI/sample.fxml");
-
         MainScreenInterface.super.logOut(DatabaseOfUsers.currentUser);
     }
 
@@ -235,16 +219,14 @@ public class MainScreenController extends MainScreen implements MainScreenInterf
      *
      * @see Models.PersonalGarage
      */
-    public void showCars() {
-        textArea.setText("");
-        Customer currentUser = (Customer) DatabaseOfUsers.currentUser;
-        if (currentUser.getGarage().getCars().isEmpty())
-            textArea.appendText("You do not own any cars at the moment\n");
-        for (Car car : currentUser.getGarage().getCars()) {
-            textArea.appendText(car.getBrand() + " " + car.getModel() + "\n");
-        }
+    public void showCars() throws IOException {
+        Main main = new Main();
+        main.openNewWindow("/GUI/Garage.fxml");
     }
 
+    /**
+     * Adds selected auction to user's wishlist
+     */
     public void addToWishList() {
         // este poriesit duplikaty
         Customer currentCustomer = (Customer) DatabaseOfUsers.currentUser;
@@ -263,11 +245,10 @@ public class MainScreenController extends MainScreen implements MainScreenInterf
             if (object instanceof Auction) {
                 Auction auction = (Auction) object;
 
-                if (Long.parseLong(auctionIdField.getText()) == auction.getAuctionId()) {
+                if (Long.parseLong(auctionIdField.getText()) == auction.getAuctionId()) {           // Duplicate
                     clear();
                     textArea.appendText("This auction is already in wishlist\n");
-//                System.out.println("duplikat");
-                    return;                                                                               // duplikat
+                    return;
                 }
 
             }
@@ -278,10 +259,6 @@ public class MainScreenController extends MainScreen implements MainScreenInterf
                 currentCustomer.getWishList().wishList.add(a);
                 textArea.appendText("Auction added to wishlist\n");
                 return;
-//                System.out.println("Auction added");
-//                for(Auction au : currentUser.getWishList().wishListAuctions){             // len vypis
-//                    textArea.appendText(au.car.getBrand() + au.car.getModel());
-//                }
             }
         }
         textArea.appendText("Auction with given ID does not exist");
@@ -295,7 +272,6 @@ public class MainScreenController extends MainScreen implements MainScreenInterf
                 Auction auction = (Auction) object;
 
                 textArea.appendText(auction.car.getBrand() + " " + auction.car.getModel() + "\n");
-//            System.out.println(auction.car.getBrand() + auction.car.getModel() + "\n");
             }
         }
 

@@ -15,10 +15,6 @@ public class Wallet implements Serializable {
     private int walletId;
 
     public Wallet() {
-//        Customer currentCustomer = (Customer) DatabaseOfUsers.currentUser;
-//        this.currency = currentCustomer.getWallet().getCurrency();
-//        this.bids = currentCustomer.getWallet().getBids();
-
         this.walletId = Customer.id;
     }
 
@@ -29,7 +25,7 @@ public class Wallet implements Serializable {
      * @throws TooMuchCurrencyException
      */
     public void exchange(double currency) throws TooMuchCurrencyException {
-        if (currency > this.bids)
+        if (currency > this.currency)
             throw new TooMuchCurrencyException();
 
         this.bids += currency * exchangeConstant;

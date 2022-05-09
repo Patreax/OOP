@@ -62,10 +62,6 @@ public class WalletController {
         errorLabel.setText("");
 
         try {
-//            if (Double.parseDouble(exchangeField.getText()) > currentCustomer.getWallet().getCurrency()) {
-//                errorLabel.setText("Not enough currency");
-//                return;
-//            }
             currentCustomer.getWallet().exchange(Double.parseDouble(exchangeField.getText()));
             displayData();
             MainScreenController.mainScreenControllerInstance.userCurrencyLabel.setText(Double.toString(currentCustomer.getWallet().getBids()));
@@ -74,7 +70,7 @@ public class WalletController {
             errorLabel.setText("Wrong format");
         } catch (TooMuchCurrencyException e) {
             errorLabel.setText("Not enough currency");
-            System.out.println("TooMuchCurrencyException");
+//            System.out.println("TooMuchCurrencyException");
             exchangeField.setText(Double.toString(currentCustomer.getWallet().getCurrency()));
         }
     }

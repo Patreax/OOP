@@ -80,10 +80,6 @@ public class AuctionCreator {
                 }
             };
         });
-
-//        arrayOfCheckBoxes.add(this.standardCarBox);
-//        arrayOfCheckBoxes.add(this.electricCarBox);
-//        arrayOfCheckBoxes.add(this.hybridCarBox);
     }
 
     /**
@@ -107,14 +103,13 @@ public class AuctionCreator {
             Car newCar;
             // Deciding whether the car is standard
             if (standardCarBox.isSelected()) {
-                newCar = new StandardCar(brand.getText(), model.getText(), Double.parseDouble(price.getText()), Integer.parseInt(year.getText()));
-//                System.out.println("Standard");
+                newCar = new StandardCar(brand.getText(), model.getText(), Double.parseDouble(price.getText()), Integer.parseInt(year.getText()), Integer.parseInt(kilometers.getText()), fuel.getText(), engine.getText(), power.getText(), transmission.getText(), color.getText());
             } else if (electricCarBox.isSelected()) {
-                newCar = new ElectricCar(brand.getText(), model.getText(), Double.parseDouble(price.getText()), Integer.parseInt(year.getText()));
-//                System.out.println("Electric");
+                newCar = new ElectricCar(brand.getText(), model.getText(), Double.parseDouble(price.getText()), Integer.parseInt(year.getText()), Integer.parseInt(kilometers.getText()), fuel.getText(), engine.getText(), power.getText(), transmission.getText(), color.getText());
+
             } else {
-                newCar = new HybridCar(brand.getText(), model.getText(), Double.parseDouble(price.getText()), Integer.parseInt(year.getText()));
-//                System.out.println("Hybrid");
+                newCar = new HybridCar(brand.getText(), model.getText(), Double.parseDouble(price.getText()), Integer.parseInt(year.getText()), Integer.parseInt(kilometers.getText()), fuel.getText(), engine.getText(), power.getText(), transmission.getText(), color.getText());
+
             }
             // Deciding the type of auction
             if (absoluteAuctionCheckBox.isSelected())
@@ -137,14 +132,9 @@ public class AuctionCreator {
             for (CheckBox box : arrayOfCheckBoxes) {
                 box.setSelected(false);
             }
-//            stage.wait();
         } catch (NoSelectedBoxException e) {
             errorMessage.setText("Select one box");
         }
-
-
-//        stage.close();
-
     }
 
     /**
@@ -156,10 +146,6 @@ public class AuctionCreator {
      */
     private void checkBoxes() throws TooManySelectedBoxesException, NoSelectedBoxException {
         // Checking the checkBoxes and throwing exceptions if needed
-//        arrayOfCheckBoxes.add(standardCarBox);
-//        arrayOfCheckBoxes.add(electricCarBox);
-//        arrayOfCheckBoxes.add(hybridCarBox);
-
         int checkedBoxes = 0;
         for (CheckBox box : arrayOfCheckBoxes) {
             if (box.isSelected())
@@ -171,11 +157,6 @@ public class AuctionCreator {
 
         if (checkedBoxes == 0)
             throw new NoSelectedBoxException();
-
-//        arrayOfCheckBoxes.remove(standardCarBox);
-//        arrayOfCheckBoxes.remove(electricCarBox);
-//        arrayOfCheckBoxes.remove(hybridCarBox);
-
     }
 
     /**

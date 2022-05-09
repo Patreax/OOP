@@ -1,6 +1,5 @@
 package Models.Databases;
 
-//import Project.User;
 
 import Models.Auctions.AuctionManager;
 import Models.Observer;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
  */
 public class DatabaseOfUsers extends Database {
     public static ArrayList<User> registeredUsers = new ArrayList<User>();
-    //    public ArrayList<User> activeUsers = new ArrayList<User>();
     public static File userData = new File("src/Project/Files/userData.txt");
 
     public static User currentUser;

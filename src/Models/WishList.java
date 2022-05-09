@@ -1,6 +1,5 @@
 package Models;
 
-import Models.Auctions.Auction;
 import Models.Users.Customer;
 
 import java.io.Serializable;

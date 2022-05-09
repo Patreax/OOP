@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.GarageController">
+   <right>
+      <TextArea fx:id="textArea" prefHeight="357.0" prefWidth="462.0" BorderPane.alignment="CENTER" />
+   </right>
+   <left>
+      <VBox prefHeight="346.0" prefWidth="172.0" spacing="50.0" style="-fx-background-color: #6699ff;" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#showCars" prefHeight="26.0" prefWidth="110.0" text="Cars">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="30.0" right="10.0" top="50.0" />
+               </VBox.margin></Button>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#info" text="Info">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin></Button>
+                  <TextField fx:id="carIdField" prefHeight="26.0" prefWidth="112.0" promptText="Enter car number">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin></TextField>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </left>
+   <top>
+      <HBox prefHeight="36.0" prefWidth="600.0" style="-fx-background-color: #9999ff;" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="36.0" prefWidth="57.0" />
+            <Label text="ID: ">
+               <HBox.margin>
+                  <Insets top="8.0" />
+               </HBox.margin></Label>
+            <Label fx:id="userIdLabel" text="1">
+               <HBox.margin>
+                  <Insets top="8.0" />
+               </HBox.margin></Label>
+            <Pane prefHeight="28.0" prefWidth="59.0">
+               <HBox.margin>
+                  <Insets top="8.0" />
+               </HBox.margin></Pane>
+            <Label text="UserName: ">
+               <HBox.margin>
+                  <Insets top="8.0" />
+               </HBox.margin></Label>
+            <Label fx:id="userNameLabel" text="Username">
+               <HBox.margin>
+                  <Insets top="8.0" />
+               </HBox.margin></Label>
+            <Pane prefHeight="36.0" prefWidth="46.0" />
+            <Label text="Number of cars: ">
+               <HBox.margin>
+                  <Insets top="8.0" />
+               </HBox.margin></Label>
+            <Label fx:id="numberOfCarsLabel" text="2">
+               <HBox.margin>
+                  <Insets top="8.0" />
+               </HBox.margin></Label>
+            <Pane prefHeight="31.0" prefWidth="144.0">
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin></Pane>
+            <Button mnemonicParsing="false" onAction="#close" text="Close">
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin></Button>
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <HBox prefHeight="17.0" prefWidth="600.0" style="-fx-background-color: #9999ff;" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="200.0" prefWidth="200.0" />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

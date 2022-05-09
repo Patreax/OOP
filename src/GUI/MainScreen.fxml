@@ -18,7 +18,7 @@
    <bottom>
       <HBox style="-fx-background-color: #9999ff;" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="timeLabel" alignment="CENTER" text="Label">
+            <Label fx:id="timeLabel" alignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>

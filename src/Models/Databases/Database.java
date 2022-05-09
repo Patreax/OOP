@@ -7,14 +7,15 @@ import java.io.IOException;
  */
 public abstract class Database {
 
-    public static Database[] databases = {new DatabaseOfAuctions(), new DatabaseOfGarages(), new DatabaseOfUsers(), new DatabaseOfWallets(), new DatabaseOfWishLists()};
+    public static Database[] databases = {new DatabaseOfAuctions(), new DatabaseOfGarages(), new DatabaseOfUsers(), new DatabaseOfWallets(), new DatabaseOfWishLists(), new DatabaseOfNews()};
 
     public enum DatabaseType {
         User,
         Auction,
         Wallet,
         Garage,
-        Wishlist
+        Wishlist,
+        News
     }
 
     /**

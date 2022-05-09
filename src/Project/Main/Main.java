@@ -1,46 +1,45 @@
-package Project.sample;
+package Project.Main;
 
-import Controllers.MainScreenController;
-import GUI.AboutScreen;
-import Models.Databases.DatabaseOfWishLists;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 
+/**
+ * The start of the program
+ */
 public class Main extends Application {
 
     public static Stage stg;
     public static Main mainInstance = null;
 
-    public Main(){
+    public Main() {
         mainInstance = this;
     }
 
+    /**
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         stg = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("../../GUI/sample.fxml"));
-        primaryStage.setTitle("Hello World");
+        Parent root = FXMLLoader.load(getClass().getResource("../../GUI/LogInScreen.fxml"));
+        primaryStage.setTitle("EasyCarBid");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
     }
 
     public void changeScene(String fxml) throws IOException {
-//        Parent pane = FXMLLoader.load(getClass().getResource(fxml));
-//        stg.getScene().setRoot(pane);
         Parent root = FXMLLoader.load(getClass().getResource(fxml));
         Stage window = (Stage) stg.getScene().getWindow();
         window.setScene(new Scene(root, 600, 400));
     }
 
-    public void openNewWindow(String fxml) throws IOException{
+    public void openNewWindow(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
         Parent root = (Parent) fxmlLoader.load();
         Stage stage = new Stage();
@@ -48,6 +47,10 @@ public class Main extends Application {
         stage.show();
     }
 
+    /**
+     * Main Function
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }

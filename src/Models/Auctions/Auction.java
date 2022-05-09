@@ -99,42 +99,6 @@ public class Auction implements Serializable {
         return Long.parseLong(lastId);
     }
 
-//    public void receiveBid(Bid bid, Auction auction){
-//        boolean isFull = true;
-//        for(int i=0; i<maxBids; i++){
-//            if(this.placedBids[i] != null && this.placedBids[i].getBidsUser().getUserName().equals(bid.getBidsUser().getUserName())){
-//                System.out.println("User has already made a bid");
-//                return;
-//            }
-//            if(this.placedBids[i] == null){
-//                placedBids[i] = bid;
-//                this.numberOfBids++;
-//                isFull = false;
-//                if(i == 2)
-//                    isFull = true;
-//                System.out.println("Bid with amount " + placedBids[i].amount + " has been placed");
-//                break;
-//            }
-//        }
-//        if(isFull){
-//            System.out.println("No more spaces for bids");
-//            double max = placedBids[0].amount;
-//            Bid winningBid = null;
-//            for(Bid b : placedBids){
-//                if(b.amount >= max){
-//                    max = b.amount;
-//                    winningBid = b;
-//                }
-//            }
-//            if (winningBid != null){
-//                StandardUser winner = (StandardUser) winningBid.getBidsUser();
-//                winner.getGarage().getCars().add(auction.car);        //  Giving car to the customer
-//                System.out.println("Customer " + winningBid.getBidsUser().getUserName() + " won the car " + auction.car.model);
-//            }
-//            DatabaseOfAuctions.auctions.remove(this);
-//        }
-//    }
-
     /**
      * Part of a strategy design pattern
      * It decides, how should the bid be received by a particular auction

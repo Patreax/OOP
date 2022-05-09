@@ -3,7 +3,7 @@ package Models.Users;
 import Models.Auctions.Auction;
 import Models.Bid;
 import Models.Databases.*;
-import Project.sample.Main;
+import Project.Main.Main;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -19,8 +19,6 @@ public class PremiumUser extends Customer implements Serializable {
 
         this.userId = getLastId() + 1L;
         storeLastId(lastId);
-
-//        this.userId = ++userIdCounter;
 
         Customer.id++;
         this.walletId = id;
@@ -49,7 +47,6 @@ public class PremiumUser extends Customer implements Serializable {
                 }
             }
         } else
-//            System.out.println("Auction with given Id not found");
             message = "Auction with given Id not found";
         return message;
     }

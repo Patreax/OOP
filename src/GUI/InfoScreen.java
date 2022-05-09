@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 public class InfoScreen extends Stage {
     private Label information = new Label();
 
-    public InfoScreen(String title, String info){
+    public InfoScreen(String title, String info) {
         super();
 
         setTitle(title);
@@ -20,7 +20,5 @@ public class InfoScreen extends Stage {
         this.information.setText(info);
 
         setScene(new Scene(pane, 300, 100));
-//        show();
     }
-
 }

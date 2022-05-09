@@ -1,8 +1,14 @@
 package Models.Auctions;
 
+import Models.Databases.Database;
+import Models.Databases.DatabaseOfNews;
+import Models.Databases.DatabaseOfUsers;
 import Models.Observer;
+import Models.Serializator;
 import Models.Subject;
+import Models.Users.User;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -18,13 +24,8 @@ public class AuctionManager implements Subject, Serializable {
     private Auction auction;
 
     public ArrayList<Observer> observers = new ArrayList<>();
-//    public static ArrayList<Observer> observers = new ArrayList<>();
 
     private static AuctionManager single_instance = null;
-
-//    public AuctionManager(){
-//        observers = new ArrayList<>();
-//    }
 
     /**
      * Singleton
@@ -50,14 +51,22 @@ public class AuctionManager implements Subject, Serializable {
 
     @Override
     public void notifyObserver(Auction auction) {
+        DatabaseOfNews.assignNewsToAdmins();
         for (Observer observer : observers) {
             observer.update(auction);
             System.out.println(observer);
         }
-    }
+        for(User user : DatabaseOfUsers.registeredUsers){
+            if(user instanceof Observer){
+                ((Observer) user).update(auction);
+            }
+        }
+//        try {
+//            Serializator serializator = new Serializator();
+//            serializator.saveData(Database.DatabaseType.User);
+//        } catch (IOException e){
+//            e.printStackTrace();
+//        }
 
-//    public void setAuction(Auction auction){
-//        this.auction = auction;
-//        notifyObserver();
-//    }
+    }
 }

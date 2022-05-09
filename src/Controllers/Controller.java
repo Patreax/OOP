@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.Auctions.AuctionManager;
 import Models.Databases.*;
+import Models.News;
 import Models.PersonalGarage;
 import Models.Users.Admin;
 import Models.Users.PremiumUser;
@@ -19,7 +20,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 /**
- * The <code>Controller</code> class acts as a controller for sample.fxml file
+ * The <code>Controller</code> class acts as a controller for LogInScreen.fxml file
  * It is responsible for registering and logging in the user
  */
 public class Controller {
@@ -33,10 +34,6 @@ public class Controller {
 
 
     public Controller() throws IOException, ClassNotFoundException {     // Loading the database af users and auctions
-//        DatabaseOfUsers.loadObjects();                                // Polymorfia
-//        DatabaseOfAuctions.loadObjects();
-//        DatabaseOfWallets.loadObjects();
-//        DatabaseOfGarages.loadObjects();
         // Loads all the necessary data
         for (Database database : Database.databases) {
             database.loadObjects();
@@ -49,7 +46,7 @@ public class Controller {
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public void logIn() throws IOException, ClassNotFoundException {
+    public void logIn() throws IOException {
         checkData(userNameField.getText(), userPasswordField.getText());
     }
 
@@ -73,6 +70,8 @@ public class Controller {
                 Admin newUser = new Admin(userNameField.getText(), userPasswordField.getText());
                 DatabaseOfUsers.storeObject(newUser);
                 auctionManager.register(newUser);
+                News news = new News();
+                DatabaseOfNews.storeObject(news);
                 errorMessage.setText("User has been registered");
                 return;
             }
@@ -116,34 +115,8 @@ public class Controller {
 
         ObjectInputStream in = new ObjectInputStream(new FileInputStream(DatabaseOfUsers.userData));
         if (!DatabaseOfUsers.registeredUsers.isEmpty()) {
-//            for(User user : (ArrayList<User>)in.readObject()){
             for (User user : DatabaseOfUsers.registeredUsers) {
-//                // Admin
-//                if(user instanceof Admin && user.getUserName().equals(userName) && user.getPassword().equals(userPassWord)){
-//                    DatabaseOfUsers.currentUser = user;
-//                    Main main = new Main();
-//                    main.changeScene("/GUI/AdminMainScreen.fxml");
-//                    return;
-//                }
-//                // Premium
-//                if(user instanceof PremiumUser && user.getUserName().equals(userName) && user.getPassword().equals(userPassWord)){
-//                    DatabaseOfUsers.currentUser = user;
-//                    DatabaseOfWallets.assignWallet();
-//                    DatabaseOfGarages.assignGarage();
-//                    Main main = new Main();
-//                    main.changeScene("/GUI/MainScreen.fxml");
-//                    return;
-//                }
-//
                 if (user.getUserName().equals(userName) && user.getPassword().equals(userPassWord)) {
-//                    DatabaseOfUsers.currentUser = user;
-//                    DatabaseOfWallets.assignWallet();
-//                    DatabaseOfGarages.assignGarage();
-//                    in.close();
-//                    Main main = new Main();
-//                    main.changeScene("/GUI/MainScreen.fxml");
-//                    return;
-
                     user.logIn(user);
                     in.close();
                     return;
@@ -169,7 +142,6 @@ public class Controller {
                 }
             }
         }
-
         return true;
     }
 }
