@@ -1,14 +1,10 @@
 package Models.Auctions;
 
-import Models.Databases.Database;
-import Models.Databases.DatabaseOfNews;
 import Models.Databases.DatabaseOfUsers;
 import Models.Observer;
-import Models.Serializator;
 import Models.Subject;
 import Models.Users.User;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -51,22 +47,11 @@ public class AuctionManager implements Subject, Serializable {
 
     @Override
     public void notifyObserver(Auction auction) {
-        DatabaseOfNews.assignNewsToAdmins();
-        for (Observer observer : observers) {
-            observer.update(auction);
-            System.out.println(observer);
-        }
-        for(User user : DatabaseOfUsers.registeredUsers){
-            if(user instanceof Observer){
+
+        for (User user : DatabaseOfUsers.registeredUsers) {
+            if (user instanceof Observer) {
                 ((Observer) user).update(auction);
             }
         }
-//        try {
-//            Serializator serializator = new Serializator();
-//            serializator.saveData(Database.DatabaseType.User);
-//        } catch (IOException e){
-//            e.printStackTrace();
-//        }
-
     }
 }

@@ -21,7 +21,6 @@ public interface MainScreenInterface {
         Serializator serializator = new Serializator();
         serializator.saveData(Database.DatabaseType.User);
         serializator.saveData(Database.DatabaseType.Auction);
-        serializator.saveData(Database.DatabaseType.News);
         if (!(currentUser instanceof Admin)) {
             serializator.saveData(Database.DatabaseType.Wallet);
             serializator.saveData(Database.DatabaseType.Garage);
@@ -35,7 +34,6 @@ public interface MainScreenInterface {
         DatabaseOfWallets.wallets.clear();
         DatabaseOfGarages.garages.clear();
         DatabaseOfWishLists.wishLists.clear();
-        DatabaseOfNews.newsArrayList.clear();
         AuctionManager auctionManager = AuctionManager.getInstance();
         auctionManager.observers.clear();
 

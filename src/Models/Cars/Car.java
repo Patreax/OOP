@@ -20,7 +20,7 @@ public class Car extends Auction implements Serializable {
     protected String transmission;
     protected String color;
 
-    public Car(String brand, String model, double price, int year, int kilometers, String fuel, String engine, String power, String transmission, String color){
+    public Car(String brand, String model, double price, int year, int kilometers, String fuel, String engine, String power, String transmission, String color) {
         this.brand = brand;
         this.model = model;
         this.price = price;

@@ -2,7 +2,6 @@ package Controllers;
 
 import Models.Auctions.AuctionManager;
 import Models.Databases.*;
-import Models.News;
 import Models.PersonalGarage;
 import Models.Users.Admin;
 import Models.Users.PremiumUser;
@@ -70,8 +69,6 @@ public class Controller {
                 Admin newUser = new Admin(userNameField.getText(), userPasswordField.getText());
                 DatabaseOfUsers.storeObject(newUser);
                 auctionManager.register(newUser);
-                News news = new News();
-                DatabaseOfNews.storeObject(news);
                 errorMessage.setText("User has been registered");
                 return;
             }

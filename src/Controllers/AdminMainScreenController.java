@@ -8,7 +8,6 @@ import Models.Cars.ElectricCar;
 import Models.Cars.HybridCar;
 import Models.Cars.StandardCar;
 import Models.Databases.DatabaseOfAuctions;
-import Models.Databases.DatabaseOfNews;
 import Models.Databases.DatabaseOfUsers;
 import Models.MainScreenInterface;
 import Models.Observer;
@@ -328,21 +327,12 @@ public class AdminMainScreenController extends MainScreen implements MainScreenI
      */
     public void showNews() {         // Part of observer
         clear();
-        Admin admin = (Admin) DatabaseOfUsers.currentUser;
-        DatabaseOfNews.assignNews();
 
-        for(String message : admin.getNews().getNews()){
-            textArea.appendText(message);
-        }
-        for(String message : admin.getMessages())
-            textArea.appendText(message + "\n");
-
-        textArea.appendText("*************\n");
         AuctionManager auctionManager = AuctionManager.getInstance();
-        for(Observer observer : auctionManager.observers){
-            if(((Admin)observer).getUserId() == DatabaseOfUsers.currentUser.getUserId()){
-                for(String message : ((Admin) observer).getMessages()){
-                    textArea.appendText(message);
+        for (Observer observer : auctionManager.observers) {
+            if (((Admin) observer).getUserId() == DatabaseOfUsers.currentUser.getUserId()) {
+                for (String message : ((Admin) observer).getMessages()) {
+                    textArea.appendText(message + "\n");
                 }
             }
         }

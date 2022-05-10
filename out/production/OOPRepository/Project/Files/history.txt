@@ -1,10 +1,4 @@
-Auction 1: 10.0 has been placed by a at 2022-05-09 at 22:29:12
-Auction 1: 20.0 has been placed by s at 2022-05-09 at 22:29:22
-Auction 1: 50.0 has been placed by Patrik at 2022-05-09 at 22:29:33
-Auction 2: 10.0 has been placed by a at 2022-05-09 at 22:31:17
-Auction 2: 10.0 has been placed by a at 2022-05-09 at 22:31:45
-Auction 2: 20.0 has been placed by s at 2022-05-09 at 22:31:53
-Auction 2: 50.0 has been placed by Patrik at 2022-05-09 at 22:32:08
-Auction 3: 10.0 has been placed by a at 2022-05-09 at 22:32:51
-Auction 2: 50.0 has been placed by Patrik at 2022-05-09 at 22:33:07
-Auction 2: 50.0 has been placed by Patrik at 2022-05-09 at 22:49:52
+Auction 1: 150000.0 has been placed by Samo at 2022-05-10 at 09:51:08
+Auction 1: 175000.0 has been placed by Filip at 2022-05-10 at 09:51:22
+Auction 1: 200000.0 has been placed by Patrik at 2022-05-10 at 09:51:34
+Auction 1: 200000.0 has been placed by Patrik at 2022-05-10 at 09:51:52

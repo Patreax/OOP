@@ -3,10 +3,7 @@ package Models.Users;
 import Models.Auctions.Auction;
 import Models.Auctions.AuctionType;
 import Models.Cars.Car;
-import Models.Databases.Database;
-import Models.Databases.DatabaseOfNews;
 import Models.Databases.DatabaseOfUsers;
-import Models.News;
 import Models.Observer;
 import Models.Serializator;
 import Project.Main.Main;
@@ -23,9 +20,7 @@ public class Admin extends User implements Observer {
     public static int id = 0;
     private int newsId;
 
-    private News news;
-
-//    public StringBuilder messages = new StringBuilder();
+    //    public StringBuilder messages = new StringBuilder();
     private ArrayList<String> messages;
 
     public Admin(String userName, String password) {
@@ -45,7 +40,6 @@ public class Admin extends User implements Observer {
 
     public void logIn(User user) throws IOException {
         DatabaseOfUsers.currentUser = user;
-        DatabaseOfNews.assignNews();
 
         Main.mainInstance.changeScene("/GUI/AdminMainScreen.fxml");
     }
@@ -61,7 +55,6 @@ public class Admin extends User implements Observer {
     @Override
     public void update(Auction auction) {
         String message = "Auction: " + auction.getAuctionId() + ". " + auction.car.getBrand() + " " + auction.car.getModel() + " has been sold";
-        this.news.getNews().add(message);
         messages.add(message);
     }
 
@@ -69,15 +62,8 @@ public class Admin extends User implements Observer {
         return newsId;
     }
 
-    public News getNews() {
-        return news;
-    }
-
-    public void setNews(News news) {
-        this.news = news;
-    }
-
     public ArrayList<String> getMessages() {
         return messages;
     }
+
 }

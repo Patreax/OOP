@@ -75,9 +75,6 @@ public class Serializator<O> {
             case Wishlist:
                 file = DatabaseOfWishLists.wishListData;
                 arrayList = DatabaseOfWishLists.wishLists;
-            case News:
-                file = DatabaseOfNews.newsData;
-                arrayList = DatabaseOfNews.newsArrayList;
             default:
                 break;
         }
