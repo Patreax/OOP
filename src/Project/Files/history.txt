@@ -6,3 +6,7 @@ Auction 2: 80000.0 has been placed by Samo at 2022-05-10 at 10:16:41
 Auction 3: 40000.0 has been placed by Samo at 2022-05-10 at 10:16:47
 Auction 2: 90000.0 has been placed by Filip at 2022-05-10 at 10:17:08
 Auction 4: 25000.0 has been placed by Filip at 2022-05-10 at 10:17:18
+Auction 2: 1000000.0 has been placed by Patrik at 2022-05-11 at 17:08:35
+Auction 5: 75000.0 has been placed by a at 2022-05-21 at 10:56:35
+Auction 5: 80000.0 has been placed by s at 2022-05-21 at 10:56:54
+Auction 5: 100000.0 has been placed by Patrik at 2022-05-21 at 10:57:55

@@ -250,6 +250,7 @@ public class AdminMainScreenController extends MainScreen implements MainScreenI
     public void showAuctions() {
         // Going through all the auction via iterator
         clear();
+
         new Thread(() -> {
             for (Auction a : DatabaseOfAuctions.auctions) {
                 textArea.appendText("ID: " + a.getAuctionId() + "\t Brand: " + a.car.getBrand() + "\t Model: " + a.car.getModel() + "\n");
